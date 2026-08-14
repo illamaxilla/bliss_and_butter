@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 540" width="440" height="540">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;family=Josefin+Sans:wght@200;300;400&amp;family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;display=swap');
+</style>
+
+    <rect x="20" y="10" width="400" height="520" rx="3" fill="#2C1810"/>
+    <rect x="20" y="10" width="400" height="120" fill="#C9A84C"/>
+    <g transform="translate(145,15) scale(0.30612244897959184)" fill="#2C1810"><g transform="translate(5,20)"><path d="M80.38,73.32l9.04-12.79c25.33-29.33,76.39-34.22,106.43-9.54,37.48,30.8,28.31,85.89-6.39,114.9-3.2,2.68-18.48,11.72-19.18,12.81s-.59,2.07-.03,3.19c28.31,49.08,56.26,99.99,89.16,146.16,25.81,36.22,73.43,95.85,116.92,44.93,33.31-39,32.34-118.48-9.1-151.69-39.54-31.69-103.61-4.01-130.39,32.46-3.13,2.17-7.52-1.99-7.22-5.17s6.52-6.88,6.22-10.76c5.67-70.89-27.46-191.01,72.14-207.81,118.09-19.93,168.23,110.82,62.98,164.11l-17.01,5.86c48.2,2.9,97.81,34.85,104.3,85.71,13.99,109.65-129.67,144.79-208.64,100.07-15.39-8.71-28.55-21.15-40.96-33.53-27.11,45.84-88.48,60.83-137.6,46.03-76.44-23.03-95.82-123.17-35.39-174.34,21.55-18.25,49.6-25.86,76.21-33.48-9.34-29.23,4.76-67.56,39.77-65.98,1.59,15.9,7.15,30.94,12.84,45.71,16.87-14.96,21.92-43.64,20.08-65.33-6.13-72.15-90.83-74.86-102.81-.89-3.56,21.99,2.87,62.43-10.41,79-6.39,7.98-31.64,23.91-41.29,27.9-1.71.7-3.16,1.07-5.02.83V51.5c0-.44-1.3-7.17-1.56-8.02-2.97-9.75-13.02-15.1-22.93-13.8l1.04-6.96L78.62,0c.57.18,1.77,1.12,1.77,1.47v71.85ZM250.7,223.4l29.82-16.47c18.57-7.61,43.9-8.66,59.6-21.3,49.26-39.61,36.14-165.22-42.6-142.66-39.02,11.18-53.89,53.79-52.14,91.01l7-12.67c18.69-30.66,63.91-27.82,61.15,14.31-2.53,38.55-39.28,61.98-62.84,87.77ZM116.44,201.19c-55.9,12.58-70.33,80.13-52.05,128.16,22.01,57.85,86.05,78.58,128.79,27.62,1.98-2.36,8.76-11.18,8.41-13.56-.28-1.93-19.24-27.52-22.24-32.16-22.97-35.42-43.76-72.46-62.91-110.07Z"/><path d="M285.59,236.48c21.44-2.45,52.22,7.5,60.94,28.95,14.07,34.65-27.38,43.84-52.23,30.94-19.71-10.23-26.24-30.02-34.95-48.87.97-4.99,21.44-10.48,26.24-11.02Z"/></g></g>
+    <text x="220" y="108" text-anchor="middle" font-family="'Playfair Display',serif" font-size="17" fill="#2C1810" letter-spacing="0.5">Bliss <tspan font-style="italic">&amp;</tspan> Butter</text>
+    <line x1="120" y1="168" x2="180" y2="168" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+    <circle cx="220" cy="168" r="3" fill="#C9A84C" opacity="0.5"/>
+    <line x1="260" y1="168" x2="320" y2="168" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+    <text x="220" y="218" text-anchor="middle" font-family="'Playfair Display',serif" font-size="30" font-style="italic" fill="#C9A84C">Fig &amp; Walnut</text>
+    <text x="220" y="255" text-anchor="middle" font-family="'Playfair Display',serif" font-size="30" font-style="italic" fill="#C9A84C">Preserves</text>
+    <text x="220" y="288" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="13" fill="#8A7A5A" letter-spacing="4">SMALL BATCH CONFITURE</text>
+    <line x1="120" y1="322" x2="320" y2="322" stroke="#C9A84C" stroke-width="0.5" opacity="0.15"/>
+    <text x="220" y="352" text-anchor="middle" font-family="'EB Garamond',serif" font-size="15" fill="#8A7A5A">Net Wt. 6 oz · 170g</text>
+    <rect x="20" y="480" width="400" height="50" rx="0" fill="none"/>
+    <rect x="20" y="480" width="400" height="50" fill="#2C1810" opacity="0.3"/>
+    <text x="220" y="510" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="10" fill="#5A4A30" letter-spacing="3">MADE BY HAND · GAINESVILLE, FL</text>
+    
+</svg>
