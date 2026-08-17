@@ -15,7 +15,3 @@ Desktop.ini
 
 # Netlify
 .netlify/
-
-# Image-slot authoring sidecar — written by the local authoring host only,
-# never served in production.
-.image-slots.state.json
