@@ -13,10 +13,10 @@
 /* Lilita One — display face, single weight.
  *
  * font-display:block, not swap. This face draws the wordmark and every
- * heading, and its fallback in the stack is the generic `cursive`, which
- * Android resolves to a serif — so `swap` paints the logo in a serif and
- * corrects it a moment later. Blocking keeps that text unpainted for the few
- * milliseconds the file takes to arrive instead of flashing the wrong face.
+ * heading. Its fallback is now 'Arial Black', which is close enough in weight
+ * that a swap would be survivable — but the metrics still differ enough to
+ * reflow headings mid-paint, so blocking keeps that text unpainted for the few
+ * milliseconds the file takes to arrive instead of visibly re-setting it.
  * The file is same-origin and ~10KB, so the wait is imperceptible; Nunito
  * below stays on swap, since body copy is better shown early than withheld.
  */
