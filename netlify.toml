@@ -5,7 +5,9 @@
 
 [build]
   publish = "site"
-  command = ""
+  # No bundler — this only stamps the deploy's real URL into robots.txt and
+  # sitemap.xml, which cannot be known until Netlify assigns an address.
+  command = "node tools/set-site-url.mjs"
 
 # ── Caching ───────────────────────────────────────────────────────────────
 # HTML must revalidate so content edits go live immediately. The .dc.html
@@ -38,6 +40,19 @@
   for = "/brand/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Vendored libraries and webfonts are version-pinned by content, so they can be
+# cached indefinitely. Fonts additionally need CORS to be usable cross-origin.
+[[headers]]
+  for = "/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/vendor/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
 
 # ── Security ──────────────────────────────────────────────────────────────
 [[headers]]
