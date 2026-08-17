@@ -63,7 +63,7 @@
         cat: cat, catLabel: CAT_LABEL[cat], slug: r[0], name: r[1],
         price: r[2], priceStr: '$' + r[2].toFixed(2), rating: r[3], tags: tags, occasions: occ,
         img: IMG[cat + '/' + r[0]] || IMG['cat/' + cat] || '',
-        href: 'Product.dc.html?category=' + cat + '&product=' + r[0],
+        href: 'product.html?category=' + cat + '&product=' + r[0],
       });
     });
   });

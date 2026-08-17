@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Netlify
+.netlify/
+
+# Image-slot authoring sidecar — written by the local authoring host only,
+# never served in production.
+.image-slots.state.json

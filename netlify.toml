@@ -1,0 +1,49 @@
+# Bliss & Butter — Netlify configuration
+#
+# Static site, no build step. Everything served from site/, which is the only
+# directory deployed; brand-assets/ stays in the repo but never ships.
+
+[build]
+  publish = "site"
+  command = ""
+
+# ── Caching ───────────────────────────────────────────────────────────────
+# HTML must revalidate so content edits go live immediately. The .dc.html
+# mobile components are fetched at runtime by support.js, so they follow the
+# same rule as pages.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Scripts hold the catalog and prices — revalidate rather than cache hard,
+# since filenames are unversioned.
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Images are content-stable and the bulk of the payload; cache them long.
+[[headers]]
+  for = "/uploads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/packaging/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/brand/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── Security ──────────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
