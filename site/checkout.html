@@ -40,15 +40,15 @@
   <!-- NAV -->
   <div style="max-width:1560px;margin:0 auto;padding:0 clamp(24px, 6vw, 120px);">
     <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:12px;gap:20px;padding:26px 4px 14px;">
-      <a href="index.html" style="font-family:'Lilita One',cursive;font-size:30px;color:#2D1B14;letter-spacing:.5px;text-decoration:none;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></a>
+      <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;color:#2D1B14;letter-spacing:.5px;text-decoration:none;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></a>
       <div style="display:flex;align-items:center;gap:18px;flex-shrink:0;">
-        <a href="menu.html" style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.6px;color:#2D1B14;text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:12px 22px;box-shadow:3px 4px 0 #2D1B14;">
+        <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.6px;color:#2D1B14;text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:12px 22px;box-shadow:3px 4px 0 #2D1B14;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>KEEP SHOPPING
         </a>
         <div style="position:relative;width:50px;height:50px;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(45,27,20,.12);display:flex;align-items:center;justify-content:center;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
-            <span style="position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;border-radius:11px;background:#EF5F2B;border:2px solid #fff;color:#fff;font-family:'Lilita One',cursive;font-size:12px;display:flex;align-items:center;justify-content:center;padding:0 5px;">{{ cartCount }}</span>
+            <span style="position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;border-radius:11px;background:#EF5F2B;border:2px solid #fff;color:#fff;font-family:'Lilita One','Arial Black',sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;padding:0 5px;">{{ cartCount }}</span>
           </sc-if>
         </div>
       </div>
@@ -62,25 +62,25 @@
         <div style="width:104px;height:104px;border-radius:50%;background:#2E7D46;border:3px solid #2D1B14;box-shadow:3px 5px 0 #2D1B14;display:flex;align-items:center;justify-content:center;margin:0 auto;">
           <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
-        <h1 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:58px;line-height:1;letter-spacing:.5px;margin:30px 0 0;">ORDER PLACED!</h1>
+        <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:58px;line-height:1;letter-spacing:.5px;margin:30px 0 0;">ORDER PLACED!</h1>
         <p style="font-size:19px;font-weight:600;color:#6A5A50;line-height:1.5;margin:18px auto 0;max-width:460px;">{{ confirmBlurb }}</p>
 
         <div style="display:flex;gap:16px;margin-top:34px;">
           <div style="flex:1;background:#F2E9E4;border-radius:22px;padding:22px 20px;text-align:left;">
             <div style="font-size:13px;font-weight:800;letter-spacing:.6px;color:#9A8A80;text-transform:uppercase;">Order</div>
-            <div style="font-family:'Lilita One',cursive;font-size:24px;color:#2D1B14;margin-top:5px;">{{ orderNum }}</div>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;color:#2D1B14;margin-top:5px;">{{ orderNum }}</div>
           </div>
           <div style="flex:2;background:#FFF3D6;border:2px solid #FCD414;border-radius:22px;padding:22px 20px;text-align:left;">
             <div style="font-size:13px;font-weight:800;letter-spacing:.6px;color:#B08900;text-transform:uppercase;">{{ readyLabel }}</div>
-            <div style="font-family:'Lilita One',cursive;font-size:24px;color:#2D1B14;margin-top:5px;">{{ readyWhen }}</div>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;color:#2D1B14;margin-top:5px;">{{ readyWhen }}</div>
           </div>
         </div>
 
         <!-- ORDER STATUS TRACKER -->
         <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:24px;padding:24px 26px 28px;margin-top:16px;text-align:left;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px;">
-            <span style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.6px;color:#9A8A80;">ORDER STATUS</span>
-            <span style="display:inline-flex;align-items:center;gap:7px;font-family:'Lilita One',cursive;font-size:12px;letter-spacing:.6px;color:#EF5F2B;"><span style="width:8px;height:8px;border-radius:50%;background:#EF5F2B;animation:bb-pulse 1.4s ease-in-out infinite;"></span>LIVE</span>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.6px;color:#9A8A80;">ORDER STATUS</span>
+            <span style="display:inline-flex;align-items:center;gap:7px;font-family:'Lilita One','Arial Black',sans-serif;font-size:12px;letter-spacing:.6px;color:#EF5F2B;"><span style="width:8px;height:8px;border-radius:50%;background:#EF5F2B;animation:bb-pulse 1.4s ease-in-out infinite;"></span>LIVE</span>
           </div>
           <div style="font-size:17px;font-weight:800;color:#2D1B14;margin-bottom:22px;">{{ track.statusLabel }}</div>
           <div style="position:relative;">
@@ -92,7 +92,7 @@
                   <div style="width:60px;height:60px;border-radius:50%;background:{{ st.bg }};border:{{ st.border }};display:flex;align-items:center;justify-content:center;animation:{{ st.pulse }};">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="{{ st.icon }}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ st.iconPath }}"></path></svg>
                   </div>
-                  <span style="font-family:'Lilita One',cursive;font-size:13.5px;letter-spacing:.3px;color:{{ st.labelColor }};text-align:center;">{{ st.label }}</span>
+                  <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13.5px;letter-spacing:.3px;color:{{ st.labelColor }};text-align:center;">{{ st.label }}</span>
                 </div>
               </sc-for>
             </div>
@@ -108,13 +108,13 @@
           </sc-for>
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1.6px solid #ECE2DA;margin-top:12px;padding-top:16px;">
             <span style="font-size:19px;font-weight:800;color:#2D1B14;">Total paid</span>
-            <span style="font-family:'Lilita One',cursive;font-size:30px;color:#2D1B14;">{{ confirmTotal }}</span>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;color:#2D1B14;">{{ confirmTotal }}</span>
           </div>
         </div>
 
         <div style="display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap;">
-          <a href="menu.html" style="font-family:'Lilita One',cursive;font-size:17px;letter-spacing:.7px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 34px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;">ORDER MORE</a>
-          <a href="index.html" style="font-family:'Lilita One',cursive;font-size:17px;letter-spacing:.7px;color:#2D1B14;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 34px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;">BACK HOME</a>
+          <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.7px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 34px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;">ORDER MORE</a>
+          <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.7px;color:#2D1B14;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 34px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;">BACK HOME</a>
         </div>
       </div>
     </div>
@@ -125,11 +125,11 @@
     <div style="max-width:640px;margin:0 auto;padding:60px 40px 120px;text-align:center;">
       <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:40px;padding:80px 56px;box-shadow:0 24px 50px rgba(45,27,20,.08);">
         <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#C9BBAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        <h1 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:44px;margin:26px 0 0;">YOUR CART IS EMPTY</h1>
+        <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:44px;margin:26px 0 0;">YOUR CART IS EMPTY</h1>
         <p style="font-size:18px;font-weight:600;color:#9A8A80;margin:14px 0 30px;">Add a few fresh bakes and come back to check out.</p>
         <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;">
-          <a href="menu.html" style="font-family:'Lilita One',cursive;font-size:17px;letter-spacing:.7px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 34px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;display:inline-block;">BROWSE THE MENU</a>
-          <a href="custom-order.html" style="font-family:'Lilita One',cursive;font-size:17px;letter-spacing:.7px;color:#2D1B14;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 34px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;display:inline-block;">BUILD A CUSTOM ORDER</a>
+          <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.7px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 34px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;display:inline-block;">BROWSE THE MENU</a>
+          <a href="custom-order.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.7px;color:#2D1B14;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 34px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;display:inline-block;">BUILD A CUSTOM ORDER</a>
         </div>
       </div>
     </div>
@@ -138,7 +138,7 @@
   <!-- ============ CHECKOUT ============ -->
   <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
     <div style="max-width:1560px;margin:0 auto;padding:14px clamp(24px, 6vw, 120px) 120px;">
-      <h1 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:76px;line-height:.95;letter-spacing:.5px;margin:10px 0 4px;">CHECKOUT</h1>
+      <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:76px;line-height:.95;letter-spacing:.5px;margin:10px 0 4px;">CHECKOUT</h1>
       <p style="font-size:19px;font-weight:600;color:#9A8A80;margin:0 0 34px;">Almost there — just a few details and your bakes are on the way.</p>
 
       <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start;">
@@ -148,19 +148,19 @@
 
           <!-- fulfillment -->
           <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:28px;padding:28px 30px;">
-            <div style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">1 &nbsp;·&nbsp; HOW WOULD YOU LIKE IT?</div>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">1 &nbsp;·&nbsp; HOW WOULD YOU LIKE IT?</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
               <button onClick="{{ setPickup }}" style="text-align:left;cursor:pointer;font-family:inherit;border-radius:22px;padding:20px 22px;border:2.5px solid {{ pickupBorder }};background:{{ pickupBg }};box-shadow:{{ pickupShadow }};">
                 <div style="display:flex;align-items:center;gap:12px;">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M5 9V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M4 9l1 11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1l1-11"/></svg>
-                  <span style="font-family:'Lilita One',cursive;font-size:22px;color:#2D1B14;">PICKUP</span>
+                  <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;color:#2D1B14;">PICKUP</span>
                 </div>
                 <div style="font-size:14px;font-weight:700;color:#6A5A50;margin-top:8px;">Ready at our shop · free</div>
               </button>
               <button onClick="{{ setDelivery }}" style="text-align:left;cursor:pointer;font-family:inherit;border-radius:22px;padding:20px 22px;border:2.5px solid {{ deliveryBorder }};background:{{ deliveryBg }};box-shadow:{{ deliveryShadow }};">
                 <div style="display:flex;align-items:center;gap:12px;">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h13v13H1zM14 8h4l3 3v5h-7M5.5 19a2 2 0 1 0 0-.01M17.5 19a2 2 0 1 0 0-.01"/></svg>
-                  <span style="font-family:'Lilita One',cursive;font-size:22px;color:#2D1B14;">DELIVERY</span>
+                  <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;color:#2D1B14;">DELIVERY</span>
                 </div>
                 <div style="font-size:14px;font-weight:700;color:#6A5A50;margin-top:8px;">{{ deliveryTagline }}</div>
               </button>
@@ -170,13 +170,13 @@
           <!-- pickup location -->
           <sc-if value="{{ isPickup }}" hint-placeholder-val="{{ true }}">
             <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:28px;padding:28px 30px;">
-              <div style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">2 &nbsp;·&nbsp; PICKUP LOCATION</div>
+              <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">2 &nbsp;·&nbsp; PICKUP LOCATION</div>
               <div style="display:flex;align-items:center;gap:16px;background:#F2E9E4;border-radius:20px;padding:20px 22px;">
                 <div style="width:52px;height:52px;border-radius:16px;background:#EF5F2B;border:2.5px solid #2D1B14;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                 </div>
                 <div>
-                  <div style="font-family:'Lilita One',cursive;font-size:20px;color:#2D1B14;">Bliss &amp; Butter — Maple Street</div>
+                  <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:20px;color:#2D1B14;">Bliss &amp; Butter — Maple Street</div>
                   <div style="font-size:15px;font-weight:700;color:#6A5A50;margin-top:3px;">214 Maple Street, Springfield · Open 7am–7pm</div>
                 </div>
               </div>
@@ -186,7 +186,7 @@
           <!-- delivery address -->
           <sc-if value="{{ isDelivery }}" hint-placeholder-val="{{ false }}">
             <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:28px;padding:28px 30px;">
-              <div style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">2 &nbsp;·&nbsp; DELIVERY ADDRESS</div>
+              <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">2 &nbsp;·&nbsp; DELIVERY ADDRESS</div>
               <div style="display:flex;flex-direction:column;gap:14px;">
                 <input value="{{ address }}" onInput="{{ onAddress }}" placeholder="Street address" style="font-family:inherit;font-size:16px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:16px;padding:15px 18px;outline:none;width:100%;">
                 <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px;">
@@ -199,25 +199,25 @@
 
           <!-- date + time -->
           <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:28px;padding:28px 30px;">
-            <div style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">3 &nbsp;·&nbsp; {{ timeHeading }}</div>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">3 &nbsp;·&nbsp; {{ timeHeading }}</div>
             <div style="display:flex;gap:12px;flex-wrap:wrap;">
               <sc-for list="{{ dateChips }}" as="dc" hint-placeholder-count="3">
                 <button onClick="{{ dc.select }}" style="cursor:pointer;font-family:inherit;text-align:center;border-radius:18px;padding:12px 20px;border:2.5px solid {{ dc.border }};background:{{ dc.bg }};box-shadow:{{ dc.shadow }};">
-                  <div style="font-family:'Lilita One',cursive;font-size:17px;color:{{ dc.fg }};">{{ dc.label }}</div>
+                  <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:{{ dc.fg }};">{{ dc.label }}</div>
                   <div style="font-size:13px;font-weight:700;color:{{ dc.subFg }};margin-top:2px;">{{ dc.sub }}</div>
                 </button>
               </sc-for>
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px;">
               <sc-for list="{{ slotChips }}" as="sl" hint-placeholder-count="8">
-                <button onClick="{{ sl.select }}" style="cursor:{{ sl.cursor }};font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.3px;color:{{ sl.fg }};border-radius:16px;padding:13px 0;border:2px solid {{ sl.border }};background:{{ sl.bg }};text-decoration:{{ sl.strike }};">{{ sl.label }}</button>
+                <button onClick="{{ sl.select }}" style="cursor:{{ sl.cursor }};font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.3px;color:{{ sl.fg }};border-radius:16px;padding:13px 0;border:2px solid {{ sl.border }};background:{{ sl.bg }};text-decoration:{{ sl.strike }};">{{ sl.label }}</button>
               </sc-for>
             </div>
           </div>
 
           <!-- contact -->
           <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:28px;padding:28px 30px;">
-            <div style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">4 &nbsp;·&nbsp; YOUR DETAILS</div>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:16px;">4 &nbsp;·&nbsp; YOUR DETAILS</div>
             <div style="display:flex;flex-direction:column;gap:14px;">
               <input value="{{ name }}" onInput="{{ onName }}" placeholder="Full name" style="font-family:inherit;font-size:16px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:16px;padding:15px 18px;outline:none;width:100%;">
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
@@ -230,19 +230,19 @@
 
           <!-- tip -->
           <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:28px;padding:28px 30px;">
-            <div style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:6px;">5 &nbsp;·&nbsp; TIP THE BAKERS</div>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.7px;color:#9A8A80;margin-bottom:6px;">5 &nbsp;·&nbsp; TIP THE BAKERS</div>
             <div style="font-size:14px;font-weight:700;color:#9A8A80;margin-bottom:16px;">100% goes to the team who got up at 4am.</div>
             <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
               <sc-for list="{{ tipChips }}" as="tp" hint-placeholder-count="5">
                 <button onClick="{{ tp.select }}" style="cursor:pointer;font-family:inherit;text-align:center;border-radius:16px;padding:13px 0;border:2.5px solid {{ tp.border }};background:{{ tp.bg }};box-shadow:{{ tp.shadow }};">
-                  <div style="font-family:'Lilita One',cursive;font-size:17px;color:#2D1B14;">{{ tp.label }}</div>
+                  <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;">{{ tp.label }}</div>
                   <div style="font-size:12px;font-weight:700;color:{{ tp.subFg }};margin-top:2px;">{{ tp.sub }}</div>
                 </button>
               </sc-for>
             </div>
             <sc-if value="{{ tipIsCustom }}" hint-placeholder-val="{{ false }}">
               <div style="display:flex;align-items:center;gap:10px;margin-top:14px;background:#F2E9E4;border-radius:16px;padding:4px 18px;">
-                <span style="font-family:'Lilita One',cursive;font-size:20px;color:#2D1B14;">$</span>
+                <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:20px;color:#2D1B14;">$</span>
                 <input value="{{ tipCustom }}" onInput="{{ onTipCustom }}" inputmode="decimal" placeholder="0.00" style="font-family:inherit;font-size:16px;font-weight:700;color:#2D1B14;background:transparent;border:none;outline:none;width:100%;padding:12px 0;">
               </div>
             </sc-if>
@@ -252,21 +252,21 @@
 
         <!-- ===== RIGHT: SUMMARY ===== -->
         <div style="position:sticky;top:24px;background:#FFFCF8;border:1.5px solid #E4D8CF;border-radius:32px;padding:30px 30px 32px;box-shadow:0 24px 50px rgba(45,27,20,.10);">
-          <div style="font-family:'Lilita One',cursive;font-size:26px;color:#2D1B14;letter-spacing:.5px;margin-bottom:6px;">ORDER SUMMARY</div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#2D1B14;letter-spacing:.5px;margin-bottom:6px;">ORDER SUMMARY</div>
 
           <div style="max-height:280px;overflow-y:auto;margin:10px 0 4px;">
             <sc-for list="{{ cartItems }}" as="ci" hint-placeholder-count="3">
               <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #F0E7DF;">
                 <div style="flex:1;min-width:0;">
-                  <div style="font-family:'Lilita One',cursive;font-size:16px;color:#2D1B14;letter-spacing:.2px;line-height:1.15;">{{ ci.name }}</div>
+                  <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;letter-spacing:.2px;line-height:1.15;">{{ ci.name }}</div>
                   <div style="font-size:13px;font-weight:700;color:#9A8A80;margin-top:3px;">{{ ci.priceStr }} each</div>
                 </div>
                 <div style="display:flex;align-items:center;gap:5px;">
                   <button onClick="{{ ci.dec }}" aria-label="Decrease" style="width:28px;height:28px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
-                  <span style="font-family:'Lilita One',cursive;font-size:16px;color:#2D1B14;min-width:20px;text-align:center;">{{ ci.qty }}</span>
+                  <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;min-width:20px;text-align:center;">{{ ci.qty }}</span>
                   <button onClick="{{ ci.inc }}" aria-label="Increase" style="width:28px;height:28px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
                 </div>
-                <div style="font-family:'Lilita One',cursive;font-size:16px;color:#2D1B14;min-width:58px;text-align:right;">{{ ci.lineStr }}</div>
+                <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;min-width:58px;text-align:right;">{{ ci.lineStr }}</div>
               </div>
             </sc-for>
           </div>
@@ -274,7 +274,7 @@
           <!-- promo -->
           <div style="display:flex;gap:10px;margin:18px 0 6px;">
             <input value="{{ promo }}" onInput="{{ onPromo }}" placeholder="Promo code" style="font-family:inherit;font-size:15px;font-weight:700;letter-spacing:.4px;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:14px;padding:12px 16px;outline:none;flex:1;min-width:0;text-transform:uppercase;">
-            <button onClick="{{ applyPromo }}" style="font-family:'Lilita One',cursive;font-size:14px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:14px;padding:0 20px;cursor:pointer;box-shadow:2px 3px 0 #2D1B14;">APPLY</button>
+            <button onClick="{{ applyPromo }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:14px;padding:0 20px;cursor:pointer;box-shadow:2px 3px 0 #2D1B14;">APPLY</button>
           </div>
           <sc-if value="{{ hasPromoMsg }}" hint-placeholder-val="{{ false }}">
             <div style="font-size:13px;font-weight:800;letter-spacing:.2px;color:{{ promoMsgColor }};margin-bottom:6px;">{{ promoMsg }}</div>
@@ -307,8 +307,8 @@
               <span style="font-size:16px;font-weight:800;color:#2D1B14;">{{ taxStr }}</span>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;border-top:1.6px solid #ECE2DA;margin-top:5px;padding-top:15px;">
-              <span style="font-family:'Lilita One',cursive;font-size:22px;color:#2D1B14;">TOTAL</span>
-              <span style="font-family:'Lilita One',cursive;font-size:32px;color:#2D1B14;">{{ totalStr }}</span>
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;color:#2D1B14;">TOTAL</span>
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:32px;color:#2D1B14;">{{ totalStr }}</span>
             </div>
           </div>
 
@@ -322,7 +322,7 @@
             </div>
           </sc-if>
 
-          <button onClick="{{ placeOrder }}" style="font-family:'Lilita One',cursive;font-size:19px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:17px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;margin-top:20px;opacity:{{ placeOpacity }};">{{ placeLabel }}</button>
+          <button onClick="{{ placeOrder }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:17px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;margin-top:20px;opacity:{{ placeOpacity }};">{{ placeLabel }}</button>
           <sc-if value="{{ hasPlaceMsg }}" hint-placeholder-val="{{ false }}">
             <div style="font-size:13px;font-weight:800;color:#D64B2A;text-align:center;margin-top:12px;">{{ placeMsg }}</div>
           </sc-if>

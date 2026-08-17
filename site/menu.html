@@ -50,7 +50,7 @@
       <div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(45,27,20,.5);"></div>
       <div style="position:absolute;top:0;right:0;bottom:0;width:440px;max-width:92vw;background:#FFFCF8;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(45,27,20,.22);">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:26px 28px;border-bottom:1.6px solid #ECE2DA;">
-          <div style="font-family:'Lilita One',cursive;font-size:26px;color:#2D1B14;letter-spacing:.5px;">YOUR CART <span style="color:#EF5F2B;">({{ cartCount }})</span></div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#2D1B14;letter-spacing:.5px;">YOUR CART <span style="color:#EF5F2B;">({{ cartCount }})</span></div>
           <button onClick="{{ closeCart }}" aria-label="Close cart" style="width:44px;height:44px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
         </div>
         <div style="flex:1;overflow-y:auto;padding:6px 28px;">
@@ -58,21 +58,21 @@
             <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:90px 0;text-align:center;">
               <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#C9BBAE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               <div style="font-size:18px;font-weight:700;color:#9A8A80;">Your cart is empty</div>
-              <a href="custom-order.html" style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:12px 24px;text-decoration:none;box-shadow:3px 4px 0 #2D1B14;">BUILD A CUSTOM ORDER</a>
+              <a href="custom-order.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:12px 24px;text-decoration:none;box-shadow:3px 4px 0 #2D1B14;">BUILD A CUSTOM ORDER</a>
             </div>
           </sc-if>
           <sc-for list="{{ cartItems }}" as="ci" hint-placeholder-count="0">
             <div style="display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid #F0E7DF;">
               <div style="flex:1;min-width:0;">
-                <div style="font-family:'Lilita One',cursive;font-size:18px;color:#2D1B14;letter-spacing:.3px;">{{ ci.name }}</div>
+                <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;color:#2D1B14;letter-spacing:.3px;">{{ ci.name }}</div>
                 <div style="font-size:14px;font-weight:700;color:#9A8A80;margin-top:3px;">{{ ci.priceStr }} each</div>
               </div>
               <div style="display:flex;align-items:center;gap:6px;">
                 <button onClick="{{ ci.dec }}" aria-label="Decrease" style="width:30px;height:30px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
-                <span style="font-family:'Lilita One',cursive;font-size:17px;color:#2D1B14;min-width:24px;text-align:center;">{{ ci.qty }}</span>
+                <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;min-width:24px;text-align:center;">{{ ci.qty }}</span>
                 <button onClick="{{ ci.inc }}" aria-label="Increase" style="width:30px;height:30px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
               </div>
-              <div style="font-family:'Lilita One',cursive;font-size:17px;color:#2D1B14;min-width:62px;text-align:right;">{{ ci.lineStr }}</div>
+              <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;min-width:62px;text-align:right;">{{ ci.lineStr }}</div>
             </div>
           </sc-for>
         </div>
@@ -80,10 +80,10 @@
           <div style="padding:22px 28px 26px;border-top:1.6px solid #ECE2DA;background:#FFFCF8;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
               <span style="font-size:17px;font-weight:700;color:#6A5A50;">Subtotal</span>
-              <span style="font-family:'Lilita One',cursive;font-size:28px;color:#2D1B14;">{{ cartTotalStr }}</span>
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:28px;color:#2D1B14;">{{ cartTotalStr }}</span>
             </div>
             <div style="font-size:14px;font-weight:600;color:{{ deliveryColor }};margin-bottom:18px;">{{ deliveryNote }}</div>
-            <button onClick="{{ goCheckout }}" style="font-family:'Lilita One',cursive;font-size:18px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;">CHECKOUT</button>
+            <button onClick="{{ goCheckout }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;">CHECKOUT</button>
           </div>
         </sc-if>
       </div>
@@ -108,8 +108,8 @@
   <div style="max-width:1560px;margin:0 auto;padding:0 clamp(24px, 6vw, 120px);">
 
     <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:12px;gap:20px;padding:26px 4px 14px;">
-      <a href="index.html" style="font-family:'Lilita One',cursive;font-size:30px;color:#2D1B14;letter-spacing:.5px;text-decoration:none;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></a>
-      <div style="display:flex;align-items:center;flex-wrap:wrap;justify-content:center;row-gap:8px;gap:26px;flex:1 1 auto;min-width:0;font-family:'Lilita One',cursive;font-size:16px;letter-spacing:.6px;color:#2D1B14;">
+      <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;color:#2D1B14;letter-spacing:.5px;text-decoration:none;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></a>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;justify-content:center;row-gap:8px;gap:26px;flex:1 1 auto;min-width:0;font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.6px;color:#2D1B14;">
         <a href="product.html?category=bread" style="color:#2D1B14;text-decoration:none;">BREAD</a>
         <a href="product.html?category=cookies" style="color:#2D1B14;text-decoration:none;">COOKIES</a>
         <a href="product.html?category=pastries" style="color:#2D1B14;text-decoration:none;">PASTRIES</a>
@@ -118,12 +118,12 @@
         <a href="index.html#visit" style="color:#2D1B14;text-decoration:none;">CONTACT</a>
       </div>
       <div style="display:flex;align-items:center;gap:18px;flex-shrink:0;">
-        <a href="menu.html" style="font-family:'Lilita One',cursive;font-size:16px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:14px 26px;text-decoration:none;box-shadow:3px 4px 0 #2D1B14;">ORDER NOW</a>
+        <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:14px 26px;text-decoration:none;box-shadow:3px 4px 0 #2D1B14;">ORDER NOW</a>
         <bb-search></bb-search>
         <button onClick="{{ openCart }}" aria-label="Open cart" style="position:relative;width:50px;height:50px;border-radius:50%;background:#fff;border:none;box-shadow:0 4px 14px rgba(45,27,20,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
-            <span style="position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;border-radius:11px;background:#EF5F2B;border:2px solid #fff;color:#fff;font-family:'Lilita One',cursive;font-size:12px;display:flex;align-items:center;justify-content:center;padding:0 5px;">{{ cartCount }}</span>
+            <span style="position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;border-radius:11px;background:#EF5F2B;border:2px solid #fff;color:#fff;font-family:'Lilita One','Arial Black',sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;padding:0 5px;">{{ cartCount }}</span>
           </sc-if>
         </button>
       </div>
@@ -132,16 +132,16 @@
     <div style="background:#FFFCF8;border-radius:46px;padding:44px 64px 60px;margin-top:8px;margin-bottom:48px;position:relative;overflow:hidden;min-height:660px;">
 
       <div style="position:relative;text-align:center;z-index:3;">
-        <span style="position:absolute;left:23%;top:2px;transform:rotate(-8deg);font-family:'Lilita One',cursive;font-size:24px;letter-spacing:1px;color:#fff;background:#C29CE8;border:2.5px solid #2D1B14;border-radius:30px;padding:6px 20px 7px;box-shadow:2px 3px 0 #2D1B14;">{{ pill1 }}</span>
-        <h1 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:104px;line-height:.92;letter-spacing:1px;margin:0;">BAKE THE {{ catLabel }}</h1>
-        <span style="position:absolute;right:21%;top:34px;transform:rotate(7deg);font-family:'Lilita One',cursive;font-size:24px;letter-spacing:1px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:30px;padding:6px 20px 7px;box-shadow:2px 3px 0 #2D1B14;">{{ pill2 }}</span>
+        <span style="position:absolute;left:23%;top:2px;transform:rotate(-8deg);font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;letter-spacing:1px;color:#fff;background:#C29CE8;border:2.5px solid #2D1B14;border-radius:30px;padding:6px 20px 7px;box-shadow:2px 3px 0 #2D1B14;">{{ pill1 }}</span>
+        <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:104px;line-height:.92;letter-spacing:1px;margin:0;">BAKE THE {{ catLabel }}</h1>
+        <span style="position:absolute;right:21%;top:34px;transform:rotate(7deg);font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;letter-spacing:1px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:30px;padding:6px 20px 7px;box-shadow:2px 3px 0 #2D1B14;">{{ pill2 }}</span>
       </div>
 
       <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,1fr);gap:30px;align-items:center;margin-top:26px;">
 
         <div style="position:relative;z-index:3;">
-          <h2 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:34px;line-height:1.12;letter-spacing:.5px;margin:0;max-width:330px;">{{ tagline }}</h2>
-          <a href="{{ shopHref }}" style="display:inline-flex;align-items:center;gap:11px;font-family:'Lilita One',cursive;font-size:19px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 32px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;margin-top:34px;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2D1B14;"></span>ORDER NOW</a>
+          <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;line-height:1.12;letter-spacing:.5px;margin:0;max-width:330px;">{{ tagline }}</h2>
+          <a href="{{ shopHref }}" style="display:inline-flex;align-items:center;gap:11px;font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 32px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;margin-top:34px;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2D1B14;"></span>ORDER NOW</a>
         </div>
 
         <div style="position:relative;height:440px;">
@@ -150,7 +150,7 @@
 
         <div style="display:flex;justify-content:flex-end;">
           <div style="position:relative;background:#FCD414;border:2.5px solid #2D1B14;border-radius:30px;padding:28px 36px;box-shadow:3px 5px 0 #2D1B14;display:inline-flex;flex-direction:column;align-items:flex-start;min-width:210px;">
-            <span style="font-family:'Lilita One',cursive;font-size:60px;color:#2D1B14;line-height:.95;">{{ featPrice }}</span>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:60px;color:#2D1B14;line-height:.95;">{{ featPrice }}</span>
             <span style="font-size:19px;font-weight:900;color:#2D1B14;margin-top:10px;">{{ featName }}</span>
             <span style="font-size:14px;font-weight:700;color:#5A4A40;margin-top:2px;">{{ catLabelTitle }}</span>
           </div>
@@ -170,7 +170,7 @@
     </div>
 
     <div style="background:#FFFCF8;border-radius:46px;padding:54px 60px 60px;margin-bottom:48px;">
-      <h2 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:56px;letter-spacing:.5px;margin:0 0 8px;text-align:center;">POPULAR {{ catLabel }}</h2>
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:56px;letter-spacing:.5px;margin:0 0 8px;text-align:center;">POPULAR {{ catLabel }}</h2>
       <p style="font-size:18px;font-weight:600;color:#9A8A80;margin:0 auto 44px;text-align:center;max-width:560px;">Our most-loved {{ catLower }}, freshly baked and ready to add to your order.</p>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:34px;">
@@ -179,28 +179,28 @@
             <div style="position:relative;width:100%;height:240px;">
               <image-slot id="{{ p.slotId }}" shape="rect" fit="contain" src="{{ p.img }}" placeholder="{{ p.ph }}" style="position:absolute;inset:0;width:100%;height:100%;"></image-slot>
             </div>
-            <h3 style="font-family:'Lilita One',cursive;font-size:27px;letter-spacing:.4px;color:#2D1B14;margin:26px 0 0;">{{ p.name }}</h3>
+            <h3 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:27px;letter-spacing:.4px;color:#2D1B14;margin:26px 0 0;">{{ p.name }}</h3>
             <p style="font-size:16px;font-weight:600;color:#7A6A5E;line-height:1.5;margin:14px 0 0;min-height:72px;">{{ p.desc }}</p>
             <div style="width:80%;border-top:2px dotted #DCCDBE;margin:20px 0 18px;"></div>
-            <div style="font-family:'Lilita One',cursive;font-size:30px;color:#2D1B14;">{{ p.price }}</div>
-            <button onClick="{{ p.add }}" style="font-family:'Lilita One',cursive;font-size:16px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:13px 30px;cursor:pointer;box-shadow:3px 4px 0 #2D1B14;margin-top:22px;">ADD TO CART</button>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;color:#2D1B14;">{{ p.price }}</div>
+            <button onClick="{{ p.add }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:13px 30px;cursor:pointer;box-shadow:3px 4px 0 #2D1B14;margin-top:22px;">ADD TO CART</button>
           </div>
         </sc-for>
       </div>
 
       <div style="text-align:center;margin-top:46px;">
-        <a href="{{ shopHref }}" style="font-family:'Lilita One',cursive;font-size:18px;letter-spacing:1px;color:#2D1B14;text-decoration:none;border-bottom:3px dotted #2D1B14;padding-bottom:4px;">VIEW ALL {{ catLabel }}</a>
+        <a href="{{ shopHref }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:1px;color:#2D1B14;text-decoration:none;border-bottom:3px dotted #2D1B14;padding-bottom:4px;">VIEW ALL {{ catLabel }}</a>
       </div>
     </div>
 
     <!-- CUSTOM ORDER BANNER -->
     <div style="background:#2D1B14;border-radius:46px;padding:48px 60px;margin-bottom:48px;display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap;">
       <div style="min-width:0;flex:1 1 380px;">
-        <div style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:1.4px;color:#FCD414;">NOT ON THE MENU?</div>
-        <h2 style="font-family:'Lilita One',cursive;font-size:46px;line-height:1.05;letter-spacing:.5px;color:#FBF4EC;margin:12px 0 0;">BUILD IT YOURSELF</h2>
+        <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:1.4px;color:#FCD414;">NOT ON THE MENU?</div>
+        <h2 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:46px;line-height:1.05;letter-spacing:.5px;color:#FBF4EC;margin:12px 0 0;">BUILD IT YOURSELF</h2>
         <p style="font-size:17px;font-weight:600;color:#D9C5BB;line-height:1.55;margin:14px 0 0;max-width:520px;text-wrap:pretty;">Pick the bake, the box size, and the finishing touches. Custom orders need 48 hours notice and land in the same cart.</p>
       </div>
-      <a href="custom-order.html" style="display:inline-flex;align-items:center;gap:11px;font-family:'Lilita One',cursive;font-size:19px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #FBF4EC;border-radius:44px;padding:18px 36px;text-decoration:none;box-shadow:3px 5px 0 #FBF4EC;flex-shrink:0;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2D1B14;"></span>START A CUSTOM ORDER</a>
+      <a href="custom-order.html" style="display:inline-flex;align-items:center;gap:11px;font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #FBF4EC;border-radius:44px;padding:18px 36px;text-decoration:none;box-shadow:3px 5px 0 #FBF4EC;flex-shrink:0;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2D1B14;"></span>START A CUSTOM ORDER</a>
     </div>
 
     <div style="background:#3A1B11;border-radius:30px;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:46px;flex-wrap:wrap;">
@@ -210,7 +210,7 @@
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
         <svg width="34" height="34" viewBox="0 0 40 40"><g fill="#EF5F2B"><ellipse cx="20" cy="9" rx="5" ry="8"/><ellipse cx="20" cy="31" rx="5" ry="8"/><ellipse cx="9" cy="20" rx="8" ry="5"/><ellipse cx="31" cy="20" rx="8" ry="5"/><ellipse cx="12" cy="12" rx="6" ry="5" transform="rotate(-45 12 12)"/><ellipse cx="28" cy="28" rx="6" ry="5" transform="rotate(-45 28 28)"/><ellipse cx="28" cy="12" rx="6" ry="5" transform="rotate(45 28 12)"/><ellipse cx="12" cy="28" rx="6" ry="5" transform="rotate(45 12 28)"/><circle cx="20" cy="20" r="5" fill="#FBE3DC"/></g></svg>
-        <span style="font-family:'Lilita One',cursive;font-size:30px;color:#FBF4EC;letter-spacing:.5px;">Bliss &amp; Butter</span>
+        <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;color:#FBF4EC;letter-spacing:.5px;">Bliss &amp; Butter</span>
       </div>
       <div style="display:flex;gap:13px;flex:1 1 220px;justify-content:flex-end;">
         <a href="#" aria-label="Facebook" style="width:44px;height:44px;border-radius:50%;border:1.6px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;font-family:Georgia,serif;font-weight:700;font-size:20px;">f</a>
@@ -233,20 +233,20 @@
       <div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(45,27,20,.45);animation:bbm-fade .2s ease;"></div>
       <div style="position:absolute;top:0;right:0;bottom:0;width:84%;max-width:360px;background:#2D1B14;display:flex;flex-direction:column;padding:26px 26px 34px;animation:bbm-sheet .28s cubic-bezier(.2,.9,.3,1);overflow-y:auto;">
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <span style="font-family:'Lilita One',cursive;font-size:26px;color:#FBF4EC;letter-spacing:.5px;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></span>
+          <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#FBF4EC;letter-spacing:.5px;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></span>
           <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBF4EC" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
         </div>
         <div style="display:flex;flex-direction:column;gap:4px;margin-top:34px;">
-          <a href="index.html" style="font-family:'Lilita One',cursive;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">HOME</a>
-          <a href="product.html?category=bread" style="font-family:'Lilita One',cursive;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">BREAD</a>
-          <a href="product.html?category=cookies" style="font-family:'Lilita One',cursive;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">COOKIES</a>
-          <a href="product.html?category=pastries" style="font-family:'Lilita One',cursive;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">PASTRIES</a>
-          <a href="product.html?category=pies" style="font-family:'Lilita One',cursive;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">PIES</a>
-          <a href="product.html?category=cakes" style="font-family:'Lilita One',cursive;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">CAKES</a>
-          <a href="menu.html" style="font-family:'Lilita One',cursive;font-size:30px;letter-spacing:.5px;color:#FCD414;text-decoration:none;padding:11px 0;">MENU</a>
-          <a href="custom-order.html" style="font-family:'Lilita One',cursive;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">CUSTOM ORDER</a>
+          <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">HOME</a>
+          <a href="product.html?category=bread" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">BREAD</a>
+          <a href="product.html?category=cookies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">COOKIES</a>
+          <a href="product.html?category=pastries" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">PASTRIES</a>
+          <a href="product.html?category=pies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">PIES</a>
+          <a href="product.html?category=cakes" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">CAKES</a>
+          <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FCD414;text-decoration:none;padding:11px 0;">MENU</a>
+          <a href="custom-order.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">CUSTOM ORDER</a>
         </div>
-        <a href="checkout.html" style="margin-top:auto;font-family:'Lilita One',cursive;font-size:18px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #000;border-radius:44px;padding:16px 0;text-align:center;text-decoration:none;box-shadow:3px 5px 0 #000;display:flex;align-items:center;justify-content:center;gap:10px;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2D1B14;"></span>GO TO CHECKOUT</a>
+        <a href="checkout.html" style="margin-top:auto;font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #000;border-radius:44px;padding:16px 0;text-align:center;text-decoration:none;box-shadow:3px 5px 0 #000;display:flex;align-items:center;justify-content:center;gap:10px;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2D1B14;"></span>GO TO CHECKOUT</a>
       </div>
     </div>
   </sc-if>
@@ -256,7 +256,7 @@
       <div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(45,27,20,.5);animation:bbm-fade .2s ease;"></div>
       <div style="position:absolute;left:0;right:0;bottom:0;max-height:86vh;background:#FFFCF8;border-radius:32px 32px 0 0;display:flex;flex-direction:column;animation:bbm-sheet .3s cubic-bezier(.2,.9,.3,1);">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 24px 16px;">
-          <div style="font-family:'Lilita One',cursive;font-size:24px;color:#2D1B14;letter-spacing:.4px;">YOUR CART <span style="color:#EF5F2B;">({{ cartCount }})</span></div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;color:#2D1B14;letter-spacing:.4px;">YOUR CART <span style="color:#EF5F2B;">({{ cartCount }})</span></div>
           <button onClick="{{ closeCart }}" aria-label="Close cart" style="width:42px;height:42px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
         </div>
         <div style="flex:1;overflow-y:auto;padding:0 24px;">
@@ -264,21 +264,21 @@
             <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:48px 0 56px;text-align:center;">
               <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#C9BBAE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               <div style="font-size:17px;font-weight:700;color:#9A8A80;">Your cart is empty</div>
-              <a href="custom-order.html" style="font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:13px 24px;text-decoration:none;box-shadow:3px 4px 0 #2D1B14;">BUILD A CUSTOM ORDER</a>
+              <a href="custom-order.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:13px 24px;text-decoration:none;box-shadow:3px 4px 0 #2D1B14;">BUILD A CUSTOM ORDER</a>
             </div>
           </sc-if>
           <sc-for list="{{ cartItems }}" as="ci" hint-placeholder-count="0">
             <div style="display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid #F0E7DF;">
               <div style="flex:1;min-width:0;">
-                <div style="font-family:'Lilita One',cursive;font-size:16px;color:#2D1B14;letter-spacing:.2px;line-height:1.15;">{{ ci.name }}</div>
+                <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;letter-spacing:.2px;line-height:1.15;">{{ ci.name }}</div>
                 <div style="font-size:13px;font-weight:700;color:#9A8A80;margin-top:3px;">{{ ci.priceStr }} each</div>
               </div>
               <div style="display:flex;align-items:center;gap:5px;">
                 <button onClick="{{ ci.dec }}" aria-label="Decrease" style="width:34px;height:34px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
-                <span style="font-family:'Lilita One',cursive;font-size:16px;color:#2D1B14;min-width:22px;text-align:center;">{{ ci.qty }}</span>
+                <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;min-width:22px;text-align:center;">{{ ci.qty }}</span>
                 <button onClick="{{ ci.inc }}" aria-label="Increase" style="width:34px;height:34px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
               </div>
-              <div style="font-family:'Lilita One',cursive;font-size:16px;color:#2D1B14;min-width:56px;text-align:right;">{{ ci.lineStr }}</div>
+              <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;min-width:56px;text-align:right;">{{ ci.lineStr }}</div>
             </div>
           </sc-for>
         </div>
@@ -286,10 +286,10 @@
           <div style="padding:18px 24px calc(22px + env(safe-area-inset-bottom));border-top:1.6px solid #ECE2DA;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
               <span style="font-size:16px;font-weight:700;color:#6A5A50;">Subtotal</span>
-              <span style="font-family:'Lilita One',cursive;font-size:26px;color:#2D1B14;">{{ cartTotalStr }}</span>
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#2D1B14;">{{ cartTotalStr }}</span>
             </div>
             <div style="font-size:13px;font-weight:600;color:{{ deliveryColor }};margin-bottom:14px;">{{ deliveryNote }}</div>
-            <button onClick="{{ goCheckout }}" style="font-family:'Lilita One',cursive;font-size:18px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;transition:transform .1s ease,box-shadow .1s ease;" style-active="transform:translate(2px,3px);box-shadow:1px 2px 0 #2D1B14;">CHECKOUT</button>
+            <button onClick="{{ goCheckout }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;transition:transform .1s ease,box-shadow .1s ease;" style-active="transform:translate(2px,3px);box-shadow:1px 2px 0 #2D1B14;">CHECKOUT</button>
           </div>
         </sc-if>
       </div>
@@ -298,11 +298,11 @@
 
   <div style="position:sticky;top:10px;z-index:50;padding:14px 16px 0;">
     <div style="display:flex;align-items:center;justify-content:space-between;background:#FFFCF8;border-radius:44px;padding:11px 12px 11px 22px;box-shadow:0 10px 26px rgba(45,27,20,.14);">
-      <a href="index.html" style="font-family:'Lilita One',cursive;font-size:23px;color:#2D1B14;letter-spacing:.4px;text-decoration:none;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></a>
+      <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:23px;color:#2D1B14;letter-spacing:.4px;text-decoration:none;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></a>
       <div style="display:flex;align-items:center;gap:9px;">
         <button onClick="{{ openCart }}" aria-label="Open cart" style="position:relative;width:44px;height:44px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:#EF5F2B;border:2px solid #FFFCF8;color:#fff;font-family:'Lilita One',cursive;font-size:11px;display:flex;align-items:center;justify-content:center;padding:0 4px;">{{ cartCount }}</span></sc-if>
+          <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:#EF5F2B;border:2px solid #FFFCF8;color:#fff;font-family:'Lilita One','Arial Black',sans-serif;font-size:11px;display:flex;align-items:center;justify-content:center;padding:0 4px;">{{ cartCount }}</span></sc-if>
         </button>
         <button onClick="{{ openMenu }}" aria-label="Open menu" style="width:44px;height:44px;border-radius:50%;background:#2D1B14;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
           <span style="width:17px;height:2.4px;border-radius:2px;background:#FCD414;"></span>
@@ -315,9 +315,9 @@
   <div style="padding:18px 16px 4px;">
     <div style="background:#FFFCF8;border-radius:34px;padding:22px 20px 26px;position:relative;overflow:hidden;">
       <div style="position:relative;text-align:center;">
-        <span style="position:absolute;left:0;top:-2px;transform:rotate(-8deg);font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.8px;color:#fff;background:#C29CE8;border:2.5px solid #2D1B14;border-radius:30px;padding:5px 14px 6px;box-shadow:2px 3px 0 #2D1B14;">{{ pill1 }}</span>
-        <h1 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:46px;line-height:.9;letter-spacing:.5px;margin:0;">BAKE THE {{ catLabel }}</h1>
-        <span style="position:absolute;right:0;top:16px;transform:rotate(7deg);font-family:'Lilita One',cursive;font-size:15px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:30px;padding:5px 14px 6px;box-shadow:2px 3px 0 #2D1B14;">{{ pill2 }}</span>
+        <span style="position:absolute;left:0;top:-2px;transform:rotate(-8deg);font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.8px;color:#fff;background:#C29CE8;border:2.5px solid #2D1B14;border-radius:30px;padding:5px 14px 6px;box-shadow:2px 3px 0 #2D1B14;">{{ pill1 }}</span>
+        <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:46px;line-height:.9;letter-spacing:.5px;margin:0;">BAKE THE {{ catLabel }}</h1>
+        <span style="position:absolute;right:0;top:16px;transform:rotate(7deg);font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:30px;padding:5px 14px 6px;box-shadow:2px 3px 0 #2D1B14;">{{ pill2 }}</span>
       </div>
 
       <div style="position:relative;height:230px;margin-top:20px;">
@@ -326,9 +326,9 @@
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:16px;">
-        <h2 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:20px;line-height:1.1;letter-spacing:.3px;margin:0;flex:1;min-width:0;">{{ tagline }}</h2>
+        <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:20px;line-height:1.1;letter-spacing:.3px;margin:0;flex:1;min-width:0;">{{ tagline }}</h2>
         <div style="background:#FCD414;border:2.5px solid #2D1B14;border-radius:22px;padding:12px 18px;box-shadow:3px 4px 0 #2D1B14;text-align:center;flex-shrink:0;">
-          <div style="font-family:'Lilita One',cursive;font-size:32px;color:#2D1B14;line-height:.95;">{{ featPrice }}</div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:32px;color:#2D1B14;line-height:.95;">{{ featPrice }}</div>
           <div style="font-size:11px;font-weight:800;color:#5A4A40;margin-top:3px;white-space:nowrap;">{{ featName }}</div>
         </div>
       </div>
@@ -346,7 +346,7 @@
   </div>
 
   <div style="padding:24px 16px 10px;">
-    <h2 style="font-family:'Lilita One',cursive;color:#2D1B14;font-size:34px;letter-spacing:.4px;margin:0;text-align:center;">POPULAR {{ catLabel }}</h2>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;letter-spacing:.4px;margin:0;text-align:center;">POPULAR {{ catLabel }}</h2>
     <p style="font-size:15px;font-weight:600;color:#9A8A80;margin:8px 0 22px;text-align:center;">Our most-loved {{ catLower }}, freshly baked and ready to add.</p>
 
     <div style="display:flex;flex-direction:column;gap:16px;">
@@ -356,11 +356,11 @@
             <image-slot id="{{ p.slotIdM }}" shape="rect" fit="contain" src="{{ p.img }}" placeholder="{{ p.ph }}" style="position:absolute;left:8%;top:8%;width:84%;height:84%;"></image-slot>
           </a>
           <div style="flex:1;min-width:0;">
-            <a href="{{ p.href }}" style="text-decoration:none;color:inherit;"><h3 style="font-family:'Lilita One',cursive;font-size:19px;letter-spacing:.3px;color:#2D1B14;margin:0;line-height:1.05;">{{ p.name }}</h3></a>
+            <a href="{{ p.href }}" style="text-decoration:none;color:inherit;"><h3 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;letter-spacing:.3px;color:#2D1B14;margin:0;line-height:1.05;">{{ p.name }}</h3></a>
             <p style="font-size:13.5px;font-weight:600;color:#7A6A5E;line-height:1.4;margin:6px 0 0;">{{ p.desc }}</p>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;">
-              <span style="font-family:'Lilita One',cursive;font-size:24px;color:#2D1B14;">{{ p.price }}</span>
-              <button onClick="{{ p.add }}" style="font-family:'Lilita One',cursive;font-size:13px;letter-spacing:.5px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:13px 20px;cursor:pointer;box-shadow:2px 3px 0 #2D1B14;">ADD +</button>
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;color:#2D1B14;">{{ p.price }}</span>
+              <button onClick="{{ p.add }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.5px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:13px 20px;cursor:pointer;box-shadow:2px 3px 0 #2D1B14;">ADD +</button>
             </div>
           </div>
         </div>
@@ -368,22 +368,22 @@
     </div>
 
     <div style="text-align:center;margin-top:26px;">
-      <a href="{{ shopHref }}" style="font-family:'Lilita One',cursive;font-size:16px;letter-spacing:1px;color:#2D1B14;text-decoration:none;border-bottom:3px dotted #2D1B14;padding-bottom:4px;">VIEW ALL {{ catLabel }}</a>
+      <a href="{{ shopHref }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:1px;color:#2D1B14;text-decoration:none;border-bottom:3px dotted #2D1B14;padding-bottom:4px;">VIEW ALL {{ catLabel }}</a>
     </div>
   </div>
 
   <!-- CUSTOM ORDER BANNER -->
   <div style="margin:28px 16px 0;background:#2D1B14;border-radius:28px;padding:26px 22px 28px;">
-    <div style="font-family:'Lilita One',cursive;font-size:13px;letter-spacing:1.3px;color:#FCD414;">NOT ON THE MENU?</div>
-    <h2 style="font-family:'Lilita One',cursive;font-size:30px;line-height:1.05;letter-spacing:.4px;color:#FBF4EC;margin:10px 0 0;">BUILD IT YOURSELF</h2>
+    <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:1.3px;color:#FCD414;">NOT ON THE MENU?</div>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;line-height:1.05;letter-spacing:.4px;color:#FBF4EC;margin:10px 0 0;">BUILD IT YOURSELF</h2>
     <p style="font-size:14.5px;font-weight:600;color:#D9C5BB;line-height:1.5;margin:10px 0 18px;text-wrap:pretty;">Pick the bake, the box size, and the finishing touches. 48 hours notice, same cart.</p>
-    <a href="custom-order.html" style="display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Lilita One',cursive;font-size:16px;letter-spacing:.7px;color:#2D1B14;background:#FCD414;border:2.5px solid #FBF4EC;border-radius:44px;padding:15px 0;text-decoration:none;box-shadow:3px 4px 0 #FBF4EC;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D1B14;"></span>START A CUSTOM ORDER</a>
+    <a href="custom-order.html" style="display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.7px;color:#2D1B14;background:#FCD414;border:2.5px solid #FBF4EC;border-radius:44px;padding:15px 0;text-decoration:none;box-shadow:3px 4px 0 #FBF4EC;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D1B14;"></span>START A CUSTOM ORDER</a>
   </div>
 
   <div style="padding:30px 20px 40px;text-align:center;">
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
       <svg width="28" height="28" viewBox="0 0 40 40"><g fill="#EF5F2B"><ellipse cx="20" cy="9" rx="5" ry="8"/><ellipse cx="20" cy="31" rx="5" ry="8"/><ellipse cx="9" cy="20" rx="8" ry="5"/><ellipse cx="31" cy="20" rx="8" ry="5"/><ellipse cx="12" cy="12" rx="6" ry="5" transform="rotate(-45 12 12)"/><ellipse cx="28" cy="28" rx="6" ry="5" transform="rotate(-45 28 28)"/><ellipse cx="28" cy="12" rx="6" ry="5" transform="rotate(45 28 12)"/><ellipse cx="12" cy="28" rx="6" ry="5" transform="rotate(45 12 28)"/><circle cx="20" cy="20" r="5" fill="#FBE3DC"/></g></svg>
-      <span style="font-family:'Lilita One',cursive;font-size:22px;color:#2D1B14;letter-spacing:.4px;">Bliss &amp; Butter</span>
+      <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;color:#2D1B14;letter-spacing:.4px;">Bliss &amp; Butter</span>
     </div>
     <div style="color:#9A8A80;font-size:13px;font-weight:600;margin-top:16px;">© 2026 Bliss &amp; Butter. All rights reserved.</div>
   </div>

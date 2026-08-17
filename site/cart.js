@@ -23,7 +23,7 @@
       if (!host) {
         host = document.createElement('div');
         host.id = 'bb-toast';
-        host.style.cssText = 'position:fixed;left:50%;bottom:30px;z-index:4000;transform:translateX(-50%) translateY(22px);opacity:0;transition:opacity .28s ease,transform .28s cubic-bezier(.2,1.2,.3,1);pointer-events:none;font-family:"Lilita One",cursive;';
+        host.style.cssText = 'position:fixed;left:50%;bottom:30px;z-index:4000;transform:translateX(-50%) translateY(22px);opacity:0;transition:opacity .28s ease,transform .28s cubic-bezier(.2,1.2,.3,1);pointer-events:none;font-family:"Lilita One","Arial Black",sans-serif;';
         document.body.appendChild(host);
       }
       var nm = (item && item.name) ? item.name : 'Item';

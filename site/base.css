@@ -5,6 +5,28 @@
  * what the markup leaves unset.
  */
 
+/* The pages never set a font on the document, so anything that does not carry
+ * its own font-family — including the 37 elements set to `inherit` — walked up
+ * to the root and landed on the browser default, which is Times New Roman.
+ * Establish the body face here so an unstyled element degrades to the site's
+ * own typeface instead of a serif.
+ */
+html,
+body {
+  font-family: 'Nunito', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Form controls do not inherit typography from their parent by default — they
+ * use the operating system's UI font until told otherwise. Buttons and inputs
+ * appear throughout the cart and custom-order flows, so opt them all in.
+ */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 /* Most links here are chips, buttons and nav items that set their own colour.
  * A handful set only layout, and those were falling through to the browser's
  * default link styling — blue and underlined, against the bakery palette. The
