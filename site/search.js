@@ -133,27 +133,27 @@
         '.bar{display:flex;align-items:center;gap:14px;padding:20px 22px;border-bottom:1.6px solid #ECE2DA;}' +
         '#input{flex:1;font-family:inherit;font-size:21px;font-weight:700;color:#2D1B14;border:none;outline:none;background:transparent;}' +
         '#input::placeholder{color:#B7A99C;}' +
-        '.kbd{font-family:"Lilita One","Arial Black",sans-serif;font-size:12px;letter-spacing:.5px;color:#9A8A80;background:#F2E9E4;border-radius:8px;padding:5px 9px;}' +
+        '.kbd{font-family:"Lilita One",cursive;font-size:12px;letter-spacing:.5px;color:#9A8A80;background:#F2E9E4;border-radius:8px;padding:5px 9px;}' +
         '#results{max-height:min(62vh,560px);overflow-y:auto;padding:16px 16px 20px;}' +
         '.chips{display:flex;flex-wrap:wrap;gap:8px;padding:4px 6px 6px;}' +
-        '.chip{font-family:"Lilita One","Arial Black",sans-serif;font-size:13px;letter-spacing:.4px;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:30px;padding:8px 15px;cursor:pointer;transition:transform .1s;}' +
+        '.chip{font-family:"Lilita One",cursive;font-size:13px;letter-spacing:.4px;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:30px;padding:8px 15px;cursor:pointer;transition:transform .1s;}' +
         '.chip:hover{transform:translateY(-1px);}.chipOn{background:#FCD414;border-color:#2D1B14;box-shadow:2px 3px 0 #2D1B14;}' +
-        '.hd{font-family:"Lilita One","Arial Black",sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;text-transform:uppercase;padding:16px 8px 8px;}' +
+        '.hd{font-family:"Lilita One",cursive;font-size:13px;letter-spacing:.7px;color:#9A8A80;text-transform:uppercase;padding:16px 8px 8px;}' +
         '.rows{display:flex;flex-direction:column;gap:4px;}' +
         '.row{display:flex;align-items:center;gap:14px;padding:11px 12px;border-radius:18px;text-decoration:none;cursor:pointer;transition:background .1s;}' +
         '.row:hover,.rowOn{background:#F2E9E4;}' +
         '.thumb{width:52px;height:52px;border-radius:14px;background:#F2E9E4;background-size:contain;background-repeat:no-repeat;background-position:center;flex-shrink:0;display:flex;align-items:center;justify-content:center;}' +
-        '.thumbEmpty{font-family:"Lilita One","Arial Black",sans-serif;font-size:22px;color:#C3B5A8;}' +
+        '.thumbEmpty{font-family:"Lilita One",cursive;font-size:22px;color:#C3B5A8;}' +
         '.meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}' +
-        '.nm{font-family:"Lilita One","Arial Black",sans-serif;font-size:17px;letter-spacing:.2px;color:#2D1B14;line-height:1.1;}' +
+        '.nm{font-family:"Lilita One",cursive;font-size:17px;letter-spacing:.2px;color:#2D1B14;line-height:1.1;}' +
         '.sub{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#9A8A80;}' +
-        '.price{font-family:"Lilita One","Arial Black",sans-serif;font-size:18px;color:#2D1B14;flex-shrink:0;}' +
+        '.price{font-family:"Lilita One",cursive;font-size:18px;color:#2D1B14;flex-shrink:0;}' +
         '.go{flex-shrink:0;opacity:.5;display:flex;}' +
-        '.pt{font-family:"Lilita One","Arial Black",sans-serif;font-size:10px;letter-spacing:.4px;border-radius:20px;padding:2px 7px;vertical-align:middle;margin-left:4px;}' +
+        '.pt{font-family:"Lilita One",cursive;font-size:10px;letter-spacing:.4px;border-radius:20px;padding:2px 7px;vertical-align:middle;margin-left:4px;}' +
         '.ptBest{color:#fff;background:#EF5F2B;}.ptNew{color:#2D1B14;background:#FCD414;}.ptVegan{color:#fff;background:#2E7D46;}' +
         '.empty{text-align:center;padding:44px 20px 40px;}' +
         '.emptyIcon{font-size:44px;color:#C9BBAE;}' +
-        '.emptyTitle{font-family:"Lilita One","Arial Black",sans-serif;font-size:22px;color:#2D1B14;margin-top:10px;}' +
+        '.emptyTitle{font-family:"Lilita One",cursive;font-size:22px;color:#2D1B14;margin-top:10px;}' +
         '.emptySub{font-size:15px;font-weight:600;color:#9A8A80;margin-top:8px;}' +
         '</style>' +
         '<button id="trigger" aria-label="Search products">' +

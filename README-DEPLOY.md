@@ -48,13 +48,17 @@ Behaviour is unchanged: mobile nav drawer, cart sheet, add/remove/quantity,
 localStorage cart, category chips, carousels and dots, type-ahead search, the
 custom-order builder, the checkout flow.
 
-`image-slot.js` is not shipped. The authoring component carries drag-and-drop,
-IndexedDB persistence and mutation observers a visitor never uses, and it froze
-the page when it ran across two mounted trees. Its one job that matters here is
-covered twice: the prerender flattens every filled slot into a real `<img>`, so
-the photography is in the served bytes and shows with JavaScript disabled, and
-`art-slot.js` (40 lines) draws the same photo in the hydrated tree, which renders
-`<image-slot>` elements itself.
+`image-slot.js` is never loaded by a page. The authoring component carries
+drag-and-drop, IndexedDB persistence and mutation observers a visitor never uses,
+and it froze the page when it ran across two mounted trees. Its one job that
+matters here is covered twice: the prerender flattens every filled slot into a
+real `<img>`, so the photography is in the served bytes and shows with JavaScript
+disabled, and `art-slot.js` (40 lines) draws the same photo in the hydrated tree,
+which renders `<image-slot>` elements itself.
+
+The file itself does still sit in `site/`, because the build harness loads it to
+resolve the slots in the first place (`BUILD_LIBS` in `tools/prerender.mjs`). It
+is dead weight in the deploy, not a dependency of any page.
 
 ## Editing a design
 
@@ -66,7 +70,15 @@ the photography is in the served bytes and shows with JavaScript disabled, and
 
 There is no manual porting step and no second renderer: `tools/prerender.mjs`
 boots `src-dc/support.js`, the same runtime the design tool uses, and captures
-what it produced.
+what it produced. It reaches the network for nothing — the harness it boots is
+put through the same vendoring as the shipped runtime, so React is served from
+`site/vendor/` at build time too, and the build cannot be taken down by a CDN.
+
+Keep the Playwright pin in the workflow where it is. Chromium serializes inline
+styles slightly differently between versions (`border: none` against
+`border-width: medium; border-style: none; …`), so bumping it rewrites most of
+`site/` with no change in meaning. It is safe, just noisy — do it deliberately,
+not as a drive-by.
 
 ## If the prerender ever silently stops running
 
@@ -84,7 +96,7 @@ Check, in order:
 4. **The stylesheet is there.** `curl -sI https://SITE/bb.css` is 200 and the
    body is over 5KB.
 5. Run `node tools/smoke.mjs` against the live URL. It fails loudly on all four
-   of those conditions.
+   of those conditions, and on a page whose controls have lost their styling.
 
 ## Local check
 

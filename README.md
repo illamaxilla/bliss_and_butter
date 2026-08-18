@@ -5,18 +5,26 @@ Marketing and ordering site for Bliss & Butter, plus the brand asset library.
 ## Repository layout
 
 ```
-site/            The deployed website — this is what Netlify publishes
+src-dc/          SOURCE OF TRUTH — the Claude Design pages
+site/            Generated. The deployed website — what Netlify publishes
+tools/           prerender, smoke test, deploy-time URL stamping
+.github/         The prerender workflow
 brand-assets/    Source artwork and photography (not deployed)
 netlify.toml     Netlify build & header configuration
+README-DEPLOY.md How the build works, and how to edit a design
 ```
 
 ### `site/`
 
-A static site: plain HTML, CSS and JavaScript with **no build step**. Pages sit
-at the root alongside the image folders they reference, because every image path
-in the markup is relative (`uploads/…`, `packaging/…`). Keeping that shape is
-what makes the images resolve — moving the pages or the image folders apart
-breaks them.
+Generated — do not hand-edit anything in it except the asset folders. Every page
+is finished HTML: view-source shows the page, with no template block, no
+bindings and no transpiler. `tools/prerender.mjs` renders it from `src-dc/` in
+headless Chromium and CI commits the result. See `README-DEPLOY.md`.
+
+Pages sit at the root alongside the image folders they reference, because every
+image path in the markup is relative (`uploads/…`, `packaging/…`). Keeping that
+shape is what makes the images resolve — moving the pages or the image folders
+apart breaks them.
 
 | URL | File |
 |---|---|
@@ -27,24 +35,25 @@ breaks them.
 | `/checkout.html` | `checkout.html` |
 | not found | `404.html` |
 
-Each page renders a desktop layout above 900px and mounts a mobile build below
-it. Those mobile builds are the `*-mobile.dc.html` files — they are components
-fetched at runtime, not pages, so nothing should link to them directly.
+Every page ships **both** breakpoint trees prerendered, and `bb.css` decides
+which one is shown at 900px. So the right layout appears with JavaScript
+disabled — appearance never waits on a script. The `*-mobile.dc.html` and
+`tpl/*.tpl.html` files are fetched only when JavaScript is on, to bring
+behaviour to the finished page; they are components, not pages, so nothing
+should link to them directly.
 
 Shared scripts: `cart.js` (cart state in localStorage) · `products.js` and
 `catalog.js` (catalog data) · `product-images.js` (image registry) ·
-`custom-order.js` (builder catalog) · `search.js` · `image-slot.js` ·
-`support.js` (component runtime).
+`custom-order.js` (builder catalog) · `search.js` · `hydrate.js` (attaches
+behaviour) · `art-slot.js` · `dc-runtime.js` (component runtime).
 
 `site/vendor/` holds the site's third-party dependencies, served from our own
-origin rather than a CDN: React and ReactDOM 18.3.1 (loaded by `support.js`
-with the same SRI hashes the CDN build used), Babel standalone 7.26.4, and the
-Lilita One / Nunito webfonts with `fonts.css`. Nothing on the site reaches out
-to a third-party host at runtime, so no outage or tracking domain can affect
-it. Babel is only fetched if a page uses `x-import` with JSX — no page does
-today, so in practice it never loads.
+origin rather than a CDN: React and ReactDOM 18.3.1, and the Lilita One / Nunito
+webfonts with `fonts.css`. Nothing on the site reaches out to a third-party host
+at runtime, so no outage or tracking domain can affect it. The Babel standalone
+transpiler is gone — the prerender needs no JSX at runtime.
 
-See `site/README.md` for the build's own notes.
+See `README-DEPLOY.md` for the build's own notes.
 
 ### `brand-assets/`
 

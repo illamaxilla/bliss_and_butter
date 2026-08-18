@@ -46,6 +46,27 @@ const BUILD_LIBS = ['image-slot.js', 'product-images.js', 'products.js', 'catalo
 
 const read = (p) => readFileSync(p, 'utf8');
 
+/* The DC runtime with its external dependencies removed: React comes from
+   site/vendor/, the transpiler is gone, and it no longer refetches its own page.
+   Both the runtime the visitor gets and the copy the build harness boots go
+   through this, so the prerender never reaches the network — if unpkg is down or
+   unreachable, the build must still produce the same bytes.
+
+   `vendorBase` is '' for the shipped runtime, which sits beside vendor/, and '/'
+   for the harness, which is served from /_build/ and needs a root-absolute path. */
+function localRuntime(support, vendorBase = '') {
+  return support
+    .split('https://unpkg.com/react@18.3.1/umd/react.production.min.js').join(`${vendorBase}vendor/react.production.min.js`)
+    .split('https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js').join(`${vendorBase}vendor/react-dom.production.min.js`)
+    .split('sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z').join('')
+    .split('sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1').join('')
+    .split('fetch(location.href)').join('Promise.reject(0)')
+    .split('var BABEL_URL = "https://unpkg.com/@babel/standalone@7.26.4/babel.min.js";').join('var BABEL_URL = null;')
+    .replace('      if (window.Babel) return Promise.resolve();\n      if (babelLoading) return babelLoading;',
+      '      if (window.Babel) return Promise.resolve();\n      if (babelLoading) return babelLoading;\n      return Promise.reject(new Error("no external transpiler in this build"));')
+    .replace('s.integrity = integrity;', 'if (integrity) s.integrity = integrity;\n      s.crossOrigin = null;');
+}
+
 function helmetOf(raw) {
   const m = /<helmet>([\s\S]*?)<\/helmet>/i.exec(raw);
   if (!m) return { styles: [], scripts: [] };
@@ -165,7 +186,7 @@ function clean(html) {
 mkdirSync(join(OUT, '_build'), { recursive: true });
 mkdirSync(join(OUT, 'tpl'), { recursive: true });
 writeFileSync(join(OUT, '_build/support.js'),
-  read(join(SRC, 'support.js')).split('fetch(location.href)').join('Promise.reject(0)'));
+  localRuntime(read(join(SRC, 'support.js')), '/'));
 
 const server = await serve(OUT);
 const browser = await chromium.launch();
@@ -240,17 +261,8 @@ ${libs.map((l) => `<script src="${l}"></script>`).join('\n')}${/<image-slot/.tes
 ${styleBlocks.join('\n\n')}
 `);
 
-  /* The runtime, with its two external dependencies removed. */
-  let rt = read(join(SRC, 'support.js'))
-    .split('https://unpkg.com/react@18.3.1/umd/react.production.min.js').join('vendor/react.production.min.js')
-    .split('https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js').join('vendor/react-dom.production.min.js')
-    .split('sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z').join('')
-    .split('sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1').join('')
-    .split('fetch(location.href)').join('Promise.reject(0)')
-    .split('var BABEL_URL = "https://unpkg.com/@babel/standalone@7.26.4/babel.min.js";').join('var BABEL_URL = null;')
-    .replace('      if (window.Babel) return Promise.resolve();\n      if (babelLoading) return babelLoading;',
-      '      if (window.Babel) return Promise.resolve();\n      if (babelLoading) return babelLoading;\n      return Promise.reject(new Error("no external transpiler in this build"));')
-    .replace('s.integrity = integrity;', 'if (integrity) s.integrity = integrity;\n      s.crossOrigin = null;');
+  /* The runtime the visitor gets. */
+  const rt = localRuntime(read(join(SRC, 'support.js')));
   writeFileSync(join(OUT, 'dc-runtime.js'), rt);
   const external = rt.match(/https?:\/\/[^"']+/g) || [];
   if (external.length) { console.error('FAIL dc-runtime.js still references ' + external[0]); failures++; }

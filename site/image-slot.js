@@ -603,14 +603,7 @@
       // (Claude wrote it into the HTML) so it passes through unchanged.
       let stored = this.id ? getSlot(this.id) : this._local;
       if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
-      // An un-hydrated copy of every slot also sits in the page's raw <x-dc>
-      // template, where `src` is still a literal "{{ binding }}" rather than a
-      // URL. Those copies upgrade like any other custom element, so loading the
-      // attribute verbatim fires a guaranteed 404 for the image and its ghost,
-      // and flashes an empty slot before hydration swaps in the real markup.
-      // A real URL never contains "{{", so treat an unresolved binding as absent.
-      const rawSrc = this.getAttribute('src') || '';
-      const srcAttr = rawSrc.includes('{{') ? '' : rawSrc;
+      const srcAttr = this.getAttribute('src') || '';
       this._userUrl = (stored && stored.u) || null;
       const url = this._userUrl || srcAttr;
       // Don't clobber an in-flight reframe with a store-triggered re-render.
@@ -621,8 +614,7 @@
           y: stored && Number.isFinite(stored.y) ? stored.y : 0,
         };
       }
-      const rawPh = this.getAttribute('placeholder') || '';
-      this._cap.textContent = (rawPh.includes('{{') ? '' : rawPh) || 'Drop an image';
+      this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
       // Toggle via style.display — the [hidden] attribute alone loses to
       // the display:flex / display:block rules in the stylesheet above.
       if (url) {
