@@ -80,6 +80,19 @@ styles slightly differently between versions (`border: none` against
 `site/` with no change in meaning. It is safe, just noisy — do it deliberately,
 not as a drive-by.
 
+## Never put a CI skip marker in a commit message
+
+`[skip ci]` — and Netlify's `[skip netlify]` — are read from the **whole** commit
+message, subject line and body alike, by both GitHub Actions and Netlify. A
+commit carrying one anywhere in its text gets no workflow run and no deploy. It
+fails silently: nothing goes red, the Actions tab simply has no entry and the
+site quietly stays on the previous build.
+
+That is easy to trip over precisely when writing about it — a commit whose
+message *discusses* the marker is skipped just as thoroughly as one that means
+it. Describe it in prose ("the skip marker") and keep the literal spelling in
+files like this one, which nothing scans.
+
 ## If the prerender ever silently stops running
 
 Symptom to expect: the site looks stale, or a deploy ships an unstyled page.
