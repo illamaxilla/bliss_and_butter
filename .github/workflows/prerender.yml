@@ -47,6 +47,12 @@ jobs:
           npx --yes wait-on http://127.0.0.1:8899/index.html
           node tools/smoke.mjs http://127.0.0.1:8899
 
+      # This commit must NOT carry [skip ci]. Netlify honours that marker and
+      # skips the build — which would suppress the deploy of the one commit that
+      # carries the regenerated pages, leaving the live site stale behind every
+      # design change. Nothing needs the marker anyway: this stages site/ only,
+      # and the path filter above does not watch site/, so it cannot retrigger
+      # this workflow.
       - name: Commit generated output
         run: |
           git config user.name  "prerender bot"
@@ -55,6 +61,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "no change in site/"
           else
-            git commit -m "prerender: regenerate site/ from src-dc/ [skip ci]"
+            git commit -m "prerender: regenerate site/ from src-dc/"
             git push
           fi
