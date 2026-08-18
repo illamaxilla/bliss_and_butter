@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom Orders — Bliss & Butter</title>
+<meta name="description" content="Build a custom box: choose the bake, the size, and the finishing touches. 48 hours notice.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bliss & Butter">
+<meta property="og:title" content="Custom Orders — Bliss & Butter">
+<meta property="og:description" content="Build a custom box: choose the bake, the size, and the finishing touches. 48 hours notice.">
+<meta property="og:image" content="og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F0E6DC">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Analytics: paste your snippet here (GA4, Plausible, Fathom...) -->
+<!-- Fonts (parser-loaded) -->
+<style>
+  body{font-family:'Nunito','Trebuchet MS',sans-serif;color:#2D1B14;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  *{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  a{color:#EF5F2B;}
+  a:hover{color:#C6431E;}
+  .co-track{scrollbar-width:none;-ms-overflow-style:none;}
+  .co-track::-webkit-scrollbar{display:none;}
+</style>
+<script src="./products.js"></script>
+<script src="./custom-order.js"></script>
+<script src="./cart.js"></script>
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="font-family:'Nunito',sans-serif;background:#F0E6DC;min-height:100vh;height:100vh;width:100%;overflow:hidden;padding:clamp(10px,1.2vw,18px) clamp(24px,6vw,120px) clamp(12px,1.6vw,22px);display:flex;flex-direction:column;">
+ <div style="max-width:1560px;width:100%;margin:0 auto;flex:1;min-height:0;display:flex;flex-direction:column;">
+
+  <!-- NAV -->
+  <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:10px;gap:20px;padding:6px 2px 12px;">
+    <div style="display:flex;align-items:center;gap:26px;flex-wrap:wrap;min-width:0;">
+      <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#2D1B14;letter-spacing:.5px;text-decoration:none;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></a>
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.6px;">
+        <a href="menu.html" style="color:#2D1B14;text-decoration:none;">MENU</a>
+        <a href="custom-order.html" style="color:#EF5F2B;text-decoration:none;">CUSTOM</a>
+        <a href="index.html#visit" style="color:#2D1B14;text-decoration:none;">CONTACT</a>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.6px;color:#2D1B14;text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:11px 20px;box-shadow:3px 4px 0 #2D1B14;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>KEEP SHOPPING
+      </a>
+      <a href="checkout.html" aria-label="Go to checkout" style="position:relative;width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(45,27,20,.12);display:flex;align-items:center;justify-content:center;">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <sc-if value="{{ hasLines }}" hint-placeholder-val="{{ false }}">
+          <span style="position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;border-radius:11px;background:#EF5F2B;border:2px solid #fff;color:#fff;font-family:'Lilita One','Arial Black',sans-serif;font-size:12px;display:flex;align-items:center;justify-content:center;padding:0 5px;">{{ cartCount }}</span>
+        </sc-if>
+      </a>
+    </div>
+  </nav>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:clamp(10px,1.2vw,16px);">
+    <div style="display:flex;align-items:center;gap:14px;min-width:0;">
+      <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:clamp(22px,2.2vw,30px);line-height:1;letter-spacing:.5px;color:#2D1B14;">BUILD YOUR BOX</span>
+      <span style="display:inline-flex;align-items:center;background:#FCD414;border:2.5px solid #2D1B14;border-radius:30px;padding:5px 13px;box-shadow:2px 3px 0 #2D1B14;font-family:'Lilita One','Arial Black',sans-serif;font-size:12px;letter-spacing:.8px;color:#2D1B14;">CUSTOM ORDER</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF5F2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg>
+      <span style="font-size:14px;font-weight:800;color:#6A5A50;">48 hours notice on custom orders</span>
+    </div>
+  </div>
+
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,410px);gap:clamp(22px,2.6vw,44px);align-items:stretch;">
+
+   <!-- BUILDER -->
+   <div class="co-track" style="min-width:0;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:clamp(12px,1.2vw,18px);">
+
+    <div style="background:#FFFCF8;border:3px solid #2D1B14;border-radius:32px;box-shadow:5px 7px 0 #2D1B14;padding:clamp(18px,2.2vw,28px);min-width:0;">
+
+      <div style="display:flex;flex-wrap:wrap;gap:9px;">
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+          <button onClick="{{ c.pick }}" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;padding:12px 20px;border-radius:40px;cursor:pointer;border:2.5px solid #2D1B14;background:{{ c.bg }};color:{{ c.fg }};box-shadow:{{ c.shadow }};">
+            <span style="width:9px;height:9px;border-radius:50%;background:{{ c.dot }};"></span>{{ c.label }}
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="height:2px;background:#F0E7DF;margin:22px 0;"></div>
+
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.8px;color:#9A8A80;margin-bottom:12px;">CHOOSE YOUR BAKE</div>
+      <div style="display:flex;flex-wrap:wrap;gap:9px;">
+        <sc-for list="{{ items }}" as="it" hint-placeholder-count="6">
+          <button onClick="{{ it.pick }}" style="flex:0 0 auto;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;padding:10px 17px;border-radius:34px;cursor:pointer;border:2px solid {{ it.border }};background:{{ it.bg }};color:#2D1B14;">{{ it.name }}</button>
+        </sc-for>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:clamp(16px,2vw,30px);align-items:stretch;margin-top:clamp(14px,1.6vw,22px);">
+
+        <div style="min-width:0;display:flex;flex-direction:column;gap:10px;">
+          <div style="position:relative;min-width:0;width:100%;max-width:360px;aspect-ratio:1/1;flex:0 0 auto;background:{{ heroBg }};border:2.5px solid #2D1B14;border-radius:26px;padding:22px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+            <img ref="{{ heroRef }}" alt="{{ heroAlt }}" style="width:100%;height:100%;object-fit:contain;">
+            <span style="position:absolute;left:16px;top:16px;font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:30px;padding:5px 14px;box-shadow:2px 3px 0 #2D1B14;">{{ sizeBadge }}</span>
+            <span style="position:absolute;right:16px;bottom:16px;font-family:'Lilita One','Arial Black',sans-serif;font-size:11.5px;letter-spacing:.7px;color:#FFFCF8;background:#2D1B14;border-radius:30px;padding:5px 12px;">{{ shotLabel }}</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <sc-for list="{{ shots }}" as="sh" hint-placeholder-count="4">
+              <button onClick="{{ sh.pick }}" aria-label="{{ sh.label }}" style="width:64px;height:64px;flex:0 0 auto;padding:5px;border-radius:16px;cursor:pointer;background:{{ sh.bg }};border:2.5px solid {{ sh.border }};box-shadow:{{ sh.shadow }};display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                <img ref="{{ sh.ref }}" alt="" style="width:100%;height:100%;border-radius:11px;">
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="min-width:0;">
+          <h2 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:clamp(28px,3.2vw,42px);line-height:1.02;letter-spacing:.4px;color:#2D1B14;margin:0 0 10px;">{{ selName }}</h2>
+          <p style="font-size:16px;font-weight:500;color:#5A4A42;line-height:1.6;margin:0 0 22px;text-wrap:pretty;">{{ selDesc }}</p>
+
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.8px;color:#9A8A80;margin-bottom:10px;">BOX SIZE</div>
+          <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px;">
+            <sc-for list="{{ sizes }}" as="s" hint-placeholder-count="3">
+              <button onClick="{{ s.pick }}" style="flex:0 0 auto;font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.4px;padding:11px 19px;border-radius:34px;cursor:pointer;border:2.5px solid #2D1B14;background:{{ s.bg }};color:{{ s.fg }};box-shadow:{{ s.shadow }};display:inline-flex;align-items:baseline;gap:9px;">{{ s.label }}<span style="font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;opacity:.72;">{{ s.priceStr }}</span></button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;">
+            <sc-for list="{{ addins }}" as="a" hint-placeholder-count="4">
+              <button onClick="{{ a.toggle }}" style="flex:0 1 auto;min-width:0;display:inline-flex;align-items:center;gap:7px;font-family:'Nunito',sans-serif;font-weight:800;font-size:12.5px;text-align:left;padding:6px 12px 6px 8px;border-radius:30px;cursor:pointer;border:1.8px dashed {{ a.border }};background:{{ a.bg }};color:#2D1B14;">
+                <span style="width:16px;height:16px;flex:0 0 auto;border-radius:50%;border:1.8px solid #2D1B14;background:{{ a.dotBg }};display:inline-flex;align-items:center;justify-content:center;">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="{{ a.tick }}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                <span>{{ a.label }}<span style="color:#9A8A80;font-weight:700;"> {{ a.priceStr }}</span></span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;">
+            <div style="display:flex;align-items:center;gap:8px;background:#F7F0E9;border:2.5px solid #2D1B14;border-radius:40px;padding:7px 10px;">
+              <button onClick="{{ decQty }}" aria-label="Decrease quantity" style="width:36px;height:36px;border-radius:50%;background:#FFFCF8;border:2px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:20px;color:#2D1B14;min-width:30px;text-align:center;">{{ qty }}</span>
+              <button onClick="{{ incQty }}" aria-label="Increase quantity" style="width:36px;height:36px;border-radius:50%;background:#FFFCF8;border:2px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+            </div>
+            <button onClick="{{ addToOrder }}" style="flex:1 1 200px;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:14px;font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.6px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 26px;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;">
+              <span>{{ unitStr }}</span>
+              <span style="width:2px;height:20px;background:rgba(255,255,255,.45);"></span>
+              <span>ADD TO CART</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAIRINGS -->
+    <div style="background:#FFFCF8;border:3px solid #2D1B14;border-radius:32px;box-shadow:5px 7px 0 #2D1B14;padding:clamp(18px,2.2vw,26px);min-width:0;">
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.8px;color:#9A8A80;margin-bottom:14px;">GOES WELL WITH</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;">
+        <sc-for list="{{ pairings }}" as="p" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:13px;background:#F7F0E9;border:2px solid #ECE2DA;border-radius:22px;padding:11px 14px 11px 11px;min-width:0;">
+            <div style="width:56px;height:56px;flex:0 0 auto;border-radius:16px;background:#FFFCF8;border:2px solid #2D1B14;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+              <img ref="{{ p.imgRef }}" alt="{{ p.name }}" style="width:88%;height:88%;object-fit:contain;">
+            </div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.2px;color:#2D1B14;">{{ p.name }}</div>
+              <div style="font-size:13px;font-weight:800;color:#EF5F2B;margin-top:2px;">{{ p.priceStr }}</div>
+            </div>
+            <button onClick="{{ p.add }}" aria-label="Add to order" style="width:40px;height:40px;flex:0 0 auto;border-radius:50%;background:#FCD414;border:2.5px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:2px 3px 0 #2D1B14;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+   </div>
+
+   <!-- ORDER SUMMARY -->
+   <div style="min-width:0;min-height:0;height:100%;overflow:hidden;background:#FFFCF8;border:3px solid #2D1B14;border-radius:28px;box-shadow:5px 7px 0 #2D1B14;padding:clamp(14px,1.5vw,22px);display:flex;flex-direction:column;">
+     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+       <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;letter-spacing:.4px;color:#2D1B14;">YOUR CART</div>
+       <div style="font-size:14px;font-weight:800;color:#9A8A80;">{{ lineCountStr }}</div>
+     </div>
+
+     <div class="co-track" style="flex:1;min-height:0;overflow-y:auto;">
+
+     <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
+       <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:54px 10px;text-align:center;">
+         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C9BBAE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+         <div style="font-size:16px;font-weight:800;color:#9A8A80;">Nothing in the box yet</div>
+         <div style="font-size:13.5px;font-weight:700;color:#B7A99C;max-width:210px;line-height:1.5;">Pick a bake, choose a size, then add it to your cart.</div>
+       </div>
+     </sc-if>
+
+     <sc-if value="{{ hasLines }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+       <sc-for list="{{ lines }}" as="l" hint-placeholder-count="0">
+         <div style="display:flex;align-items:flex-start;gap:12px;background:#F7F0E9;border:2px solid #ECE2DA;border-radius:22px;padding:12px 13px;min-width:0;">
+           <div style="width:52px;height:52px;flex:0 0 auto;border-radius:15px;background:#FFFCF8;border:2px solid #2D1B14;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+             <img ref="{{ l.imgRef }}" alt="{{ l.name }}" style="width:88%;height:88%;object-fit:contain;">
+           </div>
+           <div style="flex:1;min-width:0;">
+             <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.2px;color:#2D1B14;">{{ l.name }}</div>
+             <div style="font-size:12.5px;font-weight:700;color:#9A8A80;margin-top:2px;">{{ l.meta }}</div>
+             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px;">
+               <div style="display:flex;align-items:center;gap:6px;">
+                 <button onClick="{{ l.dec }}" aria-label="Decrease" style="width:32px;height:32px;border-radius:50%;background:#FFFCF8;border:1.8px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3.4" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+                 <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;color:#2D1B14;min-width:20px;text-align:center;">{{ l.qty }}</span>
+                 <button onClick="{{ l.inc }}" aria-label="Increase" style="width:32px;height:32px;border-radius:50%;background:#FFFCF8;border:1.8px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+               </div>
+               <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#EF5F2B;">{{ l.lineStr }}</span>
+             </div>
+           </div>
+           <button onClick="{{ l.remove }}" aria-label="Remove item" style="width:30px;height:30px;flex:0 0 auto;border-radius:50%;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A8A80" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+         </div>
+       </sc-for>
+      </div>
+
+      <div style="height:2px;background:#F0E7DF;margin:20px 0 18px;"></div>
+
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.8px;color:#9A8A80;margin-bottom:9px;">READY BY</div>
+      <input type="date" value="{{ dateVal }}" min="{{ minDate }}" onChange="{{ setDate }}" aria-label="Ready-by date, at least 48 hours from today" style="width:100%;font-family:'Nunito',sans-serif;font-weight:800;font-size:15px;color:#2D1B14;background:#F7F0E9;border:2px solid #ECE2DA;border-radius:18px;padding:13px 15px;">
+      <div style="font-size:12.5px;font-weight:700;color:#9A8A80;margin:7px 0 12px;">Earliest we can bake this: {{ minDatePretty }}</div>
+      <textarea value="{{ note }}" onChange="{{ setNote }}" placeholder="Gift message or allergy notes (optional)" aria-label="Order notes" rows="2" style="width:100%;resize:vertical;font-family:'Nunito',sans-serif;font-weight:600;font-size:14.5px;color:#2D1B14;background:#F7F0E9;border:2px solid #ECE2DA;border-radius:18px;padding:13px 15px;"></textarea>
+      <div style="font-size:12.5px;font-weight:700;color:#9A8A80;margin-top:9px;line-height:1.5;">Pickup or delivery, promo codes and tax are handled at checkout. Free local delivery over $40.</div>
+     </sc-if>
+
+     </div>
+
+     <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:9px;margin-top:14px;padding-top:14px;border-top:2px solid #F0E7DF;">
+       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;">
+         <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:20px;letter-spacing:.4px;color:#2D1B14;">SUBTOTAL</span>
+         <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:32px;color:#2D1B14;">{{ subtotalStr }}</span>
+       </div>
+       <div style="font-size:12.5px;font-weight:700;color:#9A8A80;">Tax and delivery calculated at checkout.</div>
+     </div>
+
+     <button onClick="{{ goCheckout }}" style="flex:0 0 auto;font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:17px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;margin-top:20px;">GO TO CHECKOUT</button>
+     <div style="font-size:13px;font-weight:700;color:{{ hintColor }};text-align:center;margin-top:11px;min-height:18px;">{{ hint }}</div>
+   </div>
+  </div>
+ </div>
+</div>
+
+</sc-if>
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <dc-import name="custom-order-mobile" hint-size="100%,100%"></dc-import>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  state = {
+    cat: 'cookies', slug: '', size: '12', addins: [], qty: 1, shot: 0,
+    cart: [], date: '', note: '', hint: '', hintBad: false, ready: false,
+    mobile: (function () { try { return window.matchMedia('(max-width: 899px)').matches; } catch (e) { return false; } })(),
+  };
+
+  _calcMobile() { try { return window.matchMedia('(max-width: 899px)').matches; } catch (e) { try { return window.innerWidth < 900; } catch (e2) { return false; } } }
+  _syncViewport = () => { const m = this._calcMobile(); if (m !== this.state.mobile) this.setState({ mobile: m }); };
+  _watchViewport() {
+    try {
+      this._mq = window.matchMedia('(max-width: 899px)');
+      if (this._mq.addEventListener) this._mq.addEventListener('change', this._syncViewport);
+      else if (this._mq.addListener) this._mq.addListener(this._syncViewport);
+    } catch (e) {}
+    window.addEventListener('resize', this._syncViewport);
+    window.addEventListener('load', this._syncViewport);
+    window.addEventListener('pageshow', this._syncViewport);
+    try {
+      this._ro = new ResizeObserver(this._syncViewport);
+      this._ro.observe(document.documentElement);
+      if (document.body) this._ro.observe(document.body);
+    } catch (e) {}
+    try { this._vpRaf = requestAnimationFrame(this._syncViewport); } catch (e) {}
+    this._vpT = [120, 300, 600, 1500].map((ms) => setTimeout(this._syncViewport, ms));
+    this._syncViewport();
+  }
+  _unwatchViewport() {
+    window.removeEventListener('resize', this._syncViewport);
+    window.removeEventListener('load', this._syncViewport);
+    window.removeEventListener('pageshow', this._syncViewport);
+    if (this._ro) { try { this._ro.disconnect(); } catch (e) {} }
+    if (this._mq) {
+      if (this._mq.removeEventListener) this._mq.removeEventListener('change', this._syncViewport);
+      else if (this._mq.removeListener) this._mq.removeListener(this._syncViewport);
+    }
+    if (this._vpRaf) { try { cancelAnimationFrame(this._vpRaf); } catch (e) {} }
+    (this._vpT || []).forEach(clearTimeout);
+  }
+  componentDidMount() {
+    this._init(0);
+    this._watchViewport();
+  }
+  componentWillUnmount() {
+    this._unwatchViewport();
+    if (this._unsub) this._unsub();
+    if (this._timer) clearTimeout(this._timer);
+    if (this._poll) clearInterval(this._poll);
+  }
+  _init(tries) {
+    const B = window.BBCustom, C = window.BBCart;
+    if (B && window.BBProducts && C) {
+      this.CATALOG = B.catalog();
+      const req = B.read() || {};
+      this._syncCart();
+      this._unsub = C.subscribe(() => this._syncCart());
+      this._poll = setInterval(() => this._syncCart(), 600);
+      this.setState({ ready: true, slug: (this.CATALOG.cookies[0] || {}).slug || '', date: req.date || '', note: req.note || '' });
+    } else if (tries < 60) {
+      this._timer = setTimeout(() => this._init(tries + 1), 50);
+    }
+  }
+  _syncCart() {
+    if (!window.BBCart) return;
+    const items = window.BBCart.read();
+    const sig = JSON.stringify(items);
+    if (sig !== this._sig) { this._sig = sig; this.setState({ cart: items }); }
+  }
+  _save(patch) {
+    const B = window.BBCustom; if (!B) return;
+    B.save({ date: patch.date != null ? patch.date : this.state.date, note: patch.note != null ? patch.note : this.state.note });
+  }
+
+  list(cat) { return (this.CATALOG && this.CATALOG[cat]) || []; }
+  cur() { const l = this.list(this.state.cat); return l.find(i => i.slug === this.state.slug) || l[0] || null; }
+  sizeObj() { const l = window.BBCustom.SIZES[this.state.cat]; return l.find(s => s.k === this.state.size) || l[1] || l[0]; }
+  addinList() { return window.BBCustom.ADDINS[this.state.cat] || []; }
+  unitPrice() {
+    const B = window.BBCustom, it = this.cur();
+    if (!it) return 0;
+    const extra = this.addinList().filter(a => this.state.addins.includes(a.k)).reduce((s, a) => s + a.price, 0);
+    return B.sizePrice(it, this.sizeObj()) + extra;
+  }
+
+  pickCat = k => {
+    const S = window.BBCustom.SIZES[k];
+    this.setState({ cat: k, slug: (this.list(k)[0] || {}).slug || '', size: (S[1] || S[0]).k, addins: [], qty: 1, shot: 0 });
+  };
+  addToOrder = () => {
+    const B = window.BBCustom, it = this.cur();
+    if (!it || !window.BBCart) return;
+    const sz = this.sizeObj();
+    const chosen = this.addinList().filter(a => this.state.addins.includes(a.k)).map(a => a.label);
+    window.BBCart.add({
+      id: 'custom/' + this.state.cat + '/' + it.slug + '/' + sz.k + '/' + chosen.join('|'),
+      name: it.name + ' \u00b7 ' + sz.label, price: this.unitPrice(), cat: this.state.cat, slug: it.slug,
+      img: B.lineImg(this.state.cat, it.slug), meta: chosen.length ? chosen.join(' \u00b7 ') : 'no add-ins',
+    }, this.state.qty);
+    this.setState({ qty: 1, hint: '', hintBad: false });
+  };
+
+  goCheckout = () => {
+    const B = window.BBCustom;
+    if (!this.state.cart.length) { this.setState({ hint: 'Add at least one bake first.', hintBad: true }); return; }
+    if (!B.dateOk(this.state.date)) {
+      this.setState({ hint: 'Pick a ready-by date on or after ' + B.prettyDate(B.minDate()) + '.', hintBad: true });
+      return;
+    }
+    B.save({ date: this.state.date, note: this.state.note });
+    window.location.href = 'checkout.html';
+  };
+
+  renderVals() {
+    const B = window.BBCustom;
+    const st = this.state;
+    const money = B ? B.money : (n => '$' + n.toFixed(2));
+    const cart = st.cart || [];
+    const subtotal = cart.reduce((s, l) => s + l.price * l.qty, 0);
+    const count = cart.reduce((s, l) => s + l.qty, 0);
+
+    const base = {
+      isMobile: st.mobile, isDesktop: !st.mobile,
+      cats: [], items: [], sizes: [], addins: [], pairings: [], lines: [],
+      selName: '', selDesc: '', sizeBadge: '', heroBg: '#F6EAE2', heroRef: null,
+      shots: [], shotLabel: '', heroAlt: '',
+      qty: st.qty, unitStr: money(0), incQty: null, decQty: null, addToOrder: null,
+      isEmpty: cart.length === 0, hasLines: cart.length > 0, cartCount: count,
+      lineCountStr: count === 1 ? '1 item' : count + ' items',
+      subtotalStr: money(subtotal), goCheckout: this.goCheckout,
+      hint: st.hint, hintColor: st.hintBad ? '#C6431E' : '#9A8A80',
+      dateVal: st.date, note: st.note, minDate: '', minDatePretty: '',
+      setDate: e => { const v = e.target.value; this.setState({ date: v, hint: '', hintBad: false }); this._save({ date: v }); },
+      setNote: e => { const v = e.target.value; this.setState({ note: v }); this._save({ note: v }); },
+    };
+    if (!st.ready || !B || !this.cur()) return base;
+
+    const sel = this.cur(), sz = this.sizeObj();
+    const catTint = (B.CATS.find(c => c.key === st.cat) || B.CATS[0]).tint;
+    const gallery = B.shots(st.cat, sel.slug);
+    const shotIdx = Math.min(st.shot || 0, gallery.length - 1);
+    const shot = gallery[shotIdx];
+    const pairCat = st.cat === 'pastries' ? 'bread' : 'pastries';
+
+    return Object.assign(base, {
+      cats: B.CATS.map(c => ({
+        label: c.label, dot: st.cat === c.key ? '#FCD414' : c.dot,
+        bg: st.cat === c.key ? '#2D1B14' : '#FFFCF8', fg: st.cat === c.key ? '#FFFCF8' : '#2D1B14',
+        shadow: st.cat === c.key ? '2px 3px 0 #EF5F2B' : '2px 3px 0 #2D1B14', pick: () => this.pickCat(c.key),
+      })),
+      items: this.list(st.cat).map(i => ({
+        name: i.name, bg: sel.slug === i.slug ? '#FCD414' : '#F7F0E9',
+        border: sel.slug === i.slug ? '#2D1B14' : '#E4D8CE',
+        pick: () => this.setState({ slug: i.slug, qty: 1, shot: 0 }),
+      })),
+      sizes: B.SIZES[st.cat].map(s => ({
+        label: s.label, priceStr: money(B.sizePrice(sel, s)),
+        bg: st.size === s.k ? '#2D1B14' : '#FFFCF8', fg: st.size === s.k ? '#FFFCF8' : '#2D1B14',
+        shadow: st.size === s.k ? '2px 3px 0 #FCD414' : '2px 3px 0 #2D1B14',
+        pick: () => this.setState({ size: s.k }),
+      })),
+      addins: this.addinList().map(a => {
+        const active = st.addins.includes(a.k);
+        return {
+          label: a.label, priceStr: a.price ? '+' + money(a.price) : 'free',
+          bg: active ? '#FDF3D6' : '#FFFCF8', border: active ? '#2D1B14' : '#D8CBC0',
+          dotBg: active ? '#2D1B14' : 'transparent', tick: active ? '#FCD414' : 'transparent',
+          toggle: () => this.setState(s => ({ addins: s.addins.includes(a.k) ? s.addins.filter(x => x !== a.k) : s.addins.concat([a.k]) })),
+        };
+      }),
+      selName: sel.name, selDesc: sel.desc, sizeBadge: sz.label, heroBg: catTint,
+      shots: gallery.map((g, i) => ({
+        label: g.label,
+        bg: i === shotIdx ? '#FCD414' : '#FFFCF8',
+        border: i === shotIdx ? '#2D1B14' : '#E4D8CE',
+        shadow: i === shotIdx ? '2px 3px 0 #2D1B14' : 'none',
+        ref: el => { if (el) { el.src = g.src; el.style.objectFit = g.fit; } },
+        pick: () => this.setState({ shot: i }),
+      })),
+      shotLabel: shot.label,
+      heroAlt: sel.name + ' \u2014 ' + shot.label.toLowerCase(),
+      heroRef: el => {
+        if (!el) return;
+        el.src = shot.src;
+        el.style.objectFit = shot.fit;
+        el.style.borderRadius = shot.fit === 'cover' ? '16px' : '0';
+        el.style.filter = shot.fit === 'cover' ? 'none' : 'drop-shadow(0 16px 22px rgba(45,27,20,.22))';
+      },
+      unitStr: money(this.unitPrice()),
+      incQty: () => this.setState(s => ({ qty: s.qty + 1 })),
+      decQty: () => this.setState(s => ({ qty: Math.max(1, s.qty - 1) })),
+      addToOrder: this.addToOrder,
+
+      pairings: this.list(pairCat).slice(0, 3).map(p => ({
+        name: p.name, priceStr: money(p.price),
+        imgRef: el => { if (el) el.src = B.lineImg(pairCat, p.slug); },
+        add: () => window.BBCart && window.BBCart.add({ id: 'custom/' + pairCat + '/' + p.slug + '/single/', name: p.name, price: p.price, cat: pairCat, slug: p.slug, img: B.lineImg(pairCat, p.slug), meta: 'single' }, 1),
+      })),
+
+      lines: cart.map(l => ({
+        name: l.name, meta: l.meta || '', qty: l.qty, lineStr: money(l.price * l.qty),
+        imgRef: el => { if (el) el.src = l.img || B.IMG[l.slug] || ''; },
+        inc: () => window.BBCart.setQty(l.id, l.qty + 1),
+        dec: () => window.BBCart.setQty(l.id, l.qty - 1),
+        remove: () => window.BBCart.remove(l.id),
+      })),
+      minDate: B.minDate(), minDatePretty: B.prettyDate(B.minDate()),
+    });
+  }
+}
+</script>
+</body>
+</html>

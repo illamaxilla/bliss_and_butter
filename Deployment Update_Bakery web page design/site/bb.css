@@ -1,0 +1,136 @@
+/* Bliss & Butter — fixed head of the generated stylesheet.
+   tools/prerender.mjs writes site/bb.css as this file followed by the helmet
+   style blocks the DC templates author. Per-element styling stays inline in the
+   prerendered markup, exactly as the templates write it. */
+html,body{height:100%;margin:0;padding:0;}
+*{box-sizing:border-box;}
+[hidden]{display:none!important;}
+body{font-family:'Nunito','Trebuchet MS',sans-serif;color:#2D1B14;background:#F0E6DC;}
+a{color:inherit;}
+a:hover{color:#EF5F2B;}
+button,input,select,textarea,a{font-family:inherit;}
+button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+#dc-root,#dc-root>.sc-host,.bb-shell>.sc-host,#bb-static,#bb-live{height:100%;}
+
+/* Art slots. Filled slots are flattened to real <img> at build time; this rule
+   only frames a slot whose photo is not resolvable yet. */
+image-slot{display:block;width:100%;height:100%;border-radius:inherit;}
+image-slot:not([src]){background:#F6EAE2;}
+
+/* Breakpoint. Both trees ship prerendered in the document and the media query
+   decides which is shown, so the correct layout appears with scripting off.
+   The hidden tree's images are loading="lazy" and are never fetched while it
+   is display:none. */
+@media (min-width:900px){.bb-m{display:none!important;}}
+@media (max-width:899px){.bb-d{display:none!important;}}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  @keyframes bb-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes bb-spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+  @keyframes bb-shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+  @keyframes bb-ping{0%{transform:scale(1);opacity:.55;}70%,100%{transform:scale(2.6);opacity:0;}}
+  @keyframes bb-reveal{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+  #bbpage > div{animation:bb-reveal .7s cubic-bezier(.2,.8,.2,1);}
+  #bbpage > nav{animation:none;}
+  @media (prefers-reduced-motion: reduce){#bbpage > div{animation:none;}}
+  .bb-track{scrollbar-width:none;-ms-overflow-style:none;}
+  .bb-track::-webkit-scrollbar{display:none;}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  @keyframes bbm-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes bbm-spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+  @keyframes bbm-sheet{from{transform:translateY(100%);}to{transform:translateY(0);}}
+  @keyframes bbm-fade{from{opacity:0;}to{opacity:1;}}
+  .bbm-track{scrollbar-width:none;-ms-overflow-style:none;}
+  .bbm-track::-webkit-scrollbar{display:none;}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  a{color:#EF5F2B;}
+  a:hover{color:#2D1B14;}
+  @keyframes bb-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes bbm-sheet{from{transform:translateY(100%);}to{transform:translateY(0);}}
+  @keyframes bbm-fade{from{opacity:0;}to{opacity:1;}}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  @keyframes bb-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  @keyframes bbm-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes bbm-sheet{from{transform:translateY(100%);}to{transform:translateY(0);}}
+  @keyframes bbm-fade{from{opacity:0;}to{opacity:1;}}
+  .bbm-track{scrollbar-width:none;-ms-overflow-style:none;}
+  .bbm-track::-webkit-scrollbar{display:none;}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  input::placeholder,textarea::placeholder{color:#B7A99C;}
+  @keyframes bb-pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(239,95,43,.45);}50%{transform:scale(1.06);box-shadow:0 0 0 9px rgba(239,95,43,0);}}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  input::placeholder,textarea::placeholder{color:#B7A99C;}
+  @keyframes bbm-pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(239,95,43,.45);}50%{transform:scale(1.06);box-shadow:0 0 0 8px rgba(239,95,43,0);}}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  a{color:#EF5F2B;}
+  a:hover{color:#C6431E;}
+  .co-track{scrollbar-width:none;-ms-overflow-style:none;}
+  .co-track::-webkit-scrollbar{display:none;}
+
+*{box-sizing:border-box;}
+  a{color:inherit;}
+  a:hover{color:#EF5F2B;}
+  button,input,select,textarea,a{font-family:inherit;}
+  button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+  html,body{margin:0;padding:0;}
+  body{background:#F0E6DC;color:#2D1B14;}
+  a{color:#EF5F2B;}
+  a:hover{color:#C6431E;}
+  .com-track{scrollbar-width:none;-ms-overflow-style:none;}
+  .com-track::-webkit-scrollbar{display:none;}

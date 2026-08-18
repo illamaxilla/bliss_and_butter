@@ -1,0 +1,512 @@
+<x-dc>
+
+
+<div style="font-family:'Nunito',sans-serif;background:#F0E6DC;min-height:100vh;position:relative;overflow-x:hidden;max-width:560px;margin:0 auto;">
+
+  <!-- ===== HEADER ===== -->
+  <div style="position:sticky;top:10px;z-index:50;padding:14px 16px 0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;background:#FFFCF8;border-radius:44px;padding:11px 12px 11px 22px;box-shadow:0 10px 26px rgba(45,27,20,.14);">
+      <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.5px;color:#2D1B14;text-decoration:none;display:inline-flex;align-items:center;gap:8px;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:10px 18px;box-shadow:2px 3px 0 #2D1B14;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>KEEP SHOPPING</a>
+      <div style="position:relative;width:44px;height:44px;border-radius:50%;background:#F2E9E4;display:flex;align-items:center;justify-content:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:#EF5F2B;border:2px solid #F2E9E4;color:#fff;font-family:'Lilita One','Arial Black',sans-serif;font-size:11px;display:flex;align-items:center;justify-content:center;padding:0 4px;">{{ cartCount }}</span></sc-if>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONFIRMATION ===== -->
+  <sc-if value="{{ placed }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:20px 16px 60px;">
+      <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:32px;padding:34px 22px 30px;text-align:center;box-shadow:0 20px 44px rgba(45,27,20,.10);">
+        <div style="width:88px;height:88px;border-radius:50%;background:#2E7D46;border:3px solid #2D1B14;box-shadow:3px 5px 0 #2D1B14;display:flex;align-items:center;justify-content:center;margin:0 auto;">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:42px;line-height:1;letter-spacing:.4px;margin:22px 0 0;">ORDER PLACED!</h1>
+        <p style="font-size:16px;font-weight:600;color:#6A5A50;line-height:1.5;margin:14px 0 0;">{{ confirmBlurb }}</p>
+
+        <div style="display:flex;gap:12px;margin-top:24px;">
+          <div style="flex:1;background:#F2E9E4;border-radius:18px;padding:16px 14px;text-align:left;">
+            <div style="font-size:12px;font-weight:800;letter-spacing:.6px;color:#9A8A80;text-transform:uppercase;">Order</div>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:20px;color:#2D1B14;margin-top:4px;">{{ orderNum }}</div>
+          </div>
+          <div style="flex:1.4;background:#FFF3D6;border:2px solid #FCD414;border-radius:18px;padding:16px 14px;text-align:left;">
+            <div style="font-size:12px;font-weight:800;letter-spacing:.6px;color:#B08900;text-transform:uppercase;">{{ readyLabel }}</div>
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:20px;color:#2D1B14;margin-top:4px;">{{ readyWhen }}</div>
+          </div>
+        </div>
+
+        <!-- tracker -->
+        <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:22px;padding:20px 18px 24px;margin-top:14px;text-align:left;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px;">
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.6px;color:#9A8A80;">ORDER STATUS</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-family:'Lilita One','Arial Black',sans-serif;font-size:11px;letter-spacing:.6px;color:#EF5F2B;"><span style="width:7px;height:7px;border-radius:50%;background:#EF5F2B;animation:bbm-pulse 1.4s ease-in-out infinite;"></span>LIVE</span>
+          </div>
+          <div style="font-size:15px;font-weight:800;color:#2D1B14;margin-bottom:18px;">{{ track.statusLabel }}</div>
+          <div style="position:relative;">
+            <div style="position:absolute;left:12.5%;top:26px;width:75%;height:5px;background:#EDE4DB;border-radius:4px;"></div>
+            <div style="position:absolute;left:12.5%;top:26px;height:5px;background:#2E7D46;border-radius:4px;width:{{ track.fillW }};transition:width .6s ease;"></div>
+            <div style="position:relative;display:grid;grid-template-columns:repeat(4,1fr);">
+              <sc-for list="{{ track.stages }}" as="st" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                  <div style="width:52px;height:52px;border-radius:50%;background:{{ st.bg }};border:{{ st.border }};display:flex;align-items:center;justify-content:center;animation:{{ st.pulse }};">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ st.icon }}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ st.iconPath }}"></path></svg>
+                  </div>
+                  <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:11px;letter-spacing:.2px;color:{{ st.labelColor }};text-align:center;line-height:1.1;">{{ st.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:1.6px dashed #D9CDC2;margin-top:24px;padding-top:20px;text-align:left;">
+          <sc-for list="{{ confirmItems }}" as="ci" hint-placeholder-count="2">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0;">
+              <span style="font-size:15px;font-weight:700;color:#2D1B14;">{{ ci.qty }} &times; {{ ci.name }}</span>
+              <span style="font-size:15px;font-weight:800;color:#2D1B14;">{{ ci.lineStr }}</span>
+            </div>
+          </sc-for>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1.6px solid #ECE2DA;margin-top:10px;padding-top:14px;">
+            <span style="font-size:17px;font-weight:800;color:#2D1B14;">Total paid</span>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#2D1B14;">{{ confirmTotal }}</span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:26px;">
+          <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.7px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 0;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;">ORDER MORE</a>
+          <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.7px;color:#2D1B14;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 0;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;">BACK HOME</a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== EMPTY ===== -->
+  <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:40px 16px 80px;text-align:center;">
+      <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:32px;padding:60px 28px;box-shadow:0 20px 44px rgba(45,27,20,.08);">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C9BBAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto;display:block;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;margin:20px 0 0;">YOUR CART IS EMPTY</h1>
+        <p style="font-size:16px;font-weight:600;color:#9A8A80;margin:12px 0 24px;">Add a few fresh bakes and come back to check out.</p>
+        <a href="custom-order.html" style="display:block;font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.6px;color:#2D1B14;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:44px;padding:14px 24px;text-decoration:none;box-shadow:3px 4px 0 #2D1B14;margin:0 0 12px;">BUILD A CUSTOM ORDER</a>
+        <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.7px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:44px;padding:14px 30px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;display:inline-block;">BROWSE THE MENU</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== FORM ===== -->
+  <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:16px 16px 120px;">
+      <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:44px;line-height:.95;letter-spacing:.4px;margin:6px 0 2px;">CHECKOUT</h1>
+      <p style="font-size:15px;font-weight:600;color:#9A8A80;margin:0 0 22px;">Almost there — a few details and your bakes are on the way.</p>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- fulfillment -->
+        <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:24px;padding:22px 20px;">
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;margin-bottom:14px;">1 &nbsp;·&nbsp; HOW WOULD YOU LIKE IT?</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <button onClick="{{ setPickup }}" style="text-align:left;cursor:pointer;font-family:inherit;border-radius:20px;padding:16px 16px;border:2.5px solid {{ pickupBorder }};background:{{ pickupBg }};box-shadow:{{ pickupShadow }};">
+              <div style="display:flex;align-items:center;gap:9px;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M5 9V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M4 9l1 11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1l1-11"/></svg>
+                <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;color:#2D1B14;">PICKUP</span>
+              </div>
+              <div style="font-size:12.5px;font-weight:700;color:#6A5A50;margin-top:7px;">Ready at our shop · free</div>
+            </button>
+            <button onClick="{{ setDelivery }}" style="text-align:left;cursor:pointer;font-family:inherit;border-radius:20px;padding:16px 16px;border:2.5px solid {{ deliveryBorder }};background:{{ deliveryBg }};box-shadow:{{ deliveryShadow }};">
+              <div style="display:flex;align-items:center;gap:9px;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h13v13H1zM14 8h4l3 3v5h-7M5.5 19a2 2 0 1 0 0-.01M17.5 19a2 2 0 1 0 0-.01"/></svg>
+                <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;color:#2D1B14;">DELIVERY</span>
+              </div>
+              <div style="font-size:12.5px;font-weight:700;color:#6A5A50;margin-top:7px;">{{ deliveryTagline }}</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- pickup location -->
+        <sc-if value="{{ isPickup }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:24px;padding:22px 20px;">
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;margin-bottom:14px;">2 &nbsp;·&nbsp; PICKUP LOCATION</div>
+            <div style="display:flex;align-items:center;gap:14px;background:#F2E9E4;border-radius:18px;padding:16px 18px;">
+              <div style="width:46px;height:46px;border-radius:14px;background:#EF5F2B;border:2.5px solid #2D1B14;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div style="min-width:0;">
+                <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;line-height:1.1;">Bliss &amp; Butter — Maple Street</div>
+                <div style="font-size:13px;font-weight:700;color:#6A5A50;margin-top:3px;">214 Maple Street · Open 7am–7pm</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- delivery address -->
+        <sc-if value="{{ isDelivery }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:24px;padding:22px 20px;">
+            <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;margin-bottom:14px;">2 &nbsp;·&nbsp; DELIVERY ADDRESS</div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <input value="{{ address }}" onInput="{{ onAddress }}" placeholder="Street address" style="font-family:inherit;font-size:15px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:14px;padding:14px 16px;outline:none;width:100%;">
+              <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;">
+                <input value="{{ city }}" onInput="{{ onCity }}" placeholder="City" style="font-family:inherit;font-size:15px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:14px;padding:14px 16px;outline:none;width:100%;">
+                <input value="{{ zip }}" onInput="{{ onZip }}" placeholder="ZIP" style="font-family:inherit;font-size:15px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:14px;padding:14px 16px;outline:none;width:100%;">
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- date + time -->
+        <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:24px;padding:22px 20px;">
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;margin-bottom:14px;">3 &nbsp;·&nbsp; {{ timeHeading }}</div>
+          <div style="display:flex;gap:10px;">
+            <sc-for list="{{ dateChips }}" as="dc" hint-placeholder-count="3">
+              <button onClick="{{ dc.select }}" style="flex:1;cursor:pointer;font-family:inherit;text-align:center;border-radius:16px;padding:11px 6px;border:2.5px solid {{ dc.border }};background:{{ dc.bg }};box-shadow:{{ dc.shadow }};">
+                <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;color:{{ dc.fg }};">{{ dc.label }}</div>
+                <div style="font-size:12px;font-weight:700;color:{{ dc.subFg }};margin-top:2px;">{{ dc.sub }}</div>
+              </button>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;">
+            <sc-for list="{{ slotChips }}" as="sl" hint-placeholder-count="8">
+              <button onClick="{{ sl.select }}" style="cursor:{{ sl.cursor }};font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.2px;color:{{ sl.fg }};border-radius:14px;padding:12px 0;border:2px solid {{ sl.border }};background:{{ sl.bg }};text-decoration:{{ sl.strike }};">{{ sl.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- contact -->
+        <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:24px;padding:22px 20px;">
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;margin-bottom:14px;">4 &nbsp;·&nbsp; YOUR DETAILS</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <input value="{{ name }}" onInput="{{ onName }}" placeholder="Full name" style="font-family:inherit;font-size:15px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:14px;padding:14px 16px;outline:none;width:100%;">
+            <input value="{{ email }}" onInput="{{ onEmail }}" type="email" placeholder="Email" style="font-family:inherit;font-size:15px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:14px;padding:14px 16px;outline:none;width:100%;">
+            <input value="{{ phone }}" onInput="{{ onPhone }}" placeholder="Phone" style="font-family:inherit;font-size:15px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:14px;padding:14px 16px;outline:none;width:100%;">
+            <textarea value="{{ notes }}" onInput="{{ onNotes }}" placeholder="Notes for the baker (optional) — allergies, a message on the cake…" rows="2" style="font-family:inherit;font-size:15px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:14px;padding:14px 16px;outline:none;width:100%;resize:vertical;"></textarea>
+          </div>
+        </div>
+
+        <!-- tip -->
+        <div style="background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:24px;padding:22px 20px;">
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;margin-bottom:4px;">5 &nbsp;·&nbsp; TIP THE BAKERS</div>
+          <div style="font-size:13px;font-weight:700;color:#9A8A80;margin-bottom:14px;">100% goes to the team who got up at 4am.</div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+            <sc-for list="{{ tipChips }}" as="tp" hint-placeholder-count="5">
+              <button onClick="{{ tp.select }}" style="cursor:pointer;font-family:inherit;text-align:center;border-radius:14px;padding:11px 0;border:2.5px solid {{ tp.border }};background:{{ tp.bg }};box-shadow:{{ tp.shadow }};">
+                <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;color:#2D1B14;">{{ tp.label }}</div>
+                <div style="font-size:10px;font-weight:700;color:{{ tp.subFg }};margin-top:2px;">{{ tp.sub }}</div>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ tipIsCustom }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:10px;margin-top:12px;background:#F2E9E4;border-radius:14px;padding:2px 16px;">
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;color:#2D1B14;">$</span>
+              <input value="{{ tipCustom }}" onInput="{{ onTipCustom }}" inputmode="decimal" placeholder="0.00" style="font-family:inherit;font-size:15px;font-weight:700;color:#2D1B14;background:transparent;border:none;outline:none;width:100%;padding:12px 0;">
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- summary -->
+        <div style="background:#FFFCF8;border:1.5px solid #E4D8CF;border-radius:24px;padding:22px 20px;box-shadow:0 16px 34px rgba(45,27,20,.08);">
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;color:#2D1B14;letter-spacing:.4px;margin-bottom:6px;">ORDER SUMMARY</div>
+          <div style="max-height:240px;overflow-y:auto;margin:8px 0 4px;">
+            <sc-for list="{{ cartItems }}" as="ci" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #F0E7DF;">
+                <div style="flex:1;min-width:0;">
+                  <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;color:#2D1B14;letter-spacing:.1px;line-height:1.15;">{{ ci.name }}</div>
+                  <div style="font-size:12px;font-weight:700;color:#9A8A80;margin-top:2px;">{{ ci.priceStr }} each</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:4px;">
+                  <button onClick="{{ ci.dec }}" aria-label="Decrease" style="width:28px;height:28px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+                  <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;color:#2D1B14;min-width:18px;text-align:center;">{{ ci.qty }}</span>
+                  <button onClick="{{ ci.inc }}" aria-label="Increase" style="width:28px;height:28px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+                </div>
+                <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;color:#2D1B14;min-width:52px;text-align:right;">{{ ci.lineStr }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:9px;margin:16px 0 6px;">
+            <input value="{{ promo }}" onInput="{{ onPromo }}" placeholder="Promo code" style="font-family:inherit;font-size:14px;font-weight:700;letter-spacing:.4px;color:#2D1B14;background:#FFFCF8;border:2px solid #E4D8CF;border-radius:12px;padding:11px 14px;outline:none;flex:1;min-width:0;text-transform:uppercase;">
+            <button onClick="{{ applyPromo }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:12px;padding:0 18px;cursor:pointer;box-shadow:2px 3px 0 #2D1B14;">APPLY</button>
+          </div>
+          <sc-if value="{{ hasPromoMsg }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12.5px;font-weight:800;color:{{ promoMsgColor }};margin-bottom:6px;">{{ promoMsg }}</div>
+          </sc-if>
+          <div style="border-top:1.6px dashed #D9CDC2;margin-top:12px;padding-top:16px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;font-weight:700;color:#6A5A50;">Subtotal</span><span style="font-size:15px;font-weight:800;color:#2D1B14;">{{ subtotalStr }}</span></div>
+            <sc-if value="{{ hasDiscount }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;font-weight:800;color:#2E7D46;">Discount {{ discountTag }}</span><span style="font-size:15px;font-weight:800;color:#2E7D46;">−{{ discountStr }}</span></div></sc-if>
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;font-weight:700;color:#6A5A50;">{{ feeLabel }}</span><span style="font-size:15px;font-weight:800;color:{{ feeColor }};">{{ feeStr }}</span></div>
+            <sc-if value="{{ hasTip }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;font-weight:700;color:#6A5A50;">Tip</span><span style="font-size:15px;font-weight:800;color:#2D1B14;">{{ tipStr }}</span></div></sc-if>
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;font-weight:700;color:#6A5A50;">Tax</span><span style="font-size:15px;font-weight:800;color:#2D1B14;">{{ taxStr }}</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1.6px solid #ECE2DA;margin-top:4px;padding-top:13px;"><span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:20px;color:#2D1B14;">TOTAL</span><span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:28px;color:#2D1B14;">{{ totalStr }}</span></div>
+          </div>
+          <sc-if value="{{ showFreeBar }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:16px;background:#F2E9E4;border-radius:14px;padding:12px 14px;">
+              <div style="font-size:12.5px;font-weight:800;color:{{ freeMsgColor }};margin-bottom:7px;">{{ freeMsg }}</div>
+              <div style="height:7px;border-radius:6px;background:#E4D8CF;overflow:hidden;"><div style="height:100%;border-radius:6px;background:#2E7D46;width:{{ freePct }};"></div></div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+
+    <!-- sticky place bar -->
+    <div style="position:fixed;left:0;right:0;bottom:0;z-index:60;background:#FFFCF8;border-top:2.5px solid #2D1B14;box-shadow:0 -8px 24px rgba(45,27,20,.12);padding:12px 16px calc(12px + env(safe-area-inset-bottom));">
+      <button onClick="{{ placeOrder }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;opacity:{{ placeOpacity }};transition:transform .1s ease,box-shadow .1s ease;" style-active="transform:translate(2px,3px);box-shadow:1px 2px 0 #2D1B14;">{{ placeLabel }}</button>
+      <sc-if value="{{ hasPlaceMsg }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:12.5px;font-weight:800;color:#D64B2A;text-align:center;margin-top:9px;">{{ placeMsg }}</div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:940}}">
+class Component extends DCLogic {
+  state = {
+    fulfillment: 'pickup', dateIdx: 0, slotIdx: null,
+    tipKey: '15', tipCustom: '',
+    promo: '', promoMsg: '', promoOk: false, discount: 0, discountLabel: '',
+    name: '', email: '', phone: '', address: '', city: '', zip: '', notes: '',
+    placeMsg: '', placed: false, order: null, cart: [], trackStep: 0,
+  };
+  SLOTS = [
+    { label: '7:30 AM', h: 7.5 }, { label: '9:00 AM', h: 9 }, { label: '10:30 AM', h: 10.5 }, { label: '12:00 PM', h: 12 },
+    { label: '1:30 PM', h: 13.5 }, { label: '3:00 PM', h: 15 }, { label: '4:30 PM', h: 16.5 }, { label: '6:00 PM', h: 18 },
+  ];
+  PROMOS = {
+    BLISS15: { type: 'pct', val: 0.15, label: '15% off' },
+    FRESH10: { type: 'pct', val: 0.10, label: '10% off' },
+    WELCOME: { type: 'flat', val: 5, label: '$5 off' },
+  };
+  constructor(props) {
+    super(props);
+    try { if (window.BBCart) this.state = { ...this.state, cart: window.BBCart.read() }; } catch (e) {}
+    // a custom-order request (ready-by date + notes) travels here from the box builder
+    try {
+      const req = window.BBCustom && window.BBCustom.read();
+      if (req && req.date) this.state = { ...this.state, notes: window.BBCustom.notesLine(req), custom: req };
+    } catch (e) {}
+  }
+  componentDidMount() { this._initCart(0); }
+  _syncCart() {
+    if (!window.BBCart) return;
+    const items = window.BBCart.read();
+    const sig = JSON.stringify(items);
+    if (sig !== this._cartSig) { this._cartSig = sig; this.setState({ cart: items }); }
+  }
+  _initCart(tries) {
+    if (window.BBCart) {
+      this._syncCart();
+      this._unsub = window.BBCart.subscribe(() => this._syncCart());
+      this._cartPoll = setInterval(() => this._syncCart(), 600);
+    } else if (tries < 40) {
+      this._cartTimer = setTimeout(() => this._initCart(tries + 1), 50);
+    }
+  }
+  componentWillUnmount() { if (this._unsub) this._unsub(); if (this._cartTimer) clearTimeout(this._cartTimer); if (this._cartPoll) clearInterval(this._cartPoll); if (this._trackTimer) clearInterval(this._trackTimer); }
+  _startTracker() {
+    if (this._trackTimer) clearInterval(this._trackTimer);
+    this._trackTimer = setInterval(() => {
+      this.setState((s) => {
+        if (s.trackStep >= 3) { clearInterval(this._trackTimer); return null; }
+        return { trackStep: s.trackStep + 1 };
+      });
+    }, 2600);
+  }
+  _dates() {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const base = new Date();
+    // custom orders need 48 hours — the first offered day is the requested ready-by date
+    const req = this.state.custom;
+    if (req && req.date) {
+      const p = String(req.date).split('-');
+      const want = new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+      if (want > base) base.setTime(want.getTime());
+    }
+    return [0, 1, 2].map((off) => {
+      const dt = new Date(base); dt.setDate(base.getDate() + off);
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const diff = Math.round((new Date(dt.getFullYear(), dt.getMonth(), dt.getDate()) - today) / 86400000);
+      const label = diff === 0 ? 'Today' : diff === 1 ? 'Tomorrow' : days[dt.getDay()];
+      return { off, label, sub: months[dt.getMonth()] + ' ' + dt.getDate() };
+    });
+  }
+  applyPromo() {
+    const code = (this.state.promo || '').trim().toUpperCase();
+    if (!code) { this.setState({ promoMsg: 'Enter a code', promoOk: false, discount: 0, discountLabel: '' }); return; }
+    const p = this.PROMOS[code];
+    if (!p) { this.setState({ promoMsg: "That code isn't valid", promoOk: false, discount: 0, discountLabel: '' }); return; }
+    this.setState({ promoOk: true, discountLabel: p.label, promoMsg: code + ' applied — ' + p.label + '!', _promoCode: code });
+  }
+  placeOrder(canPlace, order) {
+    if (!canPlace) { this.setState({ placeMsg: 'Please pick a time, and add your name and email or phone.' }); return; }
+    if (window.BBCart) window.BBCart.clear();
+    if (window.BBCustom) window.BBCustom.clear();
+    this.setState({ placed: true, order, placeMsg: '', trackStep: 0 });
+    this._startTracker();
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+  renderVals() {
+    const s = this.state;
+    const fmt = (n) => '$' + n.toFixed(2);
+    const cart = s.cart || [];
+    const cartCount = cart.reduce((a, i) => a + i.qty, 0);
+    const cartItems = cart.map((it) => ({ ...it, priceStr: fmt(it.price), lineStr: fmt(it.price * it.qty),
+      inc: () => window.BBCart && window.BBCart.setQty(it.id, it.qty + 1),
+      dec: () => window.BBCart && window.BBCart.setQty(it.id, it.qty - 1) }));
+    const subtotal = cart.reduce((a, i) => a + i.price * i.qty, 0);
+
+    if (s.placed && s.order) {
+      const o = s.order;
+      const step = s.trackStep || 0;
+      const isPk = o.isPickup;
+      const defs = [
+        { label: 'Order received', path: 'M20 6 9 17l-5-5' },
+        { label: 'In the oven', path: 'M3 9h18M5 9V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M9 13.5h6' },
+        { label: 'Boxed up', path: 'M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8' },
+        { label: isPk ? 'Ready' : 'Out for delivery', path: isPk ? 'M4 9l1 11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1l1-11M3 9h18M5 9V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3' : 'M1 3h13v13H1zM14 8h4l3 3v5h-7M5.5 21a2 2 0 1 0 0-.01M17.5 21a2 2 0 1 0 0-.01' },
+      ];
+      const stages = defs.map((d, i) => {
+        const done = i < step, active = i === step;
+        return { label: d.label, iconPath: d.path,
+          bg: done ? '#2E7D46' : active ? '#EF5F2B' : '#F2E9E4',
+          border: (done || active) ? '2.5px solid #2D1B14' : '2px solid #E4D8CF',
+          icon: (done || active) ? '#fff' : '#C3B5A8',
+          pulse: active ? 'bbm-pulse 1.6s ease-in-out infinite' : 'none',
+          labelColor: (done || active) ? '#2D1B14' : '#B7A99C' };
+      });
+      const statusList = [
+        'Order received — sending it to the kitchen',
+        'In the oven — baking fresh for you',
+        'Boxed & labeled with care',
+        isPk ? 'Ready! Come grab it while it\u2019s warm' : 'Out for delivery — on its way to you',
+      ];
+      return {
+        placed: true, showEmpty: false, showForm: false,
+        cartHasItems: false, cartCount: 0,
+        orderNum: o.num, readyLabel: o.readyLabel, readyWhen: o.readyWhen,
+        confirmBlurb: o.blurb, confirmItems: o.items, confirmTotal: o.totalStr,
+        track: { stages, fillW: ((step / 3) * 75) + '%', statusLabel: statusList[step] },
+      };
+    }
+    if (!cart.length) {
+      return { placed: false, showEmpty: true, showForm: false, cartHasItems: false, cartCount: 0 };
+    }
+
+    const isPickup = s.fulfillment === 'pickup';
+    const isDelivery = !isPickup;
+    const segOn = { bg: '#FFF3D6', border: '#EF5F2B', shadow: '3px 4px 0 #2D1B14' };
+    const segOff = { bg: '#FFFCF8', border: '#E4D8CF', shadow: 'none' };
+    const pk = isPickup ? segOn : segOff, dl = isDelivery ? segOn : segOff;
+    const deliveryFee = isDelivery ? (subtotal >= 40 ? 0 : 6) : 0;
+
+    let discount = 0, discountTag = '';
+    if (s.promoOk && this.PROMOS[s._promoCode]) {
+      const p = this.PROMOS[s._promoCode];
+      discount = p.type === 'pct' ? subtotal * p.val : Math.min(p.val, subtotal);
+      discountTag = '(' + s._promoCode + ')';
+    }
+    let tipAmt = 0;
+    if (s.tipKey === '10') tipAmt = subtotal * 0.10;
+    else if (s.tipKey === '15') tipAmt = subtotal * 0.15;
+    else if (s.tipKey === '20') tipAmt = subtotal * 0.20;
+    else if (s.tipKey === 'custom') tipAmt = parseFloat(s.tipCustom) || 0;
+
+    const taxable = Math.max(0, subtotal - discount);
+    const tax = taxable * 0.08;
+    const total = taxable + deliveryFee + tipAmt + tax;
+
+    const now = new Date();
+    const nowH = now.getHours() + now.getMinutes() / 60;
+    const lead = isPickup ? 0.5 : 1.0;
+    const dates = this._dates();
+    const dateChips = dates.map((d) => {
+      const on = d.off === s.dateIdx;
+      return { label: d.label, sub: d.sub,
+        bg: on ? '#FCD414' : '#FFFCF8', border: on ? '#2D1B14' : '#E4D8CF',
+        shadow: on ? '3px 4px 0 #2D1B14' : 'none', fg: '#2D1B14', subFg: on ? '#7A5E00' : '#9A8A80',
+        select: () => this.setState({ dateIdx: d.off, slotIdx: null, placeMsg: '' }) };
+    });
+    const slotChips = this.SLOTS.map((sl, idx) => {
+      const past = s.dateIdx === 0 && sl.h < nowH + lead;
+      const on = idx === s.slotIdx;
+      let bg = '#FFFCF8', border = '#E4D8CF', fg = '#2D1B14', cursor = 'pointer', strike = 'none';
+      if (past) { bg = '#F4EEE7'; border = '#EDE4DB'; fg = '#C3B5A8'; cursor = 'default'; strike = 'line-through'; }
+      else if (on) { bg = '#2D1B14'; border = '#2D1B14'; fg = '#FBF4EC'; }
+      return { label: sl.label, bg, border, fg, cursor, strike,
+        select: () => { if (!past) this.setState({ slotIdx: idx, placeMsg: '' }); } };
+    });
+    const tipDefs = [
+      { key: 'none', label: 'None', sub: '' }, { key: '10', label: '10%', sub: fmt(subtotal * 0.10) },
+      { key: '15', label: '15%', sub: fmt(subtotal * 0.15) }, { key: '20', label: '20%', sub: fmt(subtotal * 0.20) },
+      { key: 'custom', label: 'Custom', sub: '' },
+    ];
+    const tipChips = tipDefs.map((t) => {
+      const on = t.key === s.tipKey;
+      return { label: t.label, sub: t.sub,
+        bg: on ? '#FFF3D6' : '#FFFCF8', border: on ? '#EF5F2B' : '#E4D8CF',
+        shadow: on ? '2px 3px 0 #2D1B14' : 'none', subFg: on ? '#B08900' : '#9A8A80',
+        select: () => this.setState({ tipKey: t.key }) };
+    });
+
+    const contactOk = s.name.trim() && (s.email.trim() || s.phone.trim());
+    const addrOk = isPickup || (s.address.trim() && s.city.trim() && s.zip.trim());
+    const canPlace = s.slotIdx != null && contactOk && addrOk;
+
+    const chosenDate = dates[s.dateIdx];
+    const chosenSlot = s.slotIdx != null ? this.SLOTS[s.slotIdx].label : '';
+    const readyWhen = (chosenDate ? chosenDate.label : '') + ' · ' + chosenSlot;
+    const order = {
+      num: 'BB-' + Math.floor(10000 + Math.random() * 89999),
+      isPickup: isPickup,
+      readyLabel: isPickup ? 'Ready for pickup' : 'Out for delivery',
+      readyWhen,
+      blurb: isPickup
+        ? 'Your bakes will be boxed warm and waiting at our Maple Street counter. We\u2019ll text you when they\u2019re ready.'
+        : 'Your bakes are booked in and will arrive fresh at your door in the window below. We\u2019ll text you tracking.',
+      items: cartItems.map((c) => ({ qty: c.qty, name: c.name, lineStr: c.lineStr })),
+      totalStr: fmt(total),
+    };
+
+    const freeLeft = 40 - subtotal;
+    const showFreeBar = isDelivery;
+    const freePct = Math.max(0, Math.min(100, (subtotal / 40) * 100)) + '%';
+
+    return {
+      placed: false, showEmpty: false, showForm: true,
+      cartHasItems: cartCount > 0, cartCount, cartItems,
+      isPickup, isDelivery,
+      pickupBg: pk.bg, pickupBorder: pk.border, pickupShadow: pk.shadow,
+      deliveryBg: dl.bg, deliveryBorder: dl.border, deliveryShadow: dl.shadow,
+      deliveryTagline: subtotal >= 40 ? 'To your door · free over $40' : 'To your door · $6.00',
+      setPickup: () => this.setState({ fulfillment: 'pickup', slotIdx: null, placeMsg: '' }),
+      setDelivery: () => this.setState({ fulfillment: 'delivery', slotIdx: null, placeMsg: '' }),
+      timeHeading: isPickup ? 'PICKUP TIME' : 'DELIVERY WINDOW',
+      dateChips, slotChips, tipChips,
+      tipIsCustom: s.tipKey === 'custom', tipCustom: s.tipCustom,
+      onTipCustom: (e) => this.setState({ tipCustom: e.target.value }),
+      name: s.name, email: s.email, phone: s.phone, address: s.address, city: s.city, zip: s.zip, notes: s.notes,
+      onName: (e) => this.setState({ name: e.target.value, placeMsg: '' }),
+      onEmail: (e) => this.setState({ email: e.target.value, placeMsg: '' }),
+      onPhone: (e) => this.setState({ phone: e.target.value, placeMsg: '' }),
+      onAddress: (e) => this.setState({ address: e.target.value, placeMsg: '' }),
+      onCity: (e) => this.setState({ city: e.target.value, placeMsg: '' }),
+      onZip: (e) => this.setState({ zip: e.target.value, placeMsg: '' }),
+      onNotes: (e) => this.setState({ notes: e.target.value }),
+      promo: s.promo, onPromo: (e) => this.setState({ promo: e.target.value }),
+      applyPromo: () => this.applyPromo(),
+      hasPromoMsg: !!s.promoMsg, promoMsg: s.promoMsg, promoMsgColor: s.promoOk ? '#2E7D46' : '#D64B2A',
+      subtotalStr: fmt(subtotal),
+      hasDiscount: discount > 0, discountStr: fmt(discount), discountTag,
+      feeLabel: isPickup ? 'Pickup' : 'Delivery',
+      feeStr: isPickup ? 'FREE' : (deliveryFee === 0 ? 'FREE' : fmt(deliveryFee)),
+      feeColor: (isPickup || deliveryFee === 0) ? '#2E7D46' : '#2D1B14',
+      hasTip: tipAmt > 0, tipStr: fmt(tipAmt),
+      taxStr: fmt(tax), totalStr: fmt(total),
+      showFreeBar, freePct,
+      freeMsg: freeLeft > 0 ? ('Add ' + fmt(freeLeft) + ' more for free delivery') : 'You\u2019ve unlocked free delivery!',
+      freeMsgColor: freeLeft > 0 ? '#9A6A00' : '#2E7D46',
+      placeLabel: 'PLACE ORDER · ' + fmt(total),
+      placeOpacity: canPlace ? '1' : '.55',
+      placeOrder: () => this.placeOrder(canPlace, order),
+      hasPlaceMsg: !!s.placeMsg, placeMsg: s.placeMsg,
+    };
+  }
+}
+</script>

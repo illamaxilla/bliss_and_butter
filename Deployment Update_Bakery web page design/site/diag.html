@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Bliss &amp; Butter — rendering diagnostic</title>
+<!--
+  A dependency-free report you can open on a device where the site renders
+  wrong. It deliberately uses no fonts, no React, no support.js and no inline
+  styling from the template pipeline, so it still works when the thing it is
+  measuring is broken. Open it on the affected phone and screenshot the result.
+-->
+<style>
+  body { margin: 0; padding: 18px; background: #fff; color: #111;
+         font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { margin: 0 0 20px; color: #555; }
+  section { border: 1px solid #ddd; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .06em; color: #555; margin: 0 0 10px; }
+  .row { display: flex; gap: 10px; padding: 4px 0; border-bottom: 1px solid #f0f0f0; align-items: baseline; }
+  .row:last-child { border-bottom: 0; }
+  .k { flex: 0 0 42%; color: #555; }
+  .v { flex: 1; word-break: break-word; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; }
+  .ok    { color: #16702f; font-weight: 700; }
+  .bad   { color: #a11; font-weight: 700; }
+  .warn  { color: #8a5a00; font-weight: 700; }
+  pre { margin: 6px 0 0; padding: 8px; background: #f6f6f6; border-radius: 6px;
+        font-size: 12px; white-space: pre-wrap; word-break: break-word; }
+  #verdict { padding: 14px; border-radius: 8px; font-weight: 700; margin-bottom: 16px; }
+  iframe { position: absolute; left: -10000px; width: 390px; height: 780px; border: 0; }
+</style>
+</head>
+<body>
+<h1>Rendering diagnostic</h1>
+<p class="sub">Runs the real page in a hidden frame on <em>this</em> device and reports what actually happened.</p>
+
+<div id="verdict">Running…</div>
+<div id="out"></div>
+<iframe id="frame" title="probe"></iframe>
+
+<script>
+(function () {
+  'use strict';
+
+  var out = document.getElementById('out');
+  var verdictEl = document.getElementById('verdict');
+
+  function section(title) {
+    var s = document.createElement('section');
+    var h = document.createElement('h2');
+    h.textContent = title;
+    s.appendChild(h);
+    out.appendChild(s);
+    return s;
+  }
+  function row(sec, k, v, cls) {
+    var r = document.createElement('div'); r.className = 'row';
+    var a = document.createElement('div'); a.className = 'k'; a.textContent = k;
+    var b = document.createElement('div'); b.className = 'v' + (cls ? ' ' + cls : '');
+    b.textContent = v === undefined || v === null || v === '' ? '—' : String(v);
+    r.appendChild(a); r.appendChild(b); sec.appendChild(r);
+  }
+  function pre(sec, text) {
+    var p = document.createElement('pre'); p.textContent = text; sec.appendChild(p);
+  }
+
+  // ── 1. Environment ────────────────────────────────────────────────────────
+  var env = section('This device');
+  row(env, 'User agent', navigator.userAgent);
+  row(env, 'Screen', screen.width + '×' + screen.height + ' @' + (window.devicePixelRatio || 1) +
+                     ', viewport ' + window.innerWidth + '×' + window.innerHeight);
+  row(env, 'Page URL', location.href);
+  row(env, 'Time', new Date().toString());
+
+  // Features the runtime depends on. A "no" here explains a broken page outright.
+  var feats = [
+    ['fetch', typeof fetch === 'function'],
+    ['Promise', typeof Promise === 'function'],
+    ['MutationObserver', typeof MutationObserver === 'function'],
+    ['template element', 'content' in document.createElement('template')],
+    ['CSS.supports', !!(window.CSS && CSS.supports)],
+    ['CSS var()', !!(window.CSS && CSS.supports && CSS.supports('color', 'var(--x)'))],
+    ['subresource integrity', 'integrity' in document.createElement('script')]
+  ];
+  var missing = [];
+  for (var i = 0; i < feats.length; i++) {
+    row(env, feats[i][0], feats[i][1] ? 'yes' : 'NO', feats[i][1] ? 'ok' : 'bad');
+    if (!feats[i][1]) missing.push(feats[i][0]);
+  }
+
+  // ── 2. Bytes this device actually received ────────────────────────────────
+  // Proves whether the network path (ISP, proxy, in-app browser, security
+  // software) delivered the authored markup intact to this handset.
+  var netSec = section('Files as delivered to this device');
+  var SIGNATURE = "font-family:'Lilita One','Arial Black',sans-serif;font-size:30px";
+
+  function checkFile(url, test, label) {
+    return fetch(url, { cache: 'reload' }).then(function (r) {
+      return r.text().then(function (t) {
+        var okStatus = r.ok;
+        var okBody = test(t);
+        row(netSec, label, r.status + ' · ' + t.length.toLocaleString() + ' bytes · ' +
+            (okBody ? 'markup intact' : 'MARKUP ALTERED'),
+            okStatus && okBody ? 'ok' : 'bad');
+        return okStatus && okBody;
+      });
+    }).catch(function (e) {
+      row(netSec, label, 'request failed: ' + e.message, 'bad');
+      return false;
+    });
+  }
+
+  var netChecks = Promise.all([
+    checkFile('index.html', function (t) { return t.indexOf('<x-dc>') >= 0; }, 'index.html'),
+    checkFile('home-mobile.dc.html', function (t) { return t.indexOf(SIGNATURE) >= 0; }, 'home-mobile.dc.html'),
+    checkFile('support.js', function (t) { return t.indexOf('function cssToObj') >= 0; }, 'support.js'),
+    checkFile('base.css', function (t) { return t.indexOf('x-dc') >= 0; }, 'base.css'),
+    checkFile('vendor/react.production.min.js', function (t) { return t.length > 5000; }, 'react'),
+    checkFile('vendor/react-dom.production.min.js', function (t) { return t.length > 50000; }, 'react-dom')
+  ]);
+
+  // ── 3. The page, rendered here, right now ─────────────────────────────────
+  var runSec = section('The page rendered on this device');
+  var frame = document.getElementById('frame');
+
+  function probeFrame() {
+    var w, d;
+    try {
+      w = frame.contentWindow; d = frame.contentDocument;
+    } catch (e) {
+      row(runSec, 'Frame access', 'blocked: ' + e.message, 'bad');
+      return { fatal: 'frame-blocked' };
+    }
+    if (!d) return { fatal: 'no-document' };
+
+    var res = {};
+    res.react = !!w.React;
+    res.reactDom = !!w.ReactDOM;
+    res.booted = !!(w.__dcRegistry && d.getElementById('dc-root'));
+    res.guard = w.__bbStyleGuard || null;
+
+    row(runSec, 'React loaded', res.react ? 'yes' : 'NO', res.react ? 'ok' : 'bad');
+    row(runSec, 'ReactDOM loaded', res.reactDom ? 'yes' : 'NO', res.reactDom ? 'ok' : 'bad');
+    row(runSec, 'Runtime booted', res.booted ? 'yes' : 'NO', res.booted ? 'ok' : 'bad');
+
+    // Third-party scripts. Anything not in this list was injected by an
+    // extension, a content blocker, an in-app browser or security software.
+    var MINE = ['support.js', 'style-guard.js', 'image-slot.js', 'product-images.js',
+                'products.js', 'cart.js', 'catalog.js', 'search.js', 'custom-order.js',
+                'react.production.min.js', 'react-dom.production.min.js', 'babel.min.js'];
+    var foreign = [];
+    var scripts = d.querySelectorAll('script[src]');
+    for (var i = 0; i < scripts.length; i++) {
+      var src = scripts[i].getAttribute('src') || '';
+      var known = false;
+      for (var j = 0; j < MINE.length; j++) if (src.indexOf(MINE[j]) >= 0) known = true;
+      if (!known) foreign.push(src);
+    }
+    res.foreign = foreign;
+    row(runSec, 'Scripts in page', scripts.length + ' (' + foreign.length + ' not ours)',
+        foreign.length ? 'bad' : 'ok');
+    if (foreign.length) pre(runSec, foreign.join('\n'));
+
+    // The measurement that matters: does a rendered element carry the styling
+    // its own template authored?
+    var sample = null, all = d.querySelectorAll('#dc-root a, #dc-root button');
+    for (var k = 0; k < all.length; k++) {
+      var cs = w.getComputedStyle(all[k]);
+      if ((all[k].getAttribute('style') || '').indexOf('Lilita') >= 0 ||
+          cs.fontFamily.indexOf('Lilita') >= 0) { sample = all[k]; break; }
+    }
+    res.styledCount = 0;
+    res.bareCount = 0;
+    for (var m = 0; m < all.length; m++) {
+      var st = all[m].getAttribute('style');
+      if (st && st.length > 20) res.styledCount++;
+      else res.bareCount++;
+    }
+    row(runSec, 'Interactive elements', all.length + ' found · ' + res.styledCount +
+        ' styled · ' + res.bareCount + ' bare',
+        res.styledCount > 0 ? 'ok' : 'bad');
+    if (sample) {
+      row(runSec, 'Sample element', '<' + sample.localName + '> "' +
+          (sample.textContent || '').trim().slice(0, 28) + '"');
+      pre(runSec, 'style attribute:\n' + (sample.getAttribute('style') || '(none)') +
+                  '\n\ncomputed font-family:\n' + w.getComputedStyle(sample).fontFamily);
+    } else {
+      row(runSec, 'Sample element', 'no element carries the display font', 'bad');
+    }
+
+    // Did the guard have to step in? This is the direct measure of whether the
+    // runtime delivered the authored styling on this device.
+    if (res.guard) {
+      row(runSec, 'Styles repaired by guard',
+          res.guard.repaired + ' declarations on ' + res.guard.elements + ' elements',
+          res.guard.repaired ? 'warn' : 'ok');
+      if (res.guard.lastDetail && res.guard.lastDetail.length) {
+        pre(runSec, res.guard.lastDetail.join('\n'));
+      }
+      if (res.guard.errors && res.guard.errors.length) {
+        row(runSec, 'Script errors', res.guard.errors.length + ' captured', 'bad');
+        pre(runSec, res.guard.errors.join('\n'));
+      } else {
+        row(runSec, 'Script errors', 'none', 'ok');
+      }
+    } else {
+      row(runSec, 'Style guard', 'did not run', 'bad');
+    }
+    return res;
+  }
+
+  function verdict(res, netOk) {
+    var msg, bg, fg;
+    if (!res || res.fatal) {
+      msg = 'Could not inspect the page frame (' + (res && res.fatal) + '). ' +
+            'Screenshot this page and the sections above.';
+      bg = '#fdeaea'; fg = '#a11';
+    } else if (!res.react || !res.booted) {
+      msg = 'The rendering runtime never started on this device — React or support.js ' +
+            'did not load or was blocked. Nothing on the page can be styled until that ' +
+            'is fixed. Check the "Files as delivered" section above for which request failed.';
+      bg = '#fdeaea'; fg = '#a11';
+    } else if (res.foreign && res.foreign.length) {
+      msg = 'Something outside this site injected ' + res.foreign.length + ' script(s) into ' +
+            'the page (listed above). A browser extension, content blocker or in-app ' +
+            'browser is modifying the page on this device — that is the most likely cause ' +
+            'of the broken styling. Retest in a private window with extensions disabled.';
+      bg = '#fff5e0'; fg = '#8a5a00';
+    } else if (res.guard && res.guard.repaired > 0) {
+      msg = 'The runtime failed to apply ' + res.guard.repaired + ' style declarations on ' +
+            'this device, and the style guard restored them. The page should look correct ' +
+            'now, and this is the confirmed failure the site owner reported.';
+      bg = '#fff5e0'; fg = '#8a5a00';
+    } else if (!netOk) {
+      msg = 'The page rendered correctly, but at least one file did not arrive intact on ' +
+            'this device (see above). Something on the network path is altering responses.';
+      bg = '#fff5e0'; fg = '#8a5a00';
+    } else {
+      msg = 'Everything checks out on this device: the runtime booted, no foreign scripts ' +
+            'are present, all files arrived intact, and every element carries the styling ' +
+            'its template authored. The site should render correctly here.';
+      bg = '#eaf7ee'; fg = '#16702f';
+    }
+    verdictEl.textContent = msg;
+    verdictEl.style.background = bg;
+    verdictEl.style.color = fg;
+  }
+
+  var netOk = true;
+  netChecks.then(function (r) {
+    for (var i = 0; i < r.length; i++) if (!r[i]) netOk = false;
+  });
+
+  frame.onload = function () {
+    // Give the runtime time to fetch its component templates and settle.
+    setTimeout(function () {
+      var res;
+      try { res = probeFrame(); } catch (e) { res = { fatal: e.message }; }
+      netChecks.then(function () { verdict(res, netOk); });
+    }, 4000);
+  };
+  frame.src = 'index.html?diag=1';
+})();
+</script>
+</body>
+</html>

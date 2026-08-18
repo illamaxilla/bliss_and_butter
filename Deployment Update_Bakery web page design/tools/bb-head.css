@@ -1,0 +1,25 @@
+/* Bliss & Butter — fixed head of the generated stylesheet.
+   tools/prerender.mjs writes site/bb.css as this file followed by the helmet
+   style blocks the DC templates author. Per-element styling stays inline in the
+   prerendered markup, exactly as the templates write it. */
+html,body{height:100%;margin:0;padding:0;}
+*{box-sizing:border-box;}
+[hidden]{display:none!important;}
+body{font-family:'Nunito','Trebuchet MS',sans-serif;color:#2D1B14;background:#F0E6DC;}
+a{color:inherit;}
+a:hover{color:#EF5F2B;}
+button,input,select,textarea,a{font-family:inherit;}
+button,input,select,textarea{font-size:inherit;line-height:inherit;color:inherit;}
+#dc-root,#dc-root>.sc-host,.bb-shell>.sc-host,#bb-static,#bb-live{height:100%;}
+
+/* Art slots. Filled slots are flattened to real <img> at build time; this rule
+   only frames a slot whose photo is not resolvable yet. */
+image-slot{display:block;width:100%;height:100%;border-radius:inherit;}
+image-slot:not([src]){background:#F6EAE2;}
+
+/* Breakpoint. Both trees ship prerendered in the document and the media query
+   decides which is shown, so the correct layout appears with scripting off.
+   The hidden tree's images are loading="lazy" and are never fetched while it
+   is display:none. */
+@media (min-width:900px){.bb-m{display:none!important;}}
+@media (max-width:899px){.bb-d{display:none!important;}}

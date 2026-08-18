@@ -1,0 +1,60 @@
+name: prerender
+
+# The prerender needs headless Chromium, which is why it runs here and not in
+# the Netlify build: a failure turns this workflow red instead of taking the
+# live site down, and the deploy path gains no new binary, memory ceiling or
+# failure mode. Netlify still builds with `node tools/set-site-url.mjs`.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src-dc/**'
+      - 'tools/prerender.mjs'
+      - 'tools/bb-head.css'
+      - '.github/workflows/prerender.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prerender-main
+  cancel-in-progress: true
+
+jobs:
+  prerender:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright chromium
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i -D playwright@1.48.2
+          npx playwright install --with-deps chromium
+
+      - name: Prerender site/ from src-dc/
+        run: node tools/prerender.mjs
+
+      - name: Smoke test with JavaScript disabled
+        run: |
+          npx --yes http-server site -p 8899 -c-1 --silent &
+          npx --yes wait-on http://127.0.0.1:8899/index.html
+          node tools/smoke.mjs http://127.0.0.1:8899
+
+      - name: Commit generated output
+        run: |
+          git config user.name  "prerender bot"
+          git config user.email "prerender@users.noreply.github.com"
+          git add site
+          if git diff --cached --quiet; then
+            echo "no change in site/"
+          else
+            git commit -m "prerender: regenerate site/ from src-dc/ [skip ci]"
+            git push
+          fi

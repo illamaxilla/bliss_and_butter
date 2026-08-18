@@ -1,0 +1,1028 @@
+<x-dc>
+
+
+<div style="font-family:'Nunito',sans-serif;background:#F0E6DC;min-height:100vh;position:relative;overflow-x:hidden;max-width:560px;margin:0 auto;">
+
+  <!-- ===== SLIDE-OUT MENU ===== -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:1200;">
+      <div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(45,27,20,.45);animation:bbm-fade .2s ease;"></div>
+      <div style="position:absolute;top:0;right:0;bottom:0;width:84%;max-width:360px;background:#2D1B14;display:flex;flex-direction:column;padding:26px 26px 34px;animation:bbm-sheet .28s cubic-bezier(.2,.9,.3,1);">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#FBF4EC;letter-spacing:.5px;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></span>
+          <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBF4EC" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:34px;">
+          <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FCD414;text-decoration:none;padding:11px 0;">HOME</a>
+          <a href="product.html?category=bread" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">BREAD</a>
+          <a href="product.html?category=cookies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">COOKIES</a>
+          <a href="product.html?category=pastries" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">PASTRIES</a>
+          <a href="product.html?category=pies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">PIES</a>
+          <a href="product.html?category=cakes" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">CAKES</a>
+          <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">MENU</a>
+          <a href="custom-order.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;letter-spacing:.5px;color:#FBF4EC;text-decoration:none;padding:11px 0;">CUSTOM ORDER</a>
+        </div>
+        <a href="menu.html" style="margin-top:auto;font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #000;border-radius:44px;padding:16px 0;text-align:center;text-decoration:none;box-shadow:3px 5px 0 #000;display:flex;align-items:center;justify-content:center;gap:10px;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#2D1B14;"></span>ORDER NOW</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== CART BOTTOM SHEET ===== -->
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:1200;">
+      <div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(45,27,20,.5);animation:bbm-fade .2s ease;"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;max-height:86vh;background:#FFFCF8;border-radius:32px 32px 0 0;display:flex;flex-direction:column;animation:bbm-sheet .3s cubic-bezier(.2,.9,.3,1);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 24px 16px;">
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;color:#2D1B14;letter-spacing:.4px;">YOUR CART <span style="color:#EF5F2B;">({{ cartCount }})</span></div>
+          <button onClick="{{ closeCart }}" aria-label="Close cart" style="width:44px;height:44px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:0 24px;">
+          <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:56px 0 64px;text-align:center;">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#C9BBAE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <div style="font-size:17px;font-weight:700;color:#9A8A80;">Your cart is empty</div>
+              <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:40px;padding:13px 26px;text-decoration:none;box-shadow:3px 4px 0 #2D1B14;">START SHOPPING</a>
+            </div>
+          </sc-if>
+          <sc-for list="{{ cartItems }}" as="ci" hint-placeholder-count="0">
+            <div style="display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid #F0E7DF;">
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;letter-spacing:.2px;line-height:1.15;">{{ ci.name }}</div>
+                <div style="font-size:13px;font-weight:700;color:#9A8A80;margin-top:3px;">{{ ci.priceStr }} each</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:5px;">
+                <button onClick="{{ ci.dec }}" aria-label="Decrease" style="width:30px;height:30px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+                <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;min-width:22px;text-align:center;">{{ ci.qty }}</span>
+                <button onClick="{{ ci.inc }}" aria-label="Increase" style="width:30px;height:30px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+              <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;min-width:56px;text-align:right;">{{ ci.lineStr }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:18px 24px calc(22px + env(safe-area-inset-bottom));border-top:1.6px solid #ECE2DA;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <span style="font-size:16px;font-weight:700;color:#6A5A50;">Subtotal</span>
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#2D1B14;">{{ cartTotalStr }}</span>
+            </div>
+            <div style="font-size:13px;font-weight:600;color:{{ deliveryColor }};margin-bottom:14px;">{{ deliveryNote }}</div>
+            <button onClick="{{ goCheckout }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;transition:transform .1s ease,box-shadow .1s ease;" style-active="transform:translate(2px,3px);box-shadow:1px 2px 0 #2D1B14;">CHECKOUT</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== ARTICLE SHEET ===== -->
+  <sc-if value="{{ blogOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:1300;">
+      <div onClick="{{ closeBlog }}" style="position:absolute;inset:0;background:rgba(45,27,20,.5);animation:bbm-fade .2s ease;"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;top:44px;background:#FFFCF8;border-radius:32px 32px 0 0;display:flex;flex-direction:column;overflow:hidden;animation:bbm-sheet .3s cubic-bezier(.2,.9,.3,1);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;">
+          <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:12.5px;letter-spacing:.6px;color:#EF5F2B;">{{ blogCat }} · {{ blogRead }}</span>
+          <button onClick="{{ closeBlog }}" aria-label="Close article" style="width:44px;height:44px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:0 22px calc(30px + env(safe-area-inset-bottom));">
+          <img ref="{{ blogImgRef }}" alt="{{ blogTitle }}" style="width:100%;height:210px;border-radius:24px;object-fit:cover;background:#F1ECE6;">
+          <h2 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;line-height:1.08;letter-spacing:.3px;color:#2D1B14;margin:18px 0 0;">{{ blogTitle }}</h2>
+          <sc-for list="{{ blogBody }}" as="pg" hint-placeholder-count="3">
+            <p style="font-size:16px;font-weight:600;color:#3A2A22;line-height:1.65;margin:16px 0 0;">{{ pg.text }}</p>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== PROMO STRIP ===== -->
+  <div style="background:#6A3FC6;color:#fff;overflow:hidden;white-space:nowrap;">
+    <div style="display:inline-flex;align-items:center;padding:9px 0;animation:bbm-marquee 26s linear infinite;will-change:transform;">
+      <div style="display:inline-flex;align-items:center;gap:40px;padding-left:40px;">
+        <span style="font-size:13px;font-weight:800;letter-spacing:.2px;">15% OFF ON $100+</span><span style="font-size:13px;font-weight:800;">FREE DELIVERY OVER $40</span><span style="font-size:13px;font-weight:800;">SUBSCRIBE &amp; SAVE 15%</span><span style="font-size:13px;font-weight:800;">BAKED FRESH DAILY</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:40px;padding-left:40px;" aria-hidden="true">
+        <span style="font-size:13px;font-weight:800;letter-spacing:.2px;">15% OFF ON $100+</span><span style="font-size:13px;font-weight:800;">FREE DELIVERY OVER $40</span><span style="font-size:13px;font-weight:800;">SUBSCRIBE &amp; SAVE 15%</span><span style="font-size:13px;font-weight:800;">BAKED FRESH DAILY</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <div style="position:sticky;top:10px;z-index:50;padding:10px 16px 0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;background:#FFFCF8;border-radius:44px;padding:11px 12px 11px 22px;box-shadow:0 10px 26px rgba(45,27,20,.14);">
+      <a href="index.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:23px;color:#2D1B14;letter-spacing:.4px;text-decoration:none;">Bliss &amp; Butter<span style="color:#EF5F2B;">.</span></a>
+      <div style="display:flex;align-items:center;gap:9px;">
+        <button onClick="{{ openCart }}" aria-label="Open cart" style="position:relative;width:44px;height:44px;border-radius:50%;background:#F2E9E4;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:#EF5F2B;border:2px solid #FFFCF8;color:#fff;font-family:'Lilita One','Arial Black',sans-serif;font-size:11px;display:flex;align-items:center;justify-content:center;padding:0 4px;">{{ cartCount }}</span>
+          </sc-if>
+        </button>
+        <button onClick="{{ openMenu }}" aria-label="Open menu" style="width:44px;height:44px;border-radius:50%;background:#2D1B14;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+          <span style="width:17px;height:2.4px;border-radius:2px;background:#FCD414;"></span>
+          <span style="width:17px;height:2.4px;border-radius:2px;background:#FBF4EC;"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <div style="padding:18px 16px 0;position:relative;">
+    <div style="text-align:center;position:relative;">
+      <svg width="46" height="30" viewBox="0 0 46 30" style="display:block;margin:0 auto 2px;" fill="none" stroke="#EF5F2B" stroke-width="4.5" stroke-linecap="round"><path d="M9 26 C6 20 12 17 9 11 C7.5 8 10.5 5 10.5 5"/><path d="M23 26 C20 20 26 17 23 11 C21.5 8 24.5 5 24.5 5"/><path d="M37 26 C34 20 40 17 37 11 C35.5 8 38.5 5 38.5 5"/></svg>
+      <h1 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:66px;line-height:.86;letter-spacing:.5px;margin:0;">BAKE THE<br>COOKIES</h1>
+    </div>
+
+    <div style="position:relative;margin-top:18px;">
+      <span style="position:absolute;left:6px;top:-2px;z-index:3;font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;color:#fff;background:#3E8E54;border-radius:30px;padding:6px 18px 7px;letter-spacing:1px;transform:rotate(-6deg);box-shadow:2px 3px 0 rgba(45,27,20,.25);">TASTY</span>
+      <span style="position:absolute;right:6px;top:-6px;z-index:3;font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;color:#fff;background:#36A9E1;border-radius:30px;padding:6px 18px 7px;letter-spacing:1px;transform:rotate(6deg);box-shadow:2px 3px 0 rgba(45,27,20,.25);"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#fff;margin-right:6px;vertical-align:middle;"></span>FRESH</span>
+      <div style="position:relative;background:#FCD414;border-radius:30px;height:300px;overflow:hidden;">
+        <div style="position:absolute;left:-18%;top:-14%;width:136%;height:58%;background:#FBE07A;transform:rotate(-11deg);"></div>
+        <image-slot id="bbm-hero" shape="rect" fit="contain" src="uploads/Cookies.png" placeholder="cookie stack photo (transparent PNG)" style="position:absolute;left:6%;top:5%;width:88%;height:90%;z-index:2;"></image-slot>
+      </div>
+      <span style="position:absolute;right:26px;bottom:-12px;z-index:3;font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;color:#fff;background:#EF5F2B;border-radius:30px;padding:6px 18px 7px;letter-spacing:1px;transform:rotate(-5deg);box-shadow:2px 3px 0 rgba(45,27,20,.25);">CRUNCHY</span>
+    </div>
+
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:27px;line-height:1.05;letter-spacing:.4px;margin:26px 0 0;text-align:center;">PREMIUM COOKIES MADE FROM SCRATCH</h2>
+    <p style="font-size:16px;font-weight:700;color:#5A4A40;line-height:1.45;margin:12px 0 0;text-align:center;">We're literally obsessed with giving more of what you love!</p>
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:22px;">
+      <a href="menu.html" style="position:relative;font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 30px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;display:inline-flex;align-items:center;gap:10px;transition:transform .1s ease,box-shadow .1s ease;" style-active="transform:translate(2px,3px);box-shadow:1px 2px 0 #2D1B14;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D1B14;"></span>ORDER NOW</a>
+      <a href="#bbm-daily" style="width:52px;height:52px;border-radius:50%;background:#FFFCF8;border:2.5px solid #2D1B14;box-shadow:3px 4px 0 #2D1B14;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .1s ease,box-shadow .1s ease;" style-active="transform:translate(1px,2px);box-shadow:1px 2px 0 #2D1B14;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+    </div>
+  </div>
+
+  <!-- ===== MADE BY HAND BAND ===== -->
+  <div style="margin:40px 12px 0;background:#3A2017;border-radius:34px;padding:28px 22px 30px;position:relative;overflow:hidden;">
+    <div style="position:relative;">
+      <svg width="40" height="26" viewBox="0 0 40 26" style="position:absolute;right:8px;top:-6px;z-index:3;" fill="none" stroke="#EF5F2B" stroke-width="4.5" stroke-linecap="round"><path d="M6 22 C4 10 20 6 30 12"/><path d="M30 8 C34 5 39 8 38 13"/></svg>
+      <div class="bbm-track" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:26px;">
+        <img src="uploads/baker-still-1.jpg" alt="Baker shaping croissant dough" style="flex:0 0 100%;scroll-snap-align:center;height:300px;border-radius:26px;object-fit:cover;background:#241009;">
+        <img src="uploads/baker-still-2.jpg" alt="Dusting sugar over fresh pastries" loading="lazy" style="flex:0 0 100%;scroll-snap-align:center;height:300px;border-radius:26px;object-fit:cover;background:#241009;">
+        <img src="uploads/baker-still-3.jpg" alt="Scoring a sourdough loaf" loading="lazy" style="flex:0 0 100%;scroll-snap-align:center;height:300px;border-radius:26px;object-fit:cover;background:#241009;">
+      </div>
+    </div>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#FBF4EC;font-size:38px;line-height:.98;letter-spacing:.4px;margin:22px 0 0;">MADE BY HAND FROM SCRATCH, WITH <span style="color:#EF5F2B;">LOVE.</span></h2>
+    <p style="font-size:15.5px;font-weight:700;color:#E7D6CE;line-height:1.5;margin:14px 0 0;">Their experience plays a role in the way they work. Bakers use flavours to craft edible art.</p>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;">
+      <image-slot id="bbm-croissant-sm" shape="rounded" radius="16" fit="contain" src="uploads/croissant-cutout.png" placeholder="croissant" style="width:96px;height:70px;background:rgba(255,255,255,.06);"></image-slot>
+      <a href="menu.html" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.8px;color:#2D1B14;background:#FCD414;border:2.5px solid #000;border-radius:44px;padding:15px 26px;text-decoration:none;box-shadow:3px 5px 0 #000;display:inline-flex;align-items:center;gap:10px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D1B14;"></span>ORDER NOW</a>
+    </div>
+  </div>
+
+  <!-- ===== PRODUCT WE BAKE HERE DAILY (category chips) ===== -->
+  <div id="bbm-daily" style="padding:40px 20px 0;position:relative;">
+    <span style="display:inline-flex;width:46px;height:46px;border-radius:50%;background:#EF5F2B;align-items:center;justify-content:center;margin-bottom:12px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.3" fill="#fff" stroke="none"/><circle cx="15" cy="9" r="1.1" fill="#fff" stroke="none"/><circle cx="15.5" cy="14.5" r="1.4" fill="#fff" stroke="none"/><circle cx="9.5" cy="15" r="1" fill="#fff" stroke="none"/></svg></span>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:40px;line-height:.96;letter-spacing:.4px;margin:0;">PRODUCT WE BAKE HERE DAILY</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+        <a href="{{ c.href }}" style="display:inline-flex;align-items:center;gap:12px;background:{{ c.chipBg }};border-radius:40px;padding:12px 14px 12px 22px;text-decoration:none;transform:{{ c.rot }};transition:transform .12s ease;" style-active="transform:scale(.95);">
+          <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;letter-spacing:.5px;color:{{ c.chipFg }};">{{ c.label }}</span>
+          <span style="background:{{ c.pillBg }};color:#fff;font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;min-width:34px;height:30px;border-radius:30px;display:inline-flex;align-items:center;justify-content:center;padding:0 9px;">{{ c.count }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== DOSE OF DELIGHT ===== -->
+  <div style="padding:40px 20px 0;position:relative;">
+    <div style="position:relative;text-align:center;">
+      <svg width="46" height="26" viewBox="0 0 46 26" style="position:absolute;right:20px;top:-16px;" fill="none" stroke="#EF5F2B" stroke-width="4.5" stroke-linecap="round"><path d="M5 20 C8 8 18 8 20 16"/><path d="M27 16 C29 4 40 6 39 14"/></svg>
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:44px;line-height:.94;letter-spacing:.4px;margin:0;">YOUR ONLY DOSE OF DELIGHT</h2>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;margin-top:24px;">
+      <div style="position:relative;width:160px;height:160px;">
+        <svg width="160" height="160" viewBox="0 0 160 160" style="animation:bbm-spin 22s linear infinite;transform-origin:center;">
+          <defs><path id="bbm-circ" d="M80,80 m-60,0 a60,60 0 1,1 120,0 a60,60 0 1,1 -120,0"/></defs>
+          <text font-family="'Lilita One','Arial Black',sans-serif" font-size="15" fill="#2D1B14" letter-spacing="2.5"><textPath href="#bbm-circ" startOffset="0%">FUN · FOR THE WHOLE · FAMILY · </textPath></text>
+        </svg>
+        <div style="position:absolute;left:44px;top:44px;width:72px;height:72px;border-radius:50%;background:#FCD414;display:flex;align-items:center;justify-content:center;">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="13" fill="none" stroke="#2D1B14" stroke-width="2.4"/><circle cx="12" cy="14" r="1.8" fill="#2D1B14"/><circle cx="22" cy="15" r="2" fill="#2D1B14"/><circle cx="16" cy="22" r="1.8" fill="#2D1B14"/><circle cx="23" cy="22" r="1.4" fill="#2D1B14"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <a href="product.html?category=pastries&amp;product=croissant" style="display:flex;align-items:center;gap:16px;margin-top:22px;text-decoration:none;color:inherit;background:#FFFCF8;border:1.5px solid #ECE2DA;border-radius:26px;padding:16px;">
+      <image-slot id="bbm-featured" shape="rounded" radius="16" fit="contain" src="uploads/croissant-cutout.png" placeholder="butter croissant photo" style="width:96px;height:80px;background:#F2E9E4;flex-shrink:0;"></image-slot>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:20px;color:#2D1B14;">Butter Croissant</div>
+        <div style="font-size:14px;font-weight:700;color:#8A7A6E;margin-top:2px;">27 buttery layers</div>
+      </div>
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:26px;color:#7A2E1E;">$4.50</div>
+    </a>
+  </div>
+
+  <!-- ===== BEST SELLERS ===== -->
+  <div style="padding:40px 0 0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 20px;">
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;letter-spacing:.4px;margin:0;">HOT BAKE <span style="color:#EF5F2B;">—</span></h2>
+      <a href="product.html?category=cookies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.6px;color:#2D1B14;text-decoration:none;border-bottom:2.5px dotted #2D1B14;padding-bottom:3px;">VIEW ALL</a>
+    </div>
+    <div class="bbm-track" style="display:flex;gap:16px;overflow-x:auto;padding:20px 20px 8px;scroll-snap-type:x mandatory;">
+      <sc-for list="{{ best }}" as="b" hint-placeholder-count="4">
+        <a href="{{ b.href }}" style="flex:0 0 66%;max-width:230px;scroll-snap-align:start;text-decoration:none;color:inherit;display:block;">
+          <div style="position:relative;background:{{ b.bg }};border-radius:26px;height:210px;overflow:hidden;">
+            <image-slot id="{{ b.slotId }}" shape="rect" fit="contain" src="{{ b.img }}" placeholder="{{ b.ph }}" style="position:absolute;left:8%;top:6%;width:84%;height:88%;z-index:2;"></image-slot>
+            <button onClick="{{ b.add }}" aria-label="Add to cart" style="position:absolute;right:12px;bottom:12px;z-index:3;width:44px;height:44px;border-radius:50%;background:#FFFCF8;border:2.5px solid #2D1B14;box-shadow:2px 3px 0 #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.3px;color:#2D1B14;margin-top:14px;line-height:1;">{{ b.name }}</div>
+          <div style="font-size:16px;font-weight:800;color:#7A2E1E;margin-top:6px;">{{ b.price }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== FRESHLY BAKED (DEALS) ===== -->
+  <div style="padding:40px 0 0;">
+    <div style="padding:0 20px;">
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#EF5F2B;">THIS WEEK</div>
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;letter-spacing:.4px;margin:8px 0 0;line-height:1.02;">FRESHLY BAKED, JUST FOR YOU</h2>
+      <p style="font-size:16px;font-weight:600;color:#5A4A40;line-height:1.5;margin:12px 0 0;">Our most-loved bakes, marked down for the week. Swipe through and tap to add.</p>
+    </div>
+    <div class="bbm-track" style="display:flex;gap:16px;overflow-x:auto;padding:20px 20px 8px;scroll-snap-type:x mandatory;">
+      <sc-for list="{{ deals }}" as="d" hint-placeholder-count="5">
+        <a href="{{ d.href }}" style="flex:0 0 68%;max-width:236px;scroll-snap-align:start;text-decoration:none;color:inherit;display:block;">
+          <div style="position:relative;background:{{ d.bg }};border-radius:26px;height:214px;overflow:hidden;">
+            <img src="{{ d.img }}" alt="{{ d.name }}" loading="lazy" style="position:absolute;left:7%;top:6%;width:86%;height:88%;object-fit:contain;z-index:2;">
+            <span style="position:absolute;left:12px;top:12px;z-index:3;font-size:11.5px;font-weight:800;color:{{ d.badgeFg }};background:{{ d.badgeBg }};border-radius:30px;padding:5px 11px;">{{ d.badge }}</span>
+            <button onClick="{{ d.add }}" aria-label="Add to cart" style="position:absolute;right:12px;bottom:12px;z-index:3;width:44px;height:44px;border-radius:50%;background:#FFFCF8;border:2.5px solid #2D1B14;box-shadow:2px 3px 0 #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.3px;color:#2D1B14;margin-top:13px;line-height:1.06;">{{ d.name }}</div>
+          <div style="display:flex;align-items:center;gap:9px;margin-top:6px;">
+            <span style="font-size:14px;font-weight:700;color:#9A8B7F;text-decoration:line-through;">{{ d.was }}</span>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:19px;color:#2D1B14;">{{ d.now }}</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== TAKE IT HOME (PACKAGED LINES) ===== -->
+  <div data-screen-label="Take It Home" style="padding:40px 0 0;">
+    <div style="padding:0 20px;">
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#EF5F2B;">TAKE IT HOME</div>
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;letter-spacing:.4px;margin:8px 0 0;line-height:1.02;">PACKED TO GO</h2>
+      <p style="font-size:16px;font-weight:600;color:#5A4A40;line-height:1.55;margin:12px 0 0;">Soft Baked boxes are ready to eat. Ready to Bake goes in the freezer. The counter bakes come wrapped to carry.</p>
+    </div>
+
+    <div style="display:flex;align-items:baseline;justify-content:space-between;padding:26px 20px 0;">
+      <h3 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:22px;letter-spacing:.3px;margin:0;">Soft Baked Boxes</h3>
+      <a href="menu.html?category=cookies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.6px;color:#2D1B14;text-decoration:none;border-bottom:2.5px dotted #2D1B14;padding-bottom:3px;">VIEW ALL</a>
+    </div>
+    <div class="bbm-track" style="display:flex;gap:16px;overflow-x:auto;padding:18px 20px 8px;scroll-snap-type:x mandatory;">
+      <sc-for list="{{ boxedLine }}" as="bx" hint-placeholder-count="7">
+        <a href="{{ bx.href }}" style="flex:0 0 62%;max-width:220px;scroll-snap-align:start;text-decoration:none;color:inherit;display:block;">
+          <div style="background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:22px;box-shadow:3px 4px 0 #2D1B14;overflow:hidden;">
+            <img src="{{ bx.url }}" alt="{{ bx.alt }}" loading="lazy" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#F4EEE7;">
+          </div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.3px;color:#2D1B14;margin-top:12px;line-height:1.05;">{{ bx.name }}</div>
+          <div style="font-size:15px;font-weight:800;color:#7A2E1E;margin-top:6px;">{{ bx.price }}</div>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:baseline;justify-content:space-between;padding:20px 20px 0;">
+      <h3 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:22px;letter-spacing:.3px;margin:0;">Ready to Bake</h3>
+      <span style="font-size:14px;font-weight:700;color:#9A8B7F;">five formats</span>
+    </div>
+    <div class="bbm-track" style="display:flex;gap:16px;overflow-x:auto;padding:18px 20px 8px;scroll-snap-type:x mandatory;">
+      <sc-for list="{{ frozenLine }}" as="fz" hint-placeholder-count="5">
+        <a href="{{ fz.href }}" style="flex:0 0 62%;max-width:220px;scroll-snap-align:start;text-decoration:none;color:inherit;display:block;">
+          <div style="background:#EFF6F8;border:2.5px solid #2D1B14;border-radius:22px;box-shadow:3px 4px 0 #2D1B14;overflow:hidden;">
+            <img src="{{ fz.url }}" alt="{{ fz.alt }}" loading="lazy" style="width:100%;aspect-ratio:3/4;object-fit:contain;display:block;background:#EFF6F8;">
+          </div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.3px;color:#2D1B14;margin-top:12px;line-height:1.05;">{{ fz.name }}</div>
+          <div style="font-size:15px;font-weight:700;color:#6A5A50;margin-top:6px;">{{ fz.note }}</div>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:baseline;justify-content:space-between;padding:20px 20px 0;">
+      <h3 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:22px;letter-spacing:.3px;margin:0;">From the Counter</h3>
+      <span style="font-size:14px;font-weight:700;color:#9A8B7F;">wrapped to carry</span>
+    </div>
+    <div class="bbm-track" style="display:flex;gap:16px;overflow-x:auto;padding:18px 20px 8px;scroll-snap-type:x mandatory;">
+      <sc-for list="{{ artisanLine }}" as="ar" hint-placeholder-count="6">
+        <a href="{{ ar.href }}" style="flex:0 0 62%;max-width:220px;scroll-snap-align:start;text-decoration:none;color:inherit;display:block;">
+          <div style="background:#FBF3E9;border:2.5px solid #2D1B14;border-radius:22px;box-shadow:3px 4px 0 #2D1B14;overflow:hidden;">
+            <img src="{{ ar.url }}" alt="{{ ar.alt }}" loading="lazy" style="width:100%;aspect-ratio:3/4;object-fit:contain;display:block;background:#FBF3E9;">
+          </div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.3px;color:#2D1B14;margin-top:12px;line-height:1.05;">{{ ar.name }}</div>
+          <div style="font-size:15px;font-weight:700;color:#6A5A50;margin-top:6px;">{{ ar.note }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== BUILD A BOX ===== -->
+  <div style="margin:40px 12px 0;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:34px;box-shadow:4px 6px 0 #2D1B14;padding:28px 22px 30px;">
+    <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#EF5F2B;">BUILD A BOX</div>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;line-height:1.0;letter-spacing:.4px;margin:8px 0 0;">PICK YOUR PERFECT BOX</h2>
+    <p style="font-size:15.5px;font-weight:600;color:#6A5A50;line-height:1.5;margin:12px 0 20px;">Mix and match your favourites — one flat price, boxed fresh the morning of pickup.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <button onClick="{{ setBox6 }}" style="cursor:pointer;font-family:inherit;text-align:left;border-radius:20px;padding:15px 16px;border:2.5px solid {{ box6Border }};background:{{ box6Bg }};box-shadow:{{ box6Shadow }};">
+        <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;color:#2D1B14;letter-spacing:.3px;">HALF DOZEN</div>
+        <div style="font-size:13.5px;font-weight:700;color:#6A5A50;margin-top:3px;">6 bakes · $24</div>
+      </button>
+      <button onClick="{{ setBox12 }}" style="cursor:pointer;font-family:inherit;text-align:left;border-radius:20px;padding:15px 16px;border:2.5px solid {{ box12Border }};background:{{ box12Bg }};box-shadow:{{ box12Shadow }};">
+        <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;color:#2D1B14;letter-spacing:.3px;">FULL DOZEN</div>
+        <div style="font-size:13.5px;font-weight:700;color:#6A5A50;margin-top:3px;">12 bakes · $42</div>
+      </button>
+    </div>
+
+    <div style="margin-top:22px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px;">
+        <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.3px;color:#2D1B14;white-space:nowrap;">{{ boxCount }} of {{ boxSize }} chosen</span>
+        <span style="font-size:13.5px;font-weight:800;color:#EF5F2B;white-space:nowrap;">{{ boxRemainingLabel }}</span>
+      </div>
+      <div style="height:12px;border-radius:8px;background:#EDE4DB;overflow:hidden;">
+        <div style="height:100%;border-radius:8px;background:#3E8E54;width:{{ boxFillPct }};transition:width .3s ease;"></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;">
+      <sc-for list="{{ boxItems }}" as="bi" hint-placeholder-count="8">
+        <div style="background:{{ bi.bg }};border-radius:22px;padding:14px 13px 13px;display:flex;flex-direction:column;gap:11px;min-width:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.62);display:inline-flex;align-items:center;justify-content:center;">
+              <sc-if value="{{ bi.isCookie }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 74 74" fill="none" stroke="#2D1B14" stroke-width="3"><circle cx="37" cy="37" r="28"/><circle cx="28" cy="30" r="2.6" fill="#2D1B14" stroke="none"/><circle cx="46" cy="28" r="2.2" fill="#2D1B14" stroke="none"/><circle cx="48" cy="44" r="3" fill="#2D1B14" stroke="none"/></svg></sc-if>
+              <sc-if value="{{ bi.isCroissant }}"><svg width="21" height="20" viewBox="0 0 80 74" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M40 8 C18 18 14 44 24 62 C44 56 60 36 56 14 C50 16 44 12 40 8Z"/></svg></sc-if>
+              <sc-if value="{{ bi.isRoll }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.2"/><circle cx="12" cy="12" r="1.8"/></svg></sc-if>
+            </span>
+            <span style="font-size:12.5px;font-weight:800;color:#5A4A40;">{{ bi.eachStr }}</span>
+          </div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.2px;color:#2D1B14;line-height:1.1;min-height:33px;">{{ bi.name }}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <button onClick="{{ bi.dec }}" aria-label="Remove one" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.7);border:2px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;color:#2D1B14;min-width:18px;text-align:center;">{{ bi.qty }}</span>
+            <button onClick="{{ bi.inc }}" aria-label="Add one" style="width:36px;height:36px;border-radius:50%;background:#2D1B14;border:2px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1.6px dashed #D9CDC2;margin-top:20px;padding-top:18px;">
+      <div>
+        <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:32px;color:#2D1B14;line-height:1;">{{ boxPriceStr }}</div>
+        <div style="font-size:12.5px;font-weight:800;color:#3E8E54;margin-top:4px;">{{ boxSavingsStr }}</div>
+      </div>
+      <button onClick="{{ addBox }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.6px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 22px;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;opacity:{{ boxAddOpacity }};white-space:nowrap;">{{ boxAddLabel }}</button>
+    </div>
+
+    <a href="custom-order.html" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;background:#F7F0E9;border:2px solid #ECE2DA;border-radius:22px;padding:15px 16px;text-decoration:none;">
+      <span style="min-width:0;">
+        <span style="display:block;font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;letter-spacing:.2px;">Need something custom?</span>
+        <span style="display:block;font-size:13.5px;font-weight:700;color:#8A7A6E;margin-top:2px;">Build a bigger order — 48 hours notice</span>
+      </span>
+      <span style="display:inline-flex;width:36px;height:36px;border-radius:50%;background:#FCD414;border:2px solid #2D1B14;align-items:center;justify-content:center;flex-shrink:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+    </a>
+  </div>
+
+  <!-- ===== SUBSCRIBE & SAVE ===== -->
+  <div style="margin:40px 12px 0;background:#3A2A6B;border-radius:34px;padding:28px 22px 30px;position:relative;overflow:hidden;">
+    <svg width="180" height="180" viewBox="0 0 220 220" style="position:absolute;right:-46px;top:-52px;opacity:.16;" fill="none" stroke="#FCD414" stroke-width="14"><circle cx="110" cy="110" r="66"/><circle cx="140" cy="90" r="38"/></svg>
+    <div style="position:relative;z-index:2;">
+      <span style="display:inline-flex;align-items:center;font-family:'Lilita One','Arial Black',sans-serif;font-size:12.5px;letter-spacing:.7px;color:#3A2A6B;background:#FCD414;border-radius:30px;padding:7px 15px;">SUBSCRIBE &amp; SAVE 15%</span>
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#FBF4EC;font-size:40px;line-height:1.0;letter-spacing:.4px;margin:18px 0 0;">Fresh Bakes, On Repeat.</h2>
+      <p style="font-size:15.5px;font-weight:600;color:#D8CCF0;line-height:1.55;margin:14px 0 0;">Set it once and wake up to warm bread and pastries on your schedule — 15% off every delivery, always free locally.</p>
+
+      <div style="background:#FFFCF8;border-radius:28px;padding:22px 20px 24px;margin-top:22px;">
+        <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;margin-bottom:12px;">1 · CHOOSE YOUR PLAN</div>
+        <div style="display:flex;flex-direction:column;gap:11px;">
+          <sc-for list="{{ subPlans }}" as="sp" hint-placeholder-count="3">
+            <button onClick="{{ sp.select }}" style="display:flex;align-items:center;gap:13px;cursor:pointer;font-family:inherit;text-align:left;border-radius:20px;padding:15px 16px;border:2.5px solid {{ sp.border }};background:{{ sp.bg }};box-shadow:{{ sp.shadow }};">
+              <span style="width:20px;height:20px;border-radius:50%;border:2.5px solid {{ sp.dot }};background:{{ sp.dot }};flex-shrink:0;box-shadow:inset 0 0 0 3px #FFFCF8;"></span>
+              <span style="flex:1;min-width:0;">
+                <span style="display:block;font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;letter-spacing:.2px;">{{ sp.name }}</span>
+                <span style="display:block;font-size:13px;font-weight:700;color:#6A5A50;margin-top:2px;">{{ sp.desc }}</span>
+              </span>
+              <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;color:#2D1B14;">{{ sp.priceStr }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#9A8A80;margin:20px 0 12px;">2 · HOW OFTEN</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;">
+          <sc-for list="{{ subFreqs }}" as="sf" hint-placeholder-count="3">
+            <button onClick="{{ sf.select }}" style="cursor:pointer;font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.3px;color:{{ sf.fg }};border-radius:16px;padding:14px 0;border:2.5px solid {{ sf.border }};background:{{ sf.bg }};">{{ sf.label }}</button>
+          </sc-for>
+        </div>
+
+        <div style="border-top:1.6px dashed #D9CDC2;margin-top:20px;padding-top:16px;">
+          <div style="display:flex;align-items:baseline;gap:9px;">
+            <span style="font-size:16px;font-weight:700;color:#9A8B7F;text-decoration:line-through;">{{ subWasStr }}</span>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:30px;color:#2D1B14;">{{ subNowStr }}</span>
+            <span style="font-size:14px;font-weight:700;color:#6A5A50;">/ delivery</span>
+          </div>
+          <div style="font-size:12.5px;font-weight:700;color:#9A8A80;margin-top:5px;">{{ subCadence }}</div>
+        </div>
+        <button onClick="{{ startSub }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.7px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:16px 0;width:100%;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;margin-top:18px;">START SUBSCRIPTION</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RATINGS (WITH ENOUGH BUTTER) ===== -->
+  <div style="margin:40px 12px 0;background:#A8D2DA;border-radius:34px;padding:28px 22px 30px;position:relative;overflow:hidden;">
+    <svg width="200" height="200" viewBox="0 0 240 240" style="position:absolute;right:-50px;top:-56px;" fill="none" stroke="#E4DE86" stroke-width="14" opacity="0.7"><circle cx="120" cy="120" r="70"/><circle cx="150" cy="100" r="40"/></svg>
+    <div style="position:relative;z-index:2;">
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#1F6470;font-size:38px;line-height:1.0;letter-spacing:.4px;margin:0;">WITH ENOUGH BUTTER, ANYTHING IS GOOD!</h2>
+      <div style="height:2px;background:rgba(31,100,112,.35);margin:22px 0;"></div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span style="font-family:'Lilita One','Arial Black',sans-serif;color:#1F6470;font-size:50px;line-height:.9;">3.73</span>
+        <div>
+          <div style="display:flex;gap:3px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#F4EBDD"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#F4EBDD"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#F4EBDD"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#F4EBDD"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+          </div>
+          <div style="font-size:14px;font-weight:700;color:#1F6470;margin-top:5px;">Based on 4350 reviews</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;">
+        <a href="product.html?category=cakes" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#1F6470;border:2px solid #1F6470;border-radius:30px;padding:12px 0;text-align:center;text-decoration:none;">PLAIN CAKE</a>
+        <a href="product.html?category=pastries" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#1F6470;border:2px solid #1F6470;border-radius:30px;padding:12px 0;text-align:center;text-decoration:none;">CROISSANT</a>
+        <a href="product.html?category=cookies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#1F6470;border:2px solid #1F6470;border-radius:30px;padding:12px 0;text-align:center;text-decoration:none;">COOKIES</a>
+        <a href="product.html?category=bread" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#1F6470;border:2px solid #1F6470;border-radius:30px;padding:12px 0;text-align:center;text-decoration:none;">LOAF BREAD</a>
+        <a href="product.html?category=pies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#1F6470;border:2px solid #1F6470;border-radius:30px;padding:12px 0;text-align:center;text-decoration:none;">APPLE PIE</a>
+        <a href="product.html?category=pies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#1F6470;border:2px solid #1F6470;border-radius:30px;padding:12px 0;text-align:center;text-decoration:none;">BRETZEL</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;margin-top:26px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:#FCD414;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="18" r="8" fill="#F6D9BE"/><path d="M8 15 Q16 8 24 15" fill="#EFEFEF" stroke="#2D1B14" stroke-width="1.4"/><circle cx="13" cy="18" r="1.3" fill="#2D1B14"/><circle cx="19" cy="18" r="1.3" fill="#2D1B14"/></svg></div>
+        <div style="font-size:16px;font-weight:700;color:#1F6470;line-height:1.35;">Our master plan to freshen up a 200-year-old craft</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SIMPLE INGREDIENTS ===== -->
+  <div style="padding:40px 20px 0;">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#fff;background:#EF5F2B;border-radius:30px;padding:9px 18px;">COMMUNITY</span>
+      <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#fff;background:#3FAE4E;border-radius:30px;padding:9px 18px;">QUALITY</span>
+      <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;letter-spacing:.5px;color:#2D1B14;background:#FCD414;border-radius:30px;padding:9px 18px;">PURE DELIGHT</span>
+    </div>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:38px;line-height:1.02;letter-spacing:.4px;margin:20px 0 0;">Simple Ingredients, Extraordinary Moments</h2>
+    <p style="font-size:16px;font-weight:600;color:#3A2A22;line-height:1.58;margin:14px 0 0;">We meticulously select the finest ingredients, embrace traditional techniques, and infuse every creation with an abundance of love. The result? Baked goods that don't just taste incredible, but also bring people together.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;">
+      <img src="uploads/ingredients-flatlay.jpg" alt="Butter, flour, eggs, vanilla, sugar and chocolate" loading="lazy" style="width:100%;height:190px;border-radius:24px;object-fit:cover;background:#F1ECE6;">
+      <div style="position:relative;border-radius:24px;overflow:hidden;background:#2A1610;height:190px;">
+        <img src="uploads/ingr-video-still.jpg" alt="Baker kneading dough" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:#EF5F2B;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+      </div>
+    </div>
+    <a href="menu.html" style="display:inline-flex;align-items:center;gap:12px;font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 22px 15px 28px;text-decoration:none;box-shadow:3px 5px 0 #2D1B14;margin-top:22px;">ORDER NOW <span style="display:inline-flex;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.22);align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span></a>
+  </div>
+
+  <!-- ===== MORNING TIMELINE ===== -->
+  <div style="margin:40px 12px 0;background:#FBEFD9;border-radius:34px;padding:28px 22px 30px;">
+    <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#EF5F2B;">BEHIND THE COUNTER</div>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;line-height:1.02;letter-spacing:.4px;margin:8px 0 0;">Our Morning, Start to Finish</h2>
+    <p style="font-size:15.5px;font-weight:600;color:#6A5A50;line-height:1.5;margin:12px 0 0;">Every loaf on the shelf is the end of a story that starts hours before sunrise.</p>
+
+    <div style="position:relative;margin-top:24px;padding-left:8px;">
+      <div style="position:absolute;left:43px;top:20px;bottom:20px;width:4px;background:#E7C98F;border-radius:4px;"></div>
+      <div style="display:flex;flex-direction:column;gap:22px;position:relative;">
+        <sc-for list="{{ timeline }}" as="tl" hint-placeholder-count="4">
+          <div style="display:flex;align-items:flex-start;gap:18px;">
+            <div style="width:70px;height:70px;flex:0 0 auto;border-radius:50%;background:{{ tl.bg }};border:2.5px solid #2D1B14;box-shadow:3px 4px 0 #2D1B14;display:flex;align-items:center;justify-content:center;font-family:'Lilita One','Arial Black',sans-serif;font-size:15px;color:#2D1B14;text-align:center;line-height:1.05;">{{ tl.time }}</div>
+            <div style="flex:1;min-width:0;padding-top:6px;">
+              <h3 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:21px;letter-spacing:.3px;color:#2D1B14;margin:0;">{{ tl.title }}</h3>
+              <p style="font-size:15px;font-weight:600;color:#6A5A50;line-height:1.5;margin:7px 0 0;">{{ tl.body }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="border-top:1.6px dashed #E1C994;margin-top:26px;padding-top:20px;">
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.6px;color:#9A8460;margin-bottom:14px;">MEET YOUR BAKERS</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="uploads/baker-amara.jpg" alt="Amara, Head Baker" loading="lazy" style="width:52px;height:52px;border-radius:50%;object-fit:cover;background:#F1ECE6;">
+          <div><div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;">Amara</div><div style="font-size:13px;font-weight:700;color:#9A8A80;">Head Baker</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="uploads/baker-marco.jpg" alt="Marco, Viennoiserie" loading="lazy" style="width:52px;height:52px;border-radius:50%;object-fit:cover;background:#F1ECE6;">
+          <div><div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;">Marco</div><div style="font-size:13px;font-weight:700;color:#9A8A80;">Viennoiserie</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="uploads/baker-jess.jpg" alt="Jess, Pastry and Cakes" loading="lazy" style="width:52px;height:52px;border-radius:50%;object-fit:cover;background:#F1ECE6;">
+          <div><div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;">Jess</div><div style="font-size:13px;font-weight:700;color:#9A8A80;">Pastry &amp; Cakes</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== WHY US + TESTIMONIAL ===== -->
+  <div style="margin:40px 12px 0;background:#FCE4DD;border-radius:34px;padding:28px 22px 30px;">
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:36px;line-height:1.04;letter-spacing:.4px;color:#2D1B14;margin:0;">We're Your Ultimate Bite of Bliss!</h2>
+    <p style="font-size:16px;font-weight:700;color:#3A2A22;line-height:1.5;margin:12px 0 0;">Lovingly handmade bakes, fresh from our oven to you.</p>
+
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px;">
+      <div style="background:rgba(255,255,255,.55);border-radius:24px;padding:20px 18px;">
+        <h3 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;letter-spacing:.3px;color:#2D1B14;margin:0;">Farm-Fresh Ingredients</h3>
+        <p style="font-size:15px;font-weight:600;color:#5A4A40;line-height:1.5;margin:9px 0 0;">We scour local farms and trusted suppliers to bring you the freshest, highest-quality components.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.55);border-radius:24px;padding:20px 18px;">
+        <h3 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;letter-spacing:.3px;color:#2D1B14;margin:0;">Time-Honored Recipes</h3>
+        <p style="font-size:15px;font-weight:600;color:#5A4A40;line-height:1.5;margin:9px 0 0;">Recipes passed down and perfected over generations, baked the slow way the craft demands.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.55);border-radius:24px;padding:20px 18px;">
+        <h3 style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;letter-spacing:.3px;color:#2D1B14;margin:0;">Baked with Passion</h3>
+        <p style="font-size:15px;font-weight:600;color:#5A4A40;line-height:1.5;margin:9px 0 0;">Every loaf and pastry is made by hand with genuine love — because you can taste the difference.</p>
+      </div>
+    </div>
+
+    <div style="border-top:1.6px solid rgba(45,27,20,.14);margin-top:26px;padding-top:22px;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:48px;line-height:.8;color:#2D1B14;">{{ tRating }}</div>
+        <div>
+          <div style="display:flex;gap:3px;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="{{ tStar5 }}"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+          </div>
+          <div style="font-size:14px;font-weight:700;color:#5A4A40;margin-top:6px;">{{ tCount }}</div>
+        </div>
+      </div>
+      <p style="font-size:16px;font-weight:600;color:#3A2A22;line-height:1.6;margin:18px 0 0;min-height:120px;">{{ tText }}</p>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:16px;">
+        <div>
+          <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:22px;letter-spacing:.3px;color:#2D1B14;">{{ tName }}</div>
+          <div style="font-size:14px;font-weight:600;color:#8A7A6E;margin-top:3px;">{{ tPlace }}</div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button onClick="{{ testiPrev }}" aria-label="Previous review" style="width:46px;height:46px;border-radius:50%;background:transparent;border:2px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+          <button onClick="{{ testiNext }}" aria-label="Next review" style="width:46px;height:46px;border-radius:50%;background:transparent;border:2px solid #EF5F2B;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EF5F2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== REVIEW WALL ===== -->
+  <div style="padding:40px 0 0;">
+    <div style="padding:0 20px;">
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#EF5F2B;">REVIEWS</div>
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;line-height:1.02;letter-spacing:.4px;margin:8px 0 0;">Loved by Locals</h2>
+      <div style="display:flex;align-items:center;gap:14px;background:#FFFCF8;border:2px solid #2D1B14;border-radius:22px;padding:14px 18px;box-shadow:3px 4px 0 #2D1B14;margin-top:16px;">
+        <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:38px;line-height:.8;color:#2D1B14;">4.8</span>
+        <div>
+          <div style="display:flex;gap:3px;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+          </div>
+          <div style="font-size:14px;font-weight:800;color:#6A5A50;margin-top:5px;">3,214 verified reviews</div>
+        </div>
+      </div>
+    </div>
+    <div class="bbm-track" style="display:flex;gap:14px;overflow-x:auto;padding:20px 20px 8px;scroll-snap-type:x mandatory;">
+      <sc-for list="{{ reviews }}" as="rv" hint-placeholder-count="6">
+        <div style="flex:0 0 82%;max-width:300px;scroll-snap-align:start;background:#FFFCF8;border:1.5px solid #F0E3D8;border-radius:24px;padding:20px 18px 18px;display:flex;flex-direction:column;gap:13px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:46px;height:46px;border-radius:50%;background:{{ rv.avBg }};display:flex;align-items:center;justify-content:center;font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#fff;flex-shrink:0;">{{ rv.initials }}</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;color:#2D1B14;">{{ rv.name }}</div>
+              <div style="font-size:12.5px;font-weight:700;color:#9A8A80;margin-top:2px;">{{ rv.place }}</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:3px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#EF5F2B"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="{{ rv.star5 }}"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.5 1.6 6.7L12 17l-6.2 3.6 1.6-6.7L2.2 9.5l6.9-.6z"/></svg>
+          </div>
+          <p style="font-size:15px;font-weight:600;color:#3A2A22;line-height:1.55;margin:0;">{{ rv.text }}</p>
+          <span style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;color:#6A5A50;background:#F5EEE7;border-radius:30px;padding:7px 13px;align-self:flex-start;">{{ rv.tag }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== FAMILY BAND ===== -->
+  <div style="margin:40px 12px 0;background:#4E2317;border-radius:34px;padding:28px 22px 30px;position:relative;overflow:hidden;">
+    <svg width="120" height="80" viewBox="0 0 80 74" style="position:absolute;right:16px;top:14px;" fill="none" stroke="#7A4030" stroke-width="2" stroke-linecap="round" opacity="0.5"><path d="M40 8 C18 18 14 44 24 62 C44 56 60 36 56 14 C50 16 44 12 40 8Z"/></svg>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#FBF4EC;font-size:40px;line-height:1.0;letter-spacing:.4px;margin:0;position:relative;">More Than Just a Bakery, We're Family!</h2>
+    <div class="bbm-track" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:20px;border-radius:26px;position:relative;">
+      <img src="uploads/fam-1.jpg" alt="Baker handing a pastry bag to a customer" loading="lazy" style="flex:0 0 100%;scroll-snap-align:center;height:260px;border-radius:26px;object-fit:cover;background:#2A1610;">
+      <img src="uploads/fam-2.jpg" alt="Two bakers laughing behind the counter" loading="lazy" style="flex:0 0 100%;scroll-snap-align:center;height:260px;border-radius:26px;object-fit:cover;background:#2A1610;">
+      <img src="uploads/fam-3.jpg" alt="Baking workshop around a floured table" loading="lazy" style="flex:0 0 100%;scroll-snap-align:center;height:260px;border-radius:26px;object-fit:cover;background:#2A1610;">
+    </div>
+    <p style="font-size:15.5px;font-weight:600;color:#E7D6CE;line-height:1.55;margin:16px 0 0;">Woven into this community — sharing our passion for baking and a warm, welcoming space for everyone.</p>
+    <a href="menu.html" style="display:inline-flex;align-items:center;gap:12px;font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;letter-spacing:.8px;color:#fff;background:#EF5F2B;border:2.5px solid #000;border-radius:44px;padding:15px 22px 15px 28px;text-decoration:none;box-shadow:3px 5px 0 #000;margin-top:24px;">JOIN OUR COMMUNITY <span style="display:inline-flex;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.22);align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span></a>
+  </div>
+
+  <!-- ===== FROM THE JOURNAL ===== -->
+  <div style="padding:40px 0 0;">
+    <div style="padding:0 20px;">
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#EF5F2B;">FROM THE JOURNAL</div>
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:34px;line-height:1.02;letter-spacing:.4px;margin:8px 0 0;">Baking Notes &amp; Stories</h2>
+      <p style="font-size:15.5px;font-weight:600;color:#6A5A50;line-height:1.5;margin:12px 0 0;">Tips from our bench, recipes to try at home, and the little obsessions behind every bake.</p>
+    </div>
+    <div class="bbm-track" style="display:flex;gap:14px;overflow-x:auto;padding:20px 20px 8px;scroll-snap-type:x mandatory;">
+      <sc-for list="{{ articles }}" as="ar" hint-placeholder-count="3">
+        <button onClick="{{ ar.open }}" style="flex:0 0 78%;max-width:290px;scroll-snap-align:start;text-align:left;cursor:pointer;font-family:inherit;padding:0;background:#FFFCF8;border:1.5px solid #F0E3D8;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;">
+          <img src="{{ ar.img }}" alt="{{ ar.title }}" loading="lazy" style="width:100%;height:170px;object-fit:cover;background:#F1ECE6;">
+          <span style="padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;">
+            <span style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:11.5px;letter-spacing:.5px;color:{{ ar.catFg }};background:{{ ar.catBg }};border-radius:30px;padding:5px 11px;">{{ ar.cat }}</span><span style="font-size:12.5px;font-weight:700;color:#9A8A80;">{{ ar.read }}</span></span>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:21px;line-height:1.12;letter-spacing:.2px;color:#2D1B14;">{{ ar.title }}</span>
+            <span style="font-size:15px;font-weight:600;color:#6A5A50;line-height:1.5;">{{ ar.excerpt }}</span>
+            <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.5px;color:#EF5F2B;">READ ARTICLE ›</span>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===== VISIT US ===== -->
+  <div id="visit" style="margin:40px 12px 0;background:#4E2317;border-radius:34px;padding:28px 22px 30px;">
+    <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.7px;color:#FCD414;">VISIT US</div>
+    <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#FBF4EC;font-size:38px;line-height:1.0;letter-spacing:.4px;margin:10px 0 0;">Come Say Hello</h2>
+
+    <div style="display:flex;align-items:flex-start;gap:13px;margin-top:22px;">
+      <span style="display:inline-flex;width:44px;height:44px;border-radius:14px;background:#EF5F2B;border:2.5px solid #2D1B14;align-items:center;justify-content:center;flex-shrink:0;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+      <div>
+        <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:20px;color:#FBF4EC;">214 Maple Street</div>
+        <div style="font-size:15px;font-weight:600;color:#E7D6CE;margin-top:3px;">Springfield, IL 62704</div>
+      </div>
+    </div>
+
+    <div style="border-top:1.6px dashed #7A4030;margin-top:24px;padding-top:20px;">
+      <div style="font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.6px;color:#C9A18E;margin-bottom:12px;">OPENING HOURS</div>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;color:#FBF4EC;"><span style="color:#E7D6CE;">Mon – Fri</span><span>7:00 AM – 7:00 PM</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;color:#FBF4EC;"><span style="color:#E7D6CE;">Saturday</span><span>7:00 AM – 6:00 PM</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;color:#FBF4EC;"><span style="color:#E7D6CE;">Sunday</span><span>8:00 AM – 4:00 PM</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:22px;">
+      <a href="tel:+12175551234" style="display:inline-flex;align-items:center;gap:10px;font-size:15.5px;font-weight:700;color:#FBF4EC;text-decoration:none;padding:6px 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FCD414" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2.1Z"/></svg>(217) 555-1234</a>
+      <a href="mailto:hello@blissandbutter.com" style="display:inline-flex;align-items:center;gap:10px;font-size:15.5px;font-weight:700;color:#FBF4EC;text-decoration:none;padding:6px 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FCD414" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>hello@blissandbutter.com</a>
+    </div>
+
+    <a href="https://www.google.com/maps/search/?api=1&amp;query=214%20Maple%20Street%20Springfield%20IL" target="_blank" rel="noopener" style="position:relative;display:block;border-radius:26px;overflow:hidden;background:#E7E0D2;height:200px;margin-top:22px;text-decoration:none;">
+      <svg width="100%" height="100%" viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;">
+        <rect width="600" height="480" fill="#E9E3D6"/>
+        <rect x="40" y="30" width="180" height="150" rx="8" fill="#DCE7CE"/>
+        <rect x="400" y="300" width="170" height="150" rx="8" fill="#DCE7CE"/>
+        <path d="M-20 120 L620 90" stroke="#fff" stroke-width="26"/>
+        <path d="M-20 320 L620 350" stroke="#fff" stroke-width="20"/>
+        <path d="M150 -20 L120 500" stroke="#fff" stroke-width="24"/>
+        <path d="M420 -20 L450 500" stroke="#fff" stroke-width="18"/>
+        <path d="M300 40 C260 200 340 260 300 460" stroke="#A6DCE8" stroke-width="22" fill="none" opacity=".8"/>
+      </svg>
+      <span style="position:absolute;left:50%;top:48%;transform:translate(-50%,-100%);z-index:2;display:flex;flex-direction:column;align-items:center;">
+        <span style="background:#2D1B14;color:#FBF4EC;font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.4px;padding:6px 13px;border-radius:30px;white-space:nowrap;">Bliss &amp; Butter</span>
+        <svg width="38" height="45" viewBox="0 0 44 52" style="margin-top:2px;"><path d="M22 2C11 2 2 11 2 22c0 14 20 28 20 28s20-14 20-28C42 11 33 2 22 2Z" fill="#EF5F2B" stroke="#2D1B14" stroke-width="2.5"/><circle cx="22" cy="21" r="7" fill="#FFFCF8"/></svg>
+      </span>
+      <span style="position:absolute;right:14px;bottom:14px;z-index:2;font-family:'Lilita One','Arial Black',sans-serif;font-size:13px;letter-spacing:.5px;color:#2D1B14;background:#FFFCF8;border:2px solid #2D1B14;border-radius:30px;padding:8px 14px;box-shadow:2px 3px 0 #2D1B14;">Open in Maps ›</span>
+    </a>
+  </div>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <div style="margin:40px 12px 0;background:#FCD414;border-radius:34px;padding:28px 22px 30px;text-align:center;position:relative;overflow:hidden;">
+    <svg width="70" height="70" viewBox="0 0 74 74" style="position:absolute;right:-12px;bottom:-16px;" fill="none" stroke="#2D1B14" stroke-width="2" opacity=".35"><circle cx="37" cy="37" r="26"/><circle cx="28" cy="30" r="2.6" fill="#2D1B14" stroke="none"/><circle cx="46" cy="28" r="2.2" fill="#2D1B14" stroke="none"/><circle cx="46" cy="46" r="3" fill="#2D1B14" stroke="none"/></svg>
+    <div style="position:relative;z-index:2;">
+      <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:36px;line-height:1.02;letter-spacing:.4px;margin:0;">Get the Fresh Drops</h2>
+      <p style="font-size:15.5px;font-weight:700;color:#3A2A22;line-height:1.5;margin:12px 0 0;">Weekly specials, new bakes, and the occasional secret menu — no spam, just butter.</p>
+      <sc-if value="{{ newsNotDone }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:20px;">
+          <input value="{{ newsEmail }}" onInput="{{ onNewsEmail }}" type="email" placeholder="you@email.com" style="width:100%;font-family:'Nunito',sans-serif;font-size:16px;font-weight:600;color:#2D1B14;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 20px;outline:none;">
+          <button onClick="{{ submitNews }}" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.6px;color:#fff;background:#EF5F2B;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 0;cursor:pointer;box-shadow:3px 5px 0 #2D1B14;">SUBSCRIBE</button>
+        </div>
+        <sc-if value="{{ hasNewsErr }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13.5px;font-weight:800;color:#C6431E;margin-top:11px;">{{ newsErr }}</div>
+        </sc-if>
+      </sc-if>
+      <sc-if value="{{ newsDone }}" hint-placeholder-val="{{ false }}">
+        <div style="display:inline-flex;align-items:center;gap:11px;background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:44px;padding:14px 22px;margin-top:20px;box-shadow:3px 5px 0 #2D1B14;">
+          <span style="display:inline-flex;width:28px;height:28px;border-radius:50%;background:#2E7D46;align-items:center;justify-content:center;flex-shrink:0;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:16px;color:#2D1B14;letter-spacing:.3px;text-align:left;">You're on the list — check your inbox!</span>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div style="padding:48px 20px 40px;text-align:center;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
+      <svg width="30" height="30" viewBox="0 0 40 40"><g fill="#EF5F2B"><ellipse cx="20" cy="9" rx="5" ry="8"/><ellipse cx="20" cy="31" rx="5" ry="8"/><ellipse cx="9" cy="20" rx="8" ry="5"/><ellipse cx="31" cy="20" rx="8" ry="5"/><ellipse cx="12" cy="12" rx="6" ry="5" transform="rotate(-45 12 12)"/><ellipse cx="28" cy="28" rx="6" ry="5" transform="rotate(-45 28 28)"/><ellipse cx="28" cy="12" rx="6" ry="5" transform="rotate(45 28 12)"/><ellipse cx="12" cy="28" rx="6" ry="5" transform="rotate(45 12 28)"/><circle cx="20" cy="20" r="5" fill="#FBE3DC"/></g></svg>
+      <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:24px;color:#2D1B14;letter-spacing:.4px;">Bliss &amp; Butter</span>
+    </div>
+    <div style="display:flex;justify-content:center;gap:11px;margin-top:20px;">
+      <a href="#" aria-label="Facebook" style="width:44px;height:44px;border-radius:50%;border:1.6px solid rgba(45,27,20,.35);display:flex;align-items:center;justify-content:center;color:#2D1B14;text-decoration:none;font-family:Georgia,serif;font-weight:700;font-size:19px;">f</a>
+      <a href="#" aria-label="Instagram" style="width:44px;height:44px;border-radius:50%;border:1.6px solid rgba(45,27,20,.35);display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="#2D1B14" stroke="none"/></svg></a>
+      <a href="#" aria-label="TikTok" style="width:44px;height:44px;border-radius:50%;border:1.6px solid rgba(45,27,20,.35);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="#2D1B14"><path d="M14 3c.3 2.4 1.8 4 4 4.3v3c-1.5 0-2.9-.5-4-1.3v6.5a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.08v3.1a2.5 2.5 0 1 0 1.6 2.32V3z"/></svg></a>
+    </div>
+    <div style="color:#9A8A80;font-size:13px;font-weight:600;margin-top:20px;">© 2026 Bliss &amp; Butter. All rights reserved.</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:940}}">
+class Component extends DCLogic {
+  state = { menuOpen: false, cartOpen: false, cart: [], boxSize: 6, boxSel: {}, subPlan: 0, subFreq: 'weekly', testi: 0, blogIdx: null, newsEmail: '', newsDone: false, newsErr: '' };
+  BOX_ITEMS = [
+    { slug: 'croissant', name: 'Butter Croissant', each: 4.50, icon: 'croissant', bg: '#FCD414' },
+    { slug: 'pain-au-chocolat', name: 'Pain au Chocolat', each: 5.25, icon: 'croissant', bg: '#F4C9A6' },
+    { slug: 'almond-croissant', name: 'Almond Croissant', each: 5.75, icon: 'croissant', bg: '#A6DCE8' },
+    { slug: 'danish', name: 'Berry Danish', each: 4.95, icon: 'roll', bg: '#E0D4F0' },
+    { slug: 'cinnamon-roll', name: 'Cinnamon Roll', each: 4.75, icon: 'roll', bg: '#FCE4DD' },
+    { slug: 'choc-chip', name: 'Choc Chip Cookie', each: 3.95, icon: 'cookie', bg: '#BFE0E5' },
+    { slug: 'double-choc', name: 'Double Choc Cookie', each: 4.25, icon: 'cookie', bg: '#F4C9A6' },
+    { slug: 'peanut-butter', name: 'Peanut Butter Cookie', each: 3.95, icon: 'cookie', bg: '#FCD414' },
+  ];
+  DEALS = [
+    { id: 'bread/sourdough', name: 'Artisan Sourdough Loaf', cat: 'bread', slug: 'sourdough', img: 'uploads/sourdough-cutout.png', bg: '#FCD414', was: '$9.50', now: 8.99, badge: 'Baked this morning', badgeBg: '#E4F3E9', badgeFg: '#2E7D46' },
+    { id: 'cookies/choc-chip', name: 'Chocolate Chip Dozen', cat: 'cookies', slug: 'choc-chip', img: 'uploads/choc-chip-cutout.png', bg: '#63D89B', was: '$16.20', now: 15.00, badge: 'Best seller', badgeBg: '#FDE7DE', badgeFg: '#C6431E' },
+    { id: 'pastries/danish', name: 'Berry Bliss Danish', cat: 'pastries', slug: 'danish', img: 'uploads/danish-cutout.png', bg: '#A6DCE8', was: '$5.38', now: 4.50, badge: 'Baked this morning', badgeBg: '#E4F3E9', badgeFg: '#2E7D46' },
+    { id: 'cakes/red-velvet', name: 'Velvet Crumb Cake', cat: 'cakes', slug: 'red-velvet', img: 'uploads/red-velvet-cutout.png', bg: '#F4C9A6', was: '$6.80', now: 5.99, badge: 'Limited today', badgeBg: '#FDE7DE', badgeFg: '#C6431E' },
+    { id: 'pastries/cinnamon-roll', name: 'Cinnamon Swirl Bun', cat: 'pastries', slug: 'cinnamon-roll', img: 'uploads/cinnamon-roll-cutout.png', bg: '#E0D4F0', was: '$4.20', now: 3.50, badge: 'Baked this morning', badgeBg: '#E4F3E9', badgeFg: '#2E7D46' },
+  ];
+  timeline = [
+    { time: '4:00 AM', bg: '#FCD414', title: 'The First Mix', body: 'Levain is fed and doughs are mixed by hand while the whole town still sleeps.' },
+    { time: '5:30 AM', bg: '#A6DCE8', title: 'Slow Proof', body: "Loaves rise gently in the warm proofer, building the flavour you can't rush." },
+    { time: '6:15 AM', bg: '#F4C9A6', title: 'Into the Oven', body: 'Steam hits the stone deck — crusts crackle, colour deepens to amber.' },
+    { time: '7:00 AM', bg: '#63D89B', title: 'Doors Open', body: 'Warm bread hits the shelves — right as the first regulars walk in.' },
+  ];
+  testimonials = [
+    { rating: '4.5', count: '1024 Reviews', star5: '#2D1B14', text: "Seriously, the best croissants I've ever sunk my teeth into! Flaky, buttery perfection. This isn't just a bakery; it's a daily pilgrimage for my taste buds!", name: 'Sarah Johnson', place: 'Springfield, IL' },
+    { rating: '5.0', count: '1024 Reviews', star5: '#EF5F2B', text: 'Their sourdough has completely ruined every other loaf for me — crackly crust, tangy crumb, pure magic. And the team always remembers my usual order!', name: 'Marcus Lee', place: 'Portland, OR' },
+    { rating: '4.5', count: '1024 Reviews', star5: '#2D1B14', text: 'Ordered a birthday cake last minute and they saved the day. Gorgeous, delicious, and somehow even better than the photos. Forever a loyal customer!', name: 'Priya Anand', place: 'Austin, TX' },
+  ];
+  reviews = [
+    { initials: 'SJ', avBg: '#EF5F2B', name: 'Sarah Johnson', place: 'Springfield, IL', star5: '#EF5F2B', text: "Seriously the best croissants I've ever sunk my teeth into. Flaky, buttery perfection — a daily pilgrimage for my taste buds!", tag: 'Butter Croissant' },
+    { initials: 'ML', avBg: '#2D1B14', name: 'Marcus Lee', place: 'Portland, OR', star5: '#EF5F2B', text: 'Their sourdough ruined every other loaf for me — crackly crust, tangy crumb, pure magic. And the team always remembers my usual order!', tag: 'Artisan Sourdough' },
+    { initials: 'PA', avBg: '#1F6470', name: 'Priya Anand', place: 'Austin, TX', star5: '#E4D8CF', text: 'Ordered a birthday cake last minute and they saved the day. Gorgeous, delicious, and somehow even better than the photos!', tag: 'Red Velvet Cake' },
+    { initials: 'DR', avBg: '#5A3E8C', name: 'Diego Ramos', place: 'Denver, CO', star5: '#EF5F2B', text: 'The cinnamon rolls are dangerous — warm, gooey, generous. I subscribe now so I never have to run out. Best decision ever.', tag: 'Cinnamon Roll' },
+    { initials: 'EC', avBg: '#8A4B2A', name: 'Emily Carter', place: 'Madison, WI', star5: '#EF5F2B', text: 'Build-your-own box is genius for our Sunday brunches. Everything arrives warm and the kids fight over the danishes!', tag: 'Build Your Own Box' },
+    { initials: 'TN', avBg: '#4A2F2B', name: 'Tom Nguyen', place: 'Seattle, WA', star5: '#E4D8CF', text: 'Consistently excellent bread and the friendliest counter in town. Feels like a neighborhood institution already.', tag: 'Rye Loaf' },
+  ];
+  ARTICLES = [
+    { cat: 'TECHNIQUE', catBg: '#FDE7DE', catFg: '#C6431E', img: 'uploads/blog-sourdough.jpg', read: '6 min read', title: 'The Secret to an Open Sourdough Crumb',
+      excerpt: 'Hydration, handling, and heat — the three levers that turn a dense loaf into a lacy, custardy crumb.',
+      body: [
+        'Everyone wants those big, glossy holes — but they are not an accident. They are the sum of a well-fed starter, a wetter dough than feels comfortable, and the confidence to leave it alone.',
+        'Start with hydration. Push your dough to 78–82% water and the crumb has room to open. It will feel slack and sticky at first; wet hands and a bench scraper are your friends here.',
+        'Then handle it gently. Every fold builds strength, but rough shaping knocks the air right back out. Think of it as tucking the dough in, not wrestling it.',
+        'Finally, heat. A screaming-hot covered pot traps steam, keeps the crust soft long enough to spring, then crackles it open. That burst is where the magic happens.',
+      ] },
+    { cat: 'RECIPE', catBg: '#E4F3E9', catFg: '#2E7D46', img: 'uploads/blog-cinnamon.jpg', read: '8 min read', title: 'Weekend Cinnamon Rolls, the Slow Way',
+      excerpt: 'An overnight dough that does the work for you — so all you do in the morning is bake and glaze.',
+      body: [
+        'The best cinnamon rolls are barely any work; they just ask for patience. We mix an enriched dough the night before and let the fridge do the flavour development while we sleep.',
+        'In the morning the dough is cold, firm, and a dream to roll. Spread it thick with cinnamon sugar and softened butter, coil it tight, and slice with a length of thread for clean spirals.',
+        'A slow, gentle bake keeps the centres soft and gooey. Pull them the moment the edges turn gold — they carry on cooking as they rest.',
+        'Glaze while warm so it melts into every layer. That is the whole trick: warmth, patience, and a little too much glaze.',
+      ] },
+    { cat: 'STORY', catBg: '#EADAF5', catFg: '#5A3E8C', img: 'uploads/blog-mill.jpg', read: '4 min read', title: 'Why We Mill Our Own Flour',
+      excerpt: 'Fresh-milled grain is more fragrant, more nutritious, and a little unpredictable — here is why we love it.',
+      body: [
+        'Flour starts losing flavour the moment it is milled. So we bought a small stone mill and started grinding grain in-house, in batches, days before we bake.',
+        'The difference is immediate — a nutty, almost sweet aroma you simply cannot get from a bag that has sat on a shelf for months.',
+        'It is less predictable, too. Fresh flour drinks more water and ferments faster, so every batch is a small conversation with the dough. We would not have it any other way.',
+      ] },
+  ];
+  constructor(props) {
+    super(props);
+    try { if (window.BBCart) this.state = { ...this.state, cart: window.BBCart.read() }; } catch (e) {}
+  }
+  componentDidMount() { this._initCart(0); }
+  _syncCart() {
+    if (!window.BBCart) return;
+    const items = window.BBCart.read();
+    const sig = JSON.stringify(items);
+    if (sig !== this._cartSig) { this._cartSig = sig; this.setState({ cart: items }); }
+  }
+  _initCart(tries) {
+    if (window.BBCart) {
+      this._syncCart();
+      this._unsub = window.BBCart.subscribe(() => this._syncCart());
+      this._onCartFocus = () => this._syncCart();
+      window.addEventListener('focus', this._onCartFocus);
+    } else if (tries < 40) {
+      this._cartTimer = setTimeout(() => this._initCart(tries + 1), 50);
+    }
+  }
+  componentWillUnmount() { if (this._unsub) this._unsub(); if (this._cartTimer) clearTimeout(this._cartTimer); if (this._onCartFocus) window.removeEventListener('focus', this._onCartFocus); try { document.body.style.overflow = ''; } catch (e) {} }
+  componentDidUpdate() { try { document.body.style.overflow = (this.state.menuOpen || this.state.cartOpen || this.state.blogIdx != null) ? 'hidden' : ''; } catch (e) {} }
+  boxedLine = [
+    { url: 'packaging/rS-box-v2-choc-chip.png', name: 'Chocolate Chip', alt: 'Soft Baked Chocolate Chip cookie box', price: '$4.50', href: 'product.html?category=cookies&product=choc-chip' },
+    { url: 'packaging/rS-box-v2-oatmeal-choc-chip.png', name: 'Oatmeal Choc Chip', alt: 'Soft Baked Oatmeal Chocolate Chip cookie box', price: '$4.50', href: 'product.html?category=cookies&product=oatmeal-choc-chip' },
+    { url: 'packaging/rS-box-v2-oatmeal-raisin.png', name: 'Oatmeal Raisin', alt: 'Soft Baked Oatmeal Raisin cookie box', price: '$4.50', href: 'product.html?category=cookies&product=oatmeal-raisin' },
+    { url: 'packaging/rS-box-double-choc.png', name: 'Double Chocolate', alt: 'Soft Baked Double Chocolate cookie box', price: '$4.75', href: 'product.html?category=cookies&product=double-choc' },
+    { url: 'packaging/rS-box-v2-peanut-butter.png', name: 'Peanut Butter', alt: 'Soft Baked Peanut Butter cookie box', price: '$4.50', href: 'product.html?category=cookies&product=peanut-butter' },
+    { url: 'packaging/rS-box-v2-pb-choc-chip.png', name: 'PB Chocolate Chip', alt: 'Soft Baked Peanut Butter Chocolate Chip cookie box', price: '$4.75', href: 'product.html?category=cookies&product=pb-choc-chip' },
+    { url: 'packaging/rS-box-snickerdoodle.png', name: 'Snickerdoodle', alt: 'Soft Baked Snickerdoodle cookie box', price: '$4.50', href: 'product.html?category=cookies&product=snickerdoodle' },
+  ];
+  frozenLine = [
+    { url: 'packaging/rT-pouch-v2-choc-chip.png', name: 'The Pouch', alt: 'Frozen cookie dough pouch, Chocolate Chip', note: 'Bake a few at a time', href: 'menu.html?category=cookies' },
+    { url: 'packaging/rT-tray-a-sleeve.png', name: 'The Tray', alt: 'Frozen cookie dough bake-in tray in a printed sleeve', note: 'No pan to wash', href: 'menu.html?category=cookies' },
+    { url: 'packaging/rG-box-arch-window.png', name: 'The Carton', alt: 'Frozen cookie dough carton with arch window', note: 'Bakes 12', href: 'menu.html?category=cookies' },
+    { url: 'packaging/rH-log-choc-chip.png', name: 'The Log', alt: 'Slice and bake frozen cookie dough log', note: 'Slice as many as you want', href: 'menu.html?category=cookies' },
+    { url: 'packaging/rT-tub-v2-choc-chip.png', name: 'The Tub', alt: 'Scoop and bake frozen cookie dough tub', note: 'Scoop it yourself', href: 'menu.html?category=cookies' },
+  ];
+  artisanLine = [
+    { url: 'packaging/rB-bread-boule-halfwrap.png', name: 'Sourdough Boule', alt: 'Sourdough boule in a half wrap with a paper band', note: 'Half wrap, kraft band', href: 'product.html?category=bread&product=sourdough' },
+    { url: 'packaging/rB-bread-baguette-sleeve.png', name: 'Baguette', alt: 'Baguette in a printed paper sleeve', note: 'Paper sleeve', href: 'product.html?category=bread' },
+    { url: 'packaging/rB-pastry-fourpack-carton.png', name: 'Pastry Four-Pack', alt: 'Four-pack pastry carton', note: 'Carton of four', href: 'product.html?category=pastries' },
+    { url: 'packaging/rB-pastry-almond-croissant.png', name: 'Almond Croissant', alt: 'Almond croissant in a glassine sleeve', note: 'Glassine sleeve', href: 'product.html?category=pastries&product=almond-croissant' },
+    { url: 'packaging/rB-pie-apple-box.png', name: 'Apple Pie', alt: 'Apple pie in a printed bakery box', note: 'Nine-inch pie box', href: 'product.html?category=pies&product=apple' },
+    { url: 'packaging/rB-cake-red-velvet.png', name: 'Red Velvet Cake', alt: 'Red velvet cake in a bakery box', note: 'Cake box, blush band', href: 'product.html?category=cakes&product=red-velvet' },
+    { url: 'packaging/pkg-assorted-flatlay.png', name: 'Single-Wrap Cookies', alt: 'Assorted single-wrapped cookie pouches', note: 'Grab one of each', href: 'menu.html?category=cookies' },
+  ];
+  renderVals() {
+    const IMG = (typeof window !== 'undefined' && window.BB_IMAGES) || {};
+    const META = (typeof window !== 'undefined' && window.BBCatMeta) || {};
+    const PRODUCTS = (typeof window !== 'undefined' && window.BBProducts) || {};
+    const order = (typeof window !== 'undefined' && window.BBCatOrder) || ['bread', 'cookies', 'pastries', 'pies', 'cakes'];
+    const num = (p) => parseFloat(String(p).replace(/[^0-9.]/g, ''));
+
+    // category chips
+    const rots = ['rotate(-2.5deg)', 'rotate(1.5deg)', 'rotate(-1.5deg)', 'rotate(2.5deg)', 'rotate(-1deg)'];
+    const cats = order.map((c, ci) => {
+      const m = META[c] || {};
+      return { label: m.label || c.toUpperCase(), count: m.count || 0, chipBg: m.chipBg || '#E7E2DD', chipFg: m.chipFg || '#6B6259', pillBg: m.pillBg || '#4A4039', rot: rots[ci % rots.length], href: 'product.html?category=' + c };
+    });
+
+    // best sellers across categories
+    const bgs = ['#FCD414', '#A6DCE8', '#F4C9A6', '#63D89B', '#E0D4F0'];
+    const bestRaw = [];
+    order.forEach((c) => (PRODUCTS[c] || []).forEach((p) => { if ((p.tags || []).includes('best')) bestRaw.push({ ...p, cat: c }); }));
+    const best = bestRaw.slice(0, 6).map((p, i) => ({
+      name: p.name, price: p.price, bg: bgs[i % bgs.length],
+      slotId: 'bbm-best-' + p.cat + '-' + p.slug,
+      img: IMG[p.cat + '/' + p.slug] || '',
+      ph: p.name.toLowerCase() + ' photo (transparent PNG)',
+      href: 'product.html?category=' + p.cat + '&product=' + p.slug,
+      add: (e) => { if (e && e.preventDefault) e.preventDefault(); if (window.BBCart) window.BBCart.add({ id: p.cat + '/' + p.slug, name: p.name, price: num(p.price), cat: p.cat, slug: p.slug }); this.setState({ cartOpen: true }); },
+    }));
+
+    // cart
+    const cart = this.state.cart || [];
+    const fmt = (n) => '$' + n.toFixed(2);
+    const cartItems = cart.map((it) => ({ ...it, priceStr: fmt(it.price), lineStr: fmt(it.price * it.qty),
+      inc: () => window.BBCart && window.BBCart.setQty(it.id, it.qty + 1),
+      dec: () => window.BBCart && window.BBCart.setQty(it.id, it.qty - 1) }));
+    const cartCount = cart.reduce((s, i) => s + i.qty, 0);
+    const cartTotalNum = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const freeLeft = 40 - cartTotalNum;
+
+    const mkAdd = (id, name, price, cat, slug) => (e) => {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      if (window.BBCart) window.BBCart.add({ id, name, price, cat, slug });
+      this.setState({ cartOpen: true });
+    };
+    const deals = this.DEALS.map((d) => ({
+      name: d.name, img: d.img, bg: d.bg, was: d.was, now: fmt(d.now),
+      badge: d.badge, badgeBg: d.badgeBg, badgeFg: d.badgeFg,
+      href: 'product.html?category=' + d.cat + '&product=' + d.slug,
+      add: mkAdd(d.id, d.name, d.now, d.cat, d.slug),
+    }));
+
+    // build-a-box
+    const BOX_PRICES = { 6: 24, 12: 42 };
+    const REF_EACH = 4.75;
+    const boxSize = this.state.boxSize;
+    const boxSel = this.state.boxSel || {};
+    const boxCount = Object.keys(boxSel).reduce((a, k) => a + boxSel[k], 0);
+    const boxPrice = BOX_PRICES[boxSize];
+    const boxFull = boxCount >= boxSize;
+    const boxRemaining = Math.max(0, boxSize - boxCount);
+    const boxSeg = (on) => on
+      ? { bg: '#FCD414', border: '#2D1B14', shadow: '3px 4px 0 #2D1B14' }
+      : { bg: '#FFFCF8', border: '#E4D8CF', shadow: 'none' };
+    const seg6 = boxSeg(boxSize === 6), seg12 = boxSeg(boxSize === 12);
+    const boxItems = this.BOX_ITEMS.map((it) => ({
+      name: it.name, bg: it.bg, eachStr: fmt(it.each), qty: boxSel[it.slug] || 0,
+      isCookie: it.icon === 'cookie', isCroissant: it.icon === 'croissant', isRoll: it.icon === 'roll',
+      inc: () => this.setState((s) => {
+        const c = Object.keys(s.boxSel).reduce((a, k) => a + s.boxSel[k], 0);
+        if (c >= s.boxSize) return null;
+        return { boxSel: { ...s.boxSel, [it.slug]: (s.boxSel[it.slug] || 0) + 1 } };
+      }),
+      dec: () => this.setState((s) => {
+        const cur = { ...s.boxSel };
+        if (cur[it.slug]) { cur[it.slug]--; if (!cur[it.slug]) delete cur[it.slug]; }
+        return { boxSel: cur };
+      }),
+    }));
+    const setBox = (n) => this.setState((s) => {
+      const cur = { ...s.boxSel };
+      let tot = Object.keys(cur).reduce((a, k) => a + cur[k], 0);
+      const items = this.BOX_ITEMS;
+      let guard = 0;
+      while (tot > n && guard++ < 200) {
+        for (let i = items.length - 1; i >= 0 && tot > n; i--) {
+          const sl = items[i].slug;
+          if (cur[sl]) { cur[sl]--; if (!cur[sl]) delete cur[sl]; tot--; }
+        }
+      }
+      return { boxSize: n, boxSel: cur };
+    });
+    const boxSave = boxSize * REF_EACH - boxPrice;
+
+    // subscribe & save
+    const SUB_PLANS = [
+      { slug: 'bread-basket', name: 'The Bread Basket', desc: '2 artisan loaves + 4 rolls', base: 28 },
+      { slug: 'cookie-club', name: 'The Cookie Club', desc: '2 dozen assorted cookies', base: 32 },
+      { slug: 'pastry-sunrise', name: 'Pastry Sunrise', desc: '6 hand-laminated pastries', base: 27 },
+    ];
+    const SUB_FREQ = [
+      { key: 'weekly', label: 'Weekly', cadence: 'every week' },
+      { key: 'biweekly', label: 'Every 2 wks', cadence: 'every 2 weeks' },
+      { key: 'monthly', label: 'Monthly', cadence: 'every month' },
+    ];
+    const subPlan = SUB_PLANS[this.state.subPlan];
+    const subFreqObj = SUB_FREQ.find((f) => f.key === this.state.subFreq) || SUB_FREQ[0];
+    const subNow = subPlan.base * 0.85;
+    const subPlans = SUB_PLANS.map((p, i) => {
+      const on = i === this.state.subPlan;
+      return {
+        name: p.name, desc: p.desc, priceStr: fmt(p.base * 0.85),
+        bg: on ? '#FFF3D6' : '#FFFCF8', border: on ? '#EF5F2B' : '#E4D8CF',
+        shadow: on ? '3px 4px 0 #2D1B14' : 'none', dot: on ? '#EF5F2B' : '#D8CCC2',
+        select: () => this.setState({ subPlan: i }),
+      };
+    });
+    const subFreqs = SUB_FREQ.map((f) => {
+      const on = f.key === this.state.subFreq;
+      return {
+        label: f.label,
+        bg: on ? '#2D1B14' : '#FFFCF8', fg: on ? '#FBF4EC' : '#2D1B14', border: on ? '#2D1B14' : '#E4D8CF',
+        select: () => this.setState({ subFreq: f.key }),
+      };
+    });
+
+    const t = this.testimonials[this.state.testi];
+    const bIdx = this.state.blogIdx;
+    const art = bIdx != null ? this.ARTICLES[bIdx] : null;
+    const articles = this.ARTICLES.map((a, i) => ({
+      cat: a.cat, catBg: a.catBg, catFg: a.catFg, img: a.img, read: a.read, title: a.title, excerpt: a.excerpt,
+      open: () => this.setState({ blogIdx: i }),
+    }));
+
+    return {
+      boxedLine: this.boxedLine, frozenLine: this.frozenLine, artisanLine: this.artisanLine,
+      deals, timeline: this.timeline, reviews: this.reviews, articles,
+      boxItems, boxSize, boxCount,
+      boxPriceStr: fmt(boxPrice),
+      boxSavingsStr: 'You save ' + fmt(boxSave) + ' vs à la carte',
+      boxFillPct: Math.min(100, (boxCount / boxSize) * 100) + '%',
+      boxRemainingLabel: boxFull ? 'Box full!' : boxRemaining + ' to go',
+      boxAddLabel: boxFull ? 'ADD BOX' : 'PICK ' + boxRemaining + ' MORE',
+      boxAddOpacity: boxFull ? '1' : '.55',
+      box6Bg: seg6.bg, box6Border: seg6.border, box6Shadow: seg6.shadow,
+      box12Bg: seg12.bg, box12Border: seg12.border, box12Shadow: seg12.shadow,
+      setBox6: () => setBox(6), setBox12: () => setBox(12),
+      addBox: () => {
+        if (!boxFull) return;
+        if (window.BBCart) window.BBCart.add({ id: 'box/byo-' + boxSize, name: 'Build Your Own Box (' + boxSize + ')', price: boxPrice, cat: 'box', slug: 'byo-' + boxSize });
+        this.setState({ boxSel: {}, cartOpen: true });
+      },
+      subPlans, subFreqs,
+      subWasStr: fmt(subPlan.base), subNowStr: fmt(subNow),
+      subCadence: 'Delivered ' + subFreqObj.cadence + ' · skip or cancel anytime',
+      startSub: () => {
+        if (window.BBCart) window.BBCart.add({
+          id: 'sub/' + subPlan.slug + '/' + subFreqObj.key,
+          name: subPlan.name + ' \u2014 ' + subFreqObj.label + ' (Subscribe & Save 15%)',
+          price: subNow, cat: 'subscription', slug: subPlan.slug,
+        });
+        this.setState({ cartOpen: true });
+      },
+      tRating: t.rating, tCount: t.count, tStar5: t.star5, tText: t.text, tName: t.name, tPlace: t.place,
+      testiPrev: () => this.setState((s) => ({ testi: (s.testi + this.testimonials.length - 1) % this.testimonials.length })),
+      testiNext: () => this.setState((s) => ({ testi: (s.testi + 1) % this.testimonials.length })),
+      blogOpen: bIdx != null,
+      blogCat: art ? art.cat : '', blogRead: art ? art.read : '', blogTitle: art ? art.title : '',
+      blogImgRef: (el) => { if (el && art) el.src = art.img; },
+      blogBody: art ? art.body.map((x) => ({ text: x })) : [],
+      closeBlog: () => this.setState({ blogIdx: null }),
+      newsEmail: this.state.newsEmail, newsDone: this.state.newsDone, newsNotDone: !this.state.newsDone,
+      newsErr: this.state.newsErr, hasNewsErr: !!this.state.newsErr,
+      onNewsEmail: (e) => this.setState({ newsEmail: e.target.value, newsErr: '' }),
+      submitNews: () => {
+        const v = (this.state.newsEmail || '').trim();
+        if (!/.+@.+\..+/.test(v)) { this.setState({ newsErr: 'Please enter a valid email' }); return; }
+        this.setState({ newsDone: true, newsErr: '' });
+      },
+      menuOpen: this.state.menuOpen, cartOpen: this.state.cartOpen,
+      openMenu: () => this.setState({ menuOpen: true }), closeMenu: () => this.setState({ menuOpen: false }),
+      openCart: () => this.setState({ cartOpen: true }), closeCart: () => this.setState({ cartOpen: false }),
+      goCheckout: () => { window.location.href = 'checkout.html'; },
+      cats, best,
+      cartItems, cartCount, cartHasItems: cart.length > 0, cartEmpty: cart.length === 0,
+      cartTotalStr: fmt(cartTotalNum),
+      deliveryNote: freeLeft > 0 ? ('Add ' + fmt(freeLeft) + ' more for free local delivery') : 'You\u2019ve unlocked free local delivery!',
+      deliveryColor: freeLeft > 0 ? '#9A8A80' : '#2E7D46',
+    };
+  }
+}
+</script>
