@@ -43,7 +43,6 @@
   @keyframes bb-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
   @keyframes bb-spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
   @keyframes bb-shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
-  @keyframes bb-ping{0%{transform:scale(1);opacity:.55;}70%,100%{transform:scale(2.6);opacity:0;}}
   @keyframes bb-reveal{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
   #bbpage > div{animation:bb-reveal .7s cubic-bezier(.2,.8,.2,1);}
   #bbpage > nav{animation:none;}
@@ -350,28 +349,6 @@
         </div>
         <button onClick="{{ heroNext }}" aria-label="Next slide" style="width:48px;height:48px;border-radius:50%;background:#FCD414;border:2px solid #2D1B14;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:2px 3px 0 #2D1B14;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
       </div>
-    </div>
-
-    <!-- STORE HOURS BANNER -->
-    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:#FFFCF8;border:2px solid #2D1B14;border-radius:20px;padding:13px 13px 13px 22px;margin-bottom:24px;box-shadow:3px 4px 0 #2D1B14;">
-      <span style="display:inline-flex;align-items:center;gap:11px;">
-        <span style="position:relative;display:inline-flex;width:12px;height:12px;">
-          <span style="position:absolute;inset:0;border-radius:50%;background:{{ shDot }};animation:bb-ping 1.8s cubic-bezier(0,0,.2,1) infinite;"></span>
-          <span style="position:relative;width:12px;height:12px;border-radius:50%;background:{{ shDot }};"></span>
-        </span>
-        <span style="font-family:'Lilita One','Arial Black',sans-serif;font-size:18px;letter-spacing:.5px;color:#2D1B14;">{{ shStatus }}</span>
-      </span>
-      <span style="width:2px;height:22px;background:#E4D8CF;"></span>
-      <span style="display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:700;color:#6A5A50;">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#9A8A80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        {{ shDetail }}
-      </span>
-      <span style="flex:1;min-width:12px;"></span>
-      <span style="font-size:14px;font-weight:700;color:#9A8A80;">{{ shNote }}</span>
-      <a href="custom-order.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'Lilita One','Arial Black',sans-serif;font-size:14px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2px solid #2D1B14;border-radius:30px;padding:9px 18px;text-decoration:none;box-shadow:2px 3px 0 #2D1B14;" style-hover="transform:translate(1px,1px);box-shadow:1px 2px 0 #2D1B14;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.5L20 10l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1.5Z"/></svg>
-        CUSTOM ORDER
-      </a>
     </div>
 
     <!-- ============ DOSE OF DELIGHT ============ -->
@@ -1290,7 +1267,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { mobile: (function () { try { return window.matchMedia('(max-width: 899px)').matches; } catch (e) { return false; } })(), artSlide: 0, testi: 0, fam: 0, hero: 0, cartOpen: false, cart: [], now: Date.now(), imgReady: false, scrolled: false, boxSize: 6, boxSel: {}, subPlan: 0, subFreq: 'weekly', dietFilter: 'all', blogIdx: null, newsEmail: '', newsDone: false, newsErr: '' };
+  state = { mobile: (function () { try { return window.matchMedia('(max-width: 899px)').matches; } catch (e) { return false; } })(), artSlide: 0, testi: 0, fam: 0, hero: 0, cartOpen: false, cart: [], imgReady: false, scrolled: false, boxSize: 6, boxSel: {}, subPlan: 0, subFreq: 'weekly', dietFilter: 'all', blogIdx: null, newsEmail: '', newsDone: false, newsErr: '' };
   ARTICLES = [
     { cat: 'TECHNIQUE', img: 'blog-1', read: '6 min read', title: 'The Secret to an Open Sourdough Crumb',
       excerpt: 'Hydration, handling, and heat — the three levers that turn a dense loaf into a lacy, custardy crumb.',
@@ -1363,7 +1340,6 @@ class Component extends DCLogic {
     this._watchViewport();
   }
   _startExtras() {
-    this._clock = setInterval(() => this.setState({ now: Date.now() }), 60000);
     this._imgTimer = setTimeout(() => this.setState({ imgReady: true }), 1150);
     // hero / basket mouse parallax (direct DOM, rAF-throttled)
     let raf = null, mx = 0, my = 0;
@@ -1415,7 +1391,7 @@ class Component extends DCLogic {
       this._cartTimer = setTimeout(() => this._initCart(tries + 1), 50);
     }
   }
-  componentWillUnmount() { this._unwatchViewport(); if (this._unsub) this._unsub(); if (this._cartTimer) clearTimeout(this._cartTimer); if (this._onCartFocus) window.removeEventListener('focus', this._onCartFocus); if (this._clock) clearInterval(this._clock); if (this._imgTimer) clearTimeout(this._imgTimer); if (this._onMove) window.removeEventListener('mousemove', this._onMove); if (this._onPress) document.removeEventListener('pointerdown', this._onPress); if (this._onScroll) window.removeEventListener('scroll', this._onScroll); }
+  componentWillUnmount() { this._unwatchViewport(); if (this._unsub) this._unsub(); if (this._cartTimer) clearTimeout(this._cartTimer); if (this._onCartFocus) window.removeEventListener('focus', this._onCartFocus); if (this._imgTimer) clearTimeout(this._imgTimer); if (this._onMove) window.removeEventListener('mousemove', this._onMove); if (this._onPress) document.removeEventListener('pointerdown', this._onPress); if (this._onScroll) window.removeEventListener('scroll', this._onScroll); }
   testimonials = [
     { rating: '4.5', count: '1024 Reviews', star5: '#2D1B14', text: "Seriously, the best croissants I've ever sunk my teeth into! Flaky, buttery perfection. This isn't just a bakery; it's a daily pilgrimage for my taste buds!", name: 'Sarah Johnson', place: 'Springfield, IL' },
     { rating: '5.0', count: '1024 Reviews', star5: '#EF5F2B', text: "Their sourdough has completely ruined every other loaf for me — crackly crust, tangy crumb, pure magic. And the team always remembers my usual order!", name: 'Marcus Lee', place: 'Portland, OR' },
@@ -1488,34 +1464,6 @@ class Component extends DCLogic {
     const freeLeft = 40 - cartTotalNum;
     const dbg = (i) => (a === i ? '#EF5F2B' : 'rgba(255,255,255,.32)');
     const dh = (i) => (a === i ? '24px' : '9px');
-    // ----- store hours: today vs tomorrow -----
-    const nowD = new Date(this.state.now);
-    const curH = nowD.getHours() + nowD.getMinutes() / 60;
-    const OPEN = 7, CLOSE = 19;
-    const fmtHr = (x) => {
-      const hh = Math.floor(x + 1e-6); const mm = Math.round((x - hh) * 60);
-      const ap = hh >= 12 ? 'PM' : 'AM'; let hr = hh % 12; if (hr === 0) hr = 12;
-      return hr + (mm ? ':' + String(mm).padStart(2, '0') : '') + ' ' + ap;
-    };
-    let shDot, shStatus, shDetail, shDayChip, shDayBg, shDayFg, shNote;
-    if (curH >= OPEN && curH < CLOSE) {
-      const closingSoon = curH >= CLOSE - 1;
-      shDot = closingSoon ? '#EF5F2B' : '#3E8E54';
-      shStatus = closingSoon ? 'CLOSING SOON' : 'OPEN NOW';
-      shDetail = 'Kitchen open until ' + fmtHr(CLOSE) + ' today';
-      shDayChip = 'TODAY'; shDayBg = '#FCD414'; shDayFg = '#2D1B14';
-      shNote = closingSoon ? 'Last orders in soon' : 'Earliest pickup ~' + fmtHr(Math.min(CLOSE, curH + 0.5));
-    } else if (curH < OPEN) {
-      shDot = '#EF5F2B'; shStatus = 'CLOSED';
-      shDetail = 'Opens at ' + fmtHr(OPEN) + ' this morning';
-      shDayChip = 'TODAY'; shDayBg = '#FCD414'; shDayFg = '#2D1B14';
-      shNote = 'Earliest pickup ~' + fmtHr(OPEN + 0.5);
-    } else {
-      shDot = '#EF5F2B'; shStatus = 'CLOSED FOR TODAY';
-      shDetail = 'Opens again ' + fmtHr(OPEN) + ' tomorrow';
-      shDayChip = 'TOMORROW'; shDayBg = '#EADAF5'; shDayFg = '#5A3E8C';
-      shNote = 'Ordering ahead for tomorrow';
-    }
     const mkAdd = (id, name, price, cat, slug) => (e) => {
       if (e) { e.preventDefault(); e.stopPropagation(); }
       if (window.BBCart) window.BBCart.add({ id, name, price, cat, slug });
@@ -1705,7 +1653,6 @@ class Component extends DCLogic {
       qaFDanish: mkAdd('pastries/danish', 'Berry Bliss Danish', 4.50, 'pastries', 'danish'),
       qaFVelvet: mkAdd('cakes/red-velvet', 'Velvet Crumb Cake', 5.99, 'cakes', 'red-velvet'),
       qaFCinn: mkAdd('pastries/cinnamon-roll', 'Cinnamon Swirl Bun', 3.50, 'pastries', 'cinnamon-roll'),
-      shDot, shStatus, shDetail, shDayChip, shDayBg, shDayFg, shNote,
       skelO: this.state.imgReady ? '0' : '1',
       showSkel: !this.state.imgReady,
       navShown: true,
