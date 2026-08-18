@@ -1,4 +1,4 @@
-# Deployed Site Styling Bug — Investigation Summary
+# Deployed Site Styling Bug — investigation and resolution
 
 Live site: https://blissandbutter.netlify.app (Netlify, deployed from `main`)
 
@@ -10,100 +10,148 @@ color, no background/border/padding/shadow) instead of their designed bold
 display font + colored pill/button appearance. Static content (headings, body
 text, some buttons) renders fine.
 
-Confirmed reproducible on: desktop Chrome (normal + incognito), and 2 different
-iPhones via Safari — tested via iMessage tap, direct URL typed into the browser,
-and a WhatsApp-shared link. Same result every time.
+Reproducible for the site owner on desktop Chrome (normal + incognito) and on
+two iPhones via Safari, through an iMessage tap, a typed URL and a WhatsApp
+link alike.
 
-## What was verified correct (ruled out)
+## Why this keeps happening: the design is a runtime artifact
 
-- **Fonts load fine** — self-hosted Lilita One/Nunito, 200 OK, served from cache, fast.
-- **Deployed HTML template files match the repo exactly**, byte-for-byte (checked
-  via Network tab "Response" content).
-- **Deployed `support.js`** (the client-side rendering engine for this site)
-  **matches the repo exactly** — verified specific function source present
-  verbatim in the live file.
-- **Local reproduction fails to reproduce the bug** — served the exact repo
-  files from a clean local static server, loaded in real headless Chromium
-  (including full iPhone device emulation: viewport, touch, user agent),
-  clicked through the same interactions, and every element renders perfectly,
-  every time, across 3 separate test runs.
-- **No Netlify Snippet Injection configured** (checked the Netlify dashboard — empty).
-- **No service worker, no localStorage/indexedDB/Cache API usage** in the
-  codebase that could be serving stale cached content.
-- **No Content-Security-Policy header** on the live document (checked Response
-  Headers directly).
-- **`main` branch and deploys are in sync** — Netlify's deploy log confirms
-  every relevant commit (including earlier font/rendering fixes) deployed
-  successfully; this is not a stale-branch or failed-deploy issue.
-- **Not the earlier known bug** (a `cursive` generic font fallback resolving
-  to serif) — that was already fixed in a prior session and the fix is
-  confirmed live and correct.
+None of these pages ship finished HTML. Each page carries its template source
+inside `<x-dc>`, `base.css` hides that block, and `support.js` loads React in
+the visitor's browser, compiles the template there, and renders it. **Every
+colour, font, border, radius and shadow on this site is an inline `style`
+attribute that React writes at runtime.** Nothing on the page has a fallback
+appearance in a stylesheet.
 
-## What was found but not fully explained
+That is the whole reason this class of bug recurs. Anything that interferes
+between "correct bytes served" and "React finished writing style attributes" —
+a delayed or partial render, an extension or in-app browser rewriting the DOM,
+an engine-specific hiccup in the style pipeline — strips the appearance off
+elements whose markup is perfectly correct. It matches the reported symptom
+exactly, including the `font-family: 0` signature: a `style` attribute that
+holds one unparseable declaration and nothing else is what you see when the
+authored declarations never arrived.
 
-- **The exact failure signature**, inspected directly on a live broken
-  element: its applied inline style collapses to a single garbage
-  declaration (`font-family: 0;`), wiping out every other authored style
-  property. The source markup itself is correctly authored — this is a
-  rendering/application failure, not a content bug.
-- **Not confined to one rendering path** — it hits both the client-rendered
-  mobile nav component and at least one plain anchor in the main desktop
-  page ("CUSTOM ORDER" in the top bar), so it's broader than one component.
-- **On the desktop debugging session**, the Network tab showed multiple
-  browser-extension-injected scripts running alongside the site's own files —
-  filenames like `elephant.js`, `injectNotificationScript.js`,
-  `meetExtensionContextInvalidated...`, `shadowDom-...`,
-  `waitForPageSettled-...`, none of which belong to this codebase (all 8 real
-  script files are accounted for). This strongly suggests an active browser
-  extension (possibly an AI browsing assistant or similar) manipulating the
-  page on that session — but this alone doesn't explain the phones, and
-  extensions/antivirus/in-app-browser injection were separately ruled out on
-  the phones (iMessage, WhatsApp, and direct URL entry all fail identically).
-- **Untested, still-open possibility:** the site was never tested in an
-  actual Safari/WebKit engine — only Chromium was available for local
-  testing. Two iOS-specific mechanisms remain unconfirmed on the affected
-  phones: **Lockdown Mode** (Settings → Privacy & Security) and **installed
-  Safari Extensions/content blockers** — both could plausibly interfere with
-  the dynamic JavaScript execution this site's rendering engine depends on.
+## What this session established
 
-## Technical context
+Verified directly, by running the repo through real headless Chromium against a
+local server, desktop and iPhone-emulated, at `/` and at `/index.html`, across
+all five pages and through the actual interactions (opening the mobile drawer,
+category chips):
 
-The site's interactive components (`.dc.html` files) are not pre-built
-static HTML — they're raw "Design Component" template source (JSX-like
-syntax with `{{ }}` bindings), and `site/support.js` (~1,600 lines) is a
-runtime that loads React + Babel **in the visitor's browser** and
-renders/transpiles them live on every page load. This is inherently more
-fragile than static HTML and is the likely reason similar bugs have
-recurred across multiple fix attempts.
+- **The rendering pipeline is correct.** Every one of the named failing
+  elements — drawer nav links, ORDER NOW, CUSTOM ORDER, filter chips — comes out
+  with its full authored inline style. 886 styled elements on the home page,
+  zero degenerate ones. No console errors.
+- **The templates are clean.** All five pages and all four `.dc.html`
+  components were checked for the specific ways this runtime's compiler can
+  corrupt a template (its camelCase-attribute rewrite firing inside expressions,
+  duplicate `style` attributes, whole-attribute `{{ }}` bindings on style). None
+  are present.
+- **React's SRI hashes match the vendored files**, so the scripts are not being
+  blocked by integrity failure.
+- **No `font-family: 0` can be produced from this source by this code.** The
+  failing elements' styles are static strings with no bindings; there is no path
+  through `cssToObj` / `collectProps` / `walkElement` that turns one into a
+  single garbage declaration. Whatever produces it does so after, or instead of,
+  the normal render.
 
-Relevant files:
-- `site/support.js` — see `cssToObj`, `collectProps`, `walkElement` around
-  lines 350–430 and 665–685 for the style-application pipeline.
-- `site/base.css`
-- `site/home-mobile.dc.html` — nav menu, lines ~30–54.
-- `site/index.html` — "CUSTOM ORDER" link, line ~358.
-- `netlify.toml`
+Two things could *not* be checked from this environment and remain open: the
+live site itself (outbound HTTPS to `blissandbutter.netlify.app` is blocked by
+this session's network policy) and a real WebKit engine (Playwright's WebKit
+build could not be downloaded, also blocked).
 
-## Assessment
+## What was found that is genuinely wrong
 
-Every artifact inspectable remotely (served files, deployed JS, deploy
-history, headers, config) checks out correct, and the bug could not be
-reproduced in any local test. Yet it is real and consistent for the site
-owner across three access methods on two phones plus desktop. No definitive
-root cause was pinned down. Most likely remaining explanations, in rough
-order of confidence:
+**The page is blank for a very long time on a phone, and renders in stages.**
+`support.js` loads React itself, so the browser cannot discover React while
+parsing `<head>`. It instead queues every image it finds in the raw `<x-dc>`
+template first, and React lands behind roughly thirty image requests. Measured
+on an emulated Fast-3G iPhone: **12.9 seconds** from navigation to the first
+rendered element. Then the mobile component (`home-mobile.dc.html`, 103 KB) is
+fetched, and then the page source is re-fetched (196 KB) and the whole template
+recompiled — each stage seconds apart on a real phone connection. A visitor
+looking at the page during that window sees exactly "some things styled, some
+things plain".
 
-1. Something specific to Safari/WebKit execution of this custom runtime,
-   untestable from the environment this investigation was done in.
-2. A genuine but hard-to-reproduce race condition or bug in the client-side
-   rendering engine that only manifests under real-world timing/network
-   conditions a clean test environment doesn't replicate.
-3. Residual extension/security-software interference not yet fully ruled
-   out on the phones (Lockdown Mode, Safari extensions, MDM profile).
+This is fixed below, and it is the one confirmed defect that plausibly accounts
+for the phone reports on its own.
 
-**Strongest recommendation regardless of root cause:** use Safari's Web
-Inspector (connect an iPhone to a Mac via USB, use Safari → Develop menu) to
-get real DevTools access on an actual failing device — this would show
-WebKit-specific console errors and computed styles the way Chrome DevTools
-did on desktop, which was the one diagnostic angle not reachable during this
-investigation.
+## What shipped
+
+**1. `site/style-guard.js` — a safety net that makes the symptom impossible.**
+
+The runtime stamps every rendered element with `data-dc-tpl` and exposes the
+annotated template through `window.__dcAnnotatedTemplate(name)`, so the style
+each element *should* carry can be looked up after the fact. The guard walks the
+live DOM, compares each element against its own template node, and re-applies
+any statically-authored declaration that is missing — on load, and again
+whenever the tree changes, so drawers and sheets are covered as they mount.
+
+It only writes properties that are absent, and only ones authored without a
+`{{ }}` binding, so it can never fight React over a value React is managing. It
+verifies tag and ancestry before touching anything, and waits for the tree to
+settle so it never compares a fresh template against a half-updated DOM.
+
+Verified: **zero declarations written across all five pages, desktop and
+mobile** — no behaviour change when things work. With the reported failure
+injected (styles replaced by `font-family: 0` on the nav links and both ORDER
+NOW buttons), it restored all 91 declarations and the elements returned to the
+display font and yellow pills.
+
+`window.__bbStyleGuard.repaired` counts what it had to fix, which also turns the
+guard into the detector this investigation lacked: a non-zero count on a real
+visitor's device is proof the runtime is not delivering the authored styling
+there.
+
+**2. React preload hints on every page.** `<link rel="preload" as="script">` for
+`react` and `react-dom`, carrying the same SRI hashes so the preloaded response
+is actually reused. First render on emulated Fast 3G: **12.9s → 4.6s**.
+
+**3. `site/diag.html` — a one-tap diagnostic for the affected devices.**
+
+Dependency-free: no React, no `support.js`, no webfonts, so it still works when
+the thing it measures is broken. Open it on a failing phone and it reports, for
+that device:
+
+- the user agent, viewport, and whether the browser supports what the runtime needs;
+- whether `index.html`, `home-mobile.dc.html`, `support.js`, `base.css` and both
+  React files arrived intact, with byte counts (catches anything on the network
+  path altering responses);
+- whether React loaded and the runtime booted;
+- **every `<script src>` in the page that is not ours** — this is what identifies
+  an extension, content blocker, in-app browser or security product injecting
+  into the page, which is what the `elephant.js` / `injectNotificationScript.js`
+  files seen in the desktop Network tab pointed at;
+- the actual `style` attribute and computed font of a real rendered element;
+- how many declarations the style guard had to repair, and any script errors.
+
+It prints a plain-English verdict at the top. Screenshot it.
+
+## What to do next
+
+1. Deploy and reload the site on an affected phone. The guard should make the
+   symptom disappear regardless of cause.
+2. Open `https://blissandbutter.netlify.app/diag.html` on that phone and
+   screenshot the verdict. That says which of the remaining explanations is real:
+   a foreign script injected into the page, a file altered in transit, or the
+   runtime genuinely failing to apply styles on that device.
+3. If the verdict names foreign scripts, the cause is client-side software on
+   those devices — check Safari → Extensions and any content blocker or VPN /
+   security app, and retest with them off.
+
+## The durable fix, if this recurs
+
+The underlying fragility is that appearance is computed at runtime, per visitor.
+The permanent answer is to stop shipping raw templates: prerender each page to
+real HTML at build time (Netlify already runs a Node build command) and keep
+React only for interactivity, so a visitor always has correctly styled markup
+even if the runtime never starts. That is a larger change than this one and is
+worth doing deliberately rather than under a live bug.
+
+## Ruled out in earlier sessions (unchanged)
+
+Fonts load 200 OK; deployed HTML and `support.js` match the repo byte-for-byte;
+no Netlify Snippet Injection; no service worker or offline cache; no CSP header;
+`main` and the deploys are in sync; the earlier `cursive`-fallback bug is fixed
+and stayed fixed.

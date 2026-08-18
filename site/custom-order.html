@@ -16,7 +16,16 @@
 <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <!-- Analytics: paste your snippet here (GA4, Plausible, Fathom...) -->
+<!-- The runtime pulls React itself, from inside support.js. Without these hints
+     the browser only discovers those two files after it has queued every image
+     it found in the raw <x-dc> template below, which on a phone connection
+     leaves the page blank or half-rendered for seconds. Preloading them puts
+     the two files the page cannot render without at the front of the queue. -->
+<link rel="preload" as="script" href="vendor/react.production.min.js" crossorigin="anonymous" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
+<link rel="preload" as="script" href="vendor/react-dom.production.min.js" crossorigin="anonymous" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
 <script src="./support.js"></script>
+<!-- Restores any inline style the runtime failed to apply. See style-guard.js. -->
+<script src="./style-guard.js"></script>
 </head>
 <body>
 <x-dc>
