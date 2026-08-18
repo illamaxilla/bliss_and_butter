@@ -18,9 +18,13 @@
 <!-- Analytics: paste your snippet here (GA4, Plausible, Fathom...) -->
 <!-- The runtime pulls React itself, from inside support.js. Without these hints
      the browser only discovers those two files after it has queued every image
-     it found in the raw <x-dc> template below, which on a phone connection
-     leaves the page blank or half-rendered for seconds. Preloading them puts
-     the two files the page cannot render without at the front of the queue. -->
+     it found in the raw template below, which on a phone connection leaves the
+     page blank or half-rendered for seconds. Preloading them puts the two files
+     the page cannot render without at the front of the queue.
+     Keep the template's own tag name out of this comment: the runtime locates
+     the template by searching the raw file text for the first occurrence of
+     that opening tag, so naming it here makes the comment itself look like the
+     start of the template and the page renders this text instead. -->
 <link rel="preload" as="script" href="vendor/react.production.min.js" crossorigin="anonymous" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z">
 <link rel="preload" as="script" href="vendor/react-dom.production.min.js" crossorigin="anonymous" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1">
 <script src="./support.js"></script>
