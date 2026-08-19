@@ -46,6 +46,35 @@ const BUILD_LIBS = ['image-slot.js', 'product-images.js', 'products.js', 'catalo
 
 const read = (p) => readFileSync(p, 'utf8');
 
+/* Drop the quotes around font family names in inline styles.
+ *
+ * These fragments are served as files and fetched at runtime, so anything in
+ * front of the site may re-serialize them. Netlify's Pretty URLs does exactly
+ * that: it rewrites the href on a link, re-emits the whole tag with ' as the
+ * attribute delimiter, and backslash-escapes the quotes it finds inside —
+ * style='font-family:\'Lilita One\',...'. Backslash escaping means nothing in
+ * HTML, so the browser ends the attribute at that first inner quote and the
+ * element loses every declaration after font-family. That is what stripped the
+ * mobile drawer's links back to unstyled serif text on the live site.
+ *
+ * A quoted family name is the only thing in our inline CSS that can collide
+ * with either delimiter, and CSS is happy to take a multi-word family name as
+ * bare identifiers, so emit it that way: 'Lilita One' becomes Lilita One and
+ * the markup no longer cares how it is re-quoted downstream.
+ *
+ * Markup only — never the template's script block, where quoted strings are
+ * code. Only names that are plain identifier sequences are unquoted; anything
+ * with punctuation or a leading digit keeps its quotes, since CSS needs them.
+ */
+function unquoteFamilies(markup) {
+  return markup.replace(/style="([^"]*)"/g, (attr, decls) => {
+    if (!decls.includes('font-family')) return attr;
+    const fixed = decls.replace(/font-family\s*:([^;]*)/g, (decl, list) =>
+      decl.replace(list, list.replace(/(['"])([A-Za-z][A-Za-z0-9]*(?: [A-Za-z0-9]+)*)\1/g, '$2')));
+    return `style="${fixed}"`;
+  });
+}
+
 /* The DC runtime with its external dependencies removed: React comes from
    site/vendor/, the transpiler is gone, and it no longer refetches its own page.
    Both the runtime the visitor gets and the copy the build harness boots go
@@ -248,10 +277,10 @@ ${libs.map((l) => `<script src="${l}"></script>`).join('\n')}${/<image-slot/.tes
 `);
 
     const t = templateBlock(raw);
-    writeFileSync(join(OUT, `tpl/${p.tpl}.tpl.html`), t.block + '\n' + t.logic + '\n');
+    writeFileSync(join(OUT, `tpl/${p.tpl}.tpl.html`), unquoteFamilies(t.block) + '\n' + t.logic + '\n');
     if (p.mobileSrc) {
       const m = templateBlock(mraw);
-      writeFileSync(join(OUT, p.mobileSrc), m.block + '\n' + m.logic + '\n');
+      writeFileSync(join(OUT, p.mobileSrc), unquoteFamilies(m.block) + '\n' + m.logic + '\n');
     }
   }
 
@@ -273,6 +302,26 @@ ${styleBlocks.join('\n\n')}
     if (/\{\{/.test(html)) { console.error(`FAIL ${f} ships unresolved bindings`); failures++; }
     if (/fonts\.googleapis|unpkg\.com|gstatic/.test(html)) { console.error(`FAIL ${f} references a third-party host`); failures++; }
     if (/<image-slot[^>]*\bsrc=/.test(html)) { console.error(`FAIL ${f} ships a filled art slot that was not flattened to an image`); failures++; }
+  }
+
+  /* No quote may survive inside an inline style. One did — a font name in the
+     mobile fragments — and Netlify's Pretty URLs re-serialized those tags into
+     style='font-family:\'Lilita One\',…', which browsers truncate at the inner
+     quote. Every link in the mobile drawer lost its styling on the live site
+     while every local check passed, because nothing local re-serializes the
+     markup. Guard the shape rather than the one host: a style attribute that
+     carries no quotes cannot be broken by re-quoting, whoever does it. */
+  for (const f of ['home-mobile.dc.html', 'product-mobile.dc.html', 'checkout-mobile.dc.html',
+    'custom-order-mobile.dc.html', 'tpl/index.tpl.html', 'tpl/menu.tpl.html',
+    'tpl/product.tpl.html', 'tpl/checkout.tpl.html', 'tpl/custom-order.tpl.html']) {
+    const frag = read(join(OUT, f));
+    const block = frag.split(/<script[^>]*data-dc-script/)[0]; // markup only, not the logic
+    const risky = block.match(/style="[^"]*['][^"]*"/g) || [];
+    if (risky.length) {
+      console.error(`FAIL ${f} has ${risky.length} inline style(s) holding a quote — ` +
+        `re-serialization downstream will truncate them. First: ${risky[0].slice(0, 90)}`);
+      failures++;
+    }
   }
 } finally {
   await browser.close();
