@@ -417,7 +417,7 @@
 
       <!-- carousel -->
       <div style="position:relative;">
-        <div ref="{{ trackRef }}" class="bb-track" style="display:flex;gap:34px;overflow-x:auto;scroll-behavior:smooth;padding:30px 4px 10px;">
+        <div ref="{{ trackRef }}" class="bb-track" style="display:flex;gap:34px;overflow-x:auto;scroll-behavior:smooth;padding:48px 4px 10px;">
 
           <a href="product.html?category=cookies&amp;product=choc-chip" style="flex:0 0 30%;min-width:360px;text-decoration:none;color:inherit;display:{{ d1disp }};transition:transform .32s cubic-bezier(.2,.8,.2,1);" style-hover="transform:translateY(-10px);">
             <div style="position:relative;background:#FCD414;border-radius:30px;height:330px;"><sc-if value="{{ showSkel }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;z-index:4;border-radius:30px;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.62) 50%,rgba(255,255,255,0) 70%);background-size:220% 100%;animation:bb-shimmer 1.25s linear infinite;transition:opacity .55s ease;opacity:{{ skelO }};"></div></sc-if>
@@ -469,8 +469,8 @@
 
         </div>
 
-        <button onClick="{{ scrollPrev }}" aria-label="Previous" style="position:absolute;left:-18px;top:172px;width:56px;height:56px;border-radius:50%;background:#fff;border:none;box-shadow:0 6px 18px rgba(45,27,20,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <button onClick="{{ scrollNext }}" aria-label="Next" style="position:absolute;right:-18px;top:172px;width:56px;height:56px;border-radius:50%;background:#fff;border:none;box-shadow:0 6px 18px rgba(45,27,20,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+        <button onClick="{{ scrollPrev }}" aria-label="Previous" style="position:absolute;left:-18px;top:190px;width:56px;height:56px;border-radius:50%;background:#fff;border:none;box-shadow:0 6px 18px rgba(45,27,20,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button onClick="{{ scrollNext }}" aria-label="Next" style="position:absolute;right:-18px;top:190px;width:56px;height:56px;border-radius:50%;background:#fff;border:none;box-shadow:0 6px 18px rgba(45,27,20,.16);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2D1B14" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
       </div>
     </div>
 
@@ -549,7 +549,7 @@
 
     <!-- ============ FRESHLY BAKED (PRODUCT SLIDER) ============ -->
     <div style="margin:10px 0 80px;">
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:40px;align-items:start;margin-bottom:40px;">
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:40px;align-items:start;margin-bottom:20px;">
         <div style="max-width:760px;">
           <h2 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:56px;line-height:1.0;letter-spacing:.5px;margin:0;">Freshly Baked, Just for You!</h2>
           <p style="font-size:19px;font-weight:600;color:#3A2A22;line-height:1.6;margin:22px 0 0;max-width:560px;">Explore our most popular creations, handcrafted with passion and the finest ingredients. A taste of pure bliss is just a click away!</p>
@@ -560,7 +560,7 @@
         </div>
       </div>
 
-      <div ref="{{ freshRef }}" class="bb-track" style="display:flex;gap:34px;overflow-x:auto;scroll-behavior:smooth;padding:4px 4px 10px;">
+      <div ref="{{ freshRef }}" class="bb-track" style="display:flex;gap:34px;overflow-x:auto;scroll-behavior:smooth;padding:24px 4px 10px;">
 
         <a href="product.html?category=bread&amp;product=sourdough" style="flex:0 0 30.5%;min-width:380px;text-decoration:none;color:inherit;display:block;transition:transform .32s cubic-bezier(.2,.8,.2,1);" style-hover="transform:translateY(-10px);">
           <div style="position:relative;background:#FCD414;border-radius:30px;height:440px;overflow:hidden;"><sc-if value="{{ showSkel }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;z-index:4;border-radius:30px;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.62) 50%,rgba(255,255,255,0) 70%);background-size:220% 100%;animation:bb-shimmer 1.25s linear infinite;transition:opacity .55s ease;opacity:{{ skelO }};"></div></sc-if>
@@ -626,11 +626,11 @@
         <a href="menu.html?category=cookies" style="font-family:'Lilita One','Arial Black',sans-serif;font-size:17px;letter-spacing:.6px;color:#2D1B14;background:#FCD414;border:2.5px solid #2D1B14;border-radius:44px;padding:15px 28px;box-shadow:3px 4px 0 #2D1B14;white-space:nowrap;">SEE THE FULL LINE</a>
       </div>
 
-      <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px;">
+      <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:4px;">
         <h3 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:30px;letter-spacing:.4px;margin:0;">Soft Baked Boxes</h3>
         <span style="font-size:17px;font-weight:700;color:#9A8B7F;">seven flavors, one cookie each</span>
       </div>
-      <div class="bb-track" style="display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;padding:4px 4px 12px;margin-bottom:52px;">
+      <div class="bb-track" style="display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;padding:20px 4px 12px;margin-bottom:52px;">
         <sc-for list="{{ boxedLine }}" as="bx" hint-placeholder-count="7">
           <a href="{{ bx.href }}" style="flex:0 0 258px;text-decoration:none;color:inherit;display:block;transition:transform .3s cubic-bezier(.2,.8,.2,1);" style-hover="transform:translateY(-8px);">
             <div style="background:#FFFCF8;border:2.5px solid #2D1B14;border-radius:26px;box-shadow:4px 5px 0 #2D1B14;overflow:hidden;">
@@ -642,11 +642,11 @@
         </sc-for>
       </div>
 
-      <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px;">
+      <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:4px;">
         <h3 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:30px;letter-spacing:.4px;margin:0;">Ready to Bake</h3>
         <span style="font-size:17px;font-weight:700;color:#9A8B7F;">frozen dough, five formats</span>
       </div>
-      <div class="bb-track" style="display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;padding:4px 4px 12px;margin-bottom:52px;">
+      <div class="bb-track" style="display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;padding:20px 4px 12px;margin-bottom:52px;">
         <sc-for list="{{ frozenLine }}" as="fz" hint-placeholder-count="5">
           <a href="{{ fz.href }}" style="flex:0 0 258px;text-decoration:none;color:inherit;display:block;transition:transform .3s cubic-bezier(.2,.8,.2,1);" style-hover="transform:translateY(-8px);">
             <div style="background:#EFF6F8;border:2.5px solid #2D1B14;border-radius:26px;box-shadow:4px 5px 0 #2D1B14;overflow:hidden;">
@@ -658,11 +658,11 @@
         </sc-for>
       </div>
 
-      <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px;">
+      <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:4px;">
         <h3 style="font-family:'Lilita One','Arial Black',sans-serif;color:#2D1B14;font-size:30px;letter-spacing:.4px;margin:0;">From the Bakery Counter</h3>
         <span style="font-size:17px;font-weight:700;color:#9A8B7F;">bread, pastry, pie and cake, wrapped to carry</span>
       </div>
-      <div class="bb-track" style="display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;padding:4px 4px 12px;">
+      <div class="bb-track" style="display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;padding:20px 4px 12px;">
         <sc-for list="{{ artisanLine }}" as="ar" hint-placeholder-count="6">
           <a href="{{ ar.href }}" style="flex:0 0 258px;text-decoration:none;color:inherit;display:block;transition:transform .3s cubic-bezier(.2,.8,.2,1);" style-hover="transform:translateY(-8px);">
             <div style="background:#FBF3E9;border:2.5px solid #2D1B14;border-radius:26px;box-shadow:4px 5px 0 #2D1B14;overflow:hidden;">
